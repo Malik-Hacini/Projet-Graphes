@@ -1,10 +1,9 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
-
-
+\usepackage{pythonhighlight}
 \usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
 \usepackage[utf8]{inputenc}
-\usetikzlibrary{arrows}
+\usepackage[T1]{fontenc}
 \usepackage{geometry}
 \usepackage{tabvar}
 \geometry{hmargin=2.2cm,vmargin=1.5cm}
@@ -19,5 +18,12 @@
 
 \section{Introduction}
 $1+1=\mathbb{R}$
+\begin{python}
+def weshlazone(test):
+    if test==True:
+        print("Ceci est un test d'intégration de code python")
+    return True
+\end{python}
+Voilà une intégration de code python directement sur TeX
 
 \end{document}
