@@ -2,59 +2,92 @@
 \usepackage{graphicx} % Required for inserting images
 \usepackage{pythonhighlight}
 \usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
-\usepackage[utf8]{inputenc}
+%\usepackage[utf8]{inputenc}
+\usetikzlibrary{arrows}
 \usepackage[T1]{fontenc}
+\usepackage[french]{babel}
 \usepackage{geometry}
 \usepackage{tabvar}
 \geometry{hmargin=2.2cm,vmargin=1.5cm}
 
-\title{TP 1}
-\author{Malik }
+\title{TP 1: Parcours d'Arbre Binaire.}
+\author{HACINI Malik}
 \date{September 2023}
+\renewcommand{\contentsname}{Table des Matières}
+
 
 \begin{document}
 
 \maketitle
+\tableofcontents{}
 
-\section{Parcours préfixe}
+\section{Introduction}
+
+Le but de ce TP est de représenter un arbre binaire en python via une classe,
+puis de le parcourir en profondeur de 3 façons différentes :
+\newline
+-Préfixe
+\newline
+-Postfixe
+\newline
+-Infixe
+
+
+\section{Classe "Noeud"}
+Voici l'implémentation de la classe Noeud.
+Chaque noeud a pour attribut l'information qu'il porte (un entier) 
+et ses fils gauches et droits, d'autres noeuds.
+On ajoute aussi les méthode de classe ajouter-d et ajouter-g, qui
+permettent de créer un noeud, fils gauche ou droit d'un autre.
 
 \begin{python}
     from __future__ import annotations
 
-    class Noeud:
-        def __init__(self,info,f_g=None,f_d=None):
-            self.info=info
-            self.f_g=f_g
-            self.f_d=f_d
-            
-            #Parcours préfixe
-        def prefixe(self)->list:
-            info=[self.info]
-            if self.f_g!=None:
-                info= info +self.f_g.prefixe()
-                
-            if self.f_d!=None:
-                info= info +self.f_d.prefixe()
-                
-            return info
+class Noeud:
+    def __init__(self,info,f_g=None,f_d=None):
+        self.info=info
+        self.f_g=f_g
+        self.f_d=f_
+        
+    #Ajoute un noeud a l'arbre, en tant que fils de son pere (self)
+    def ajouter_d(self,info):
+        self.f_d = Noeud(info,self)
+        return self.f_d
     
-    
-    #Construction de l'abre
-    n7=Noeud(7)
-    n8=Noeud(8)
-    n4=Noeud(4,n7,n8)
-    n5=Noeud(5)
-    n2=Noeud(2,n4,n5)
-    n10=Noeud(10)
-    n9=Noeud(9)
-    n6=Noeud(6,n9,n10)
-    n3=Noeud(3,f_d=n6)
-    n1=Noeud(1,n2,n3)
-    
-    
-    pre=n1.prefixe()
-    print(pre)
-\end{python}
-Voilà l'intégration python du parcours préfixe de cet arbre : 
+    def ajouter_g(self,info):
+        self.f_g = Noeud(info,self)
+        return self.f_g
 
-    \end{document} 
+\end{python}
+
+\section{Construction de l'Arbre}
+
+\begin{center}
+\resizebox {\textwidth} {!} {
+
+ \begin{tikzpicture}[
+    every node/.style = {minimum width = 2em, draw, circle},
+    level/.style = {sibling distance = 30mm/#1}
+    ]
+    \node {1}
+    child {node {2} 
+          child {node {4}
+          child{node{7}}
+          child{edge from parent[draw = none]}
+          child{node{8}}}
+          child {edge from parent[draw = none]}
+          child {node {5}}
+          }
+    child {node {3}
+           child {edge from parent[draw = none]
+           }
+           child {edge from parent[draw = none]}
+           child {node {6}
+                   child {node {9}}
+                   child {edge from parent[draw = none]}
+                   child {node {10}}}
+            };
+  \end{tikzpicture}}
+\end{center}
+
+\end{document} 
