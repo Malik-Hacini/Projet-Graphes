@@ -8,23 +8,53 @@
 \usepackage{tabvar}
 \geometry{hmargin=2.2cm,vmargin=1.5cm}
 
-\title{V1}
-\author{Tag. }
+\title{TP 1}
+\author{Malik }
 \date{September 2023}
 
 \begin{document}
 
 \maketitle
 
-\section{Introduction de CON de GOLMON BASILE FDP  vraiment}
-$1+1=\mathbb{R+}$
+\section{Parcours préfixe}
+
 \begin{python}
-def weshlazone(test):
-    if test==True:
-        pass
-    return True
+    from __future__ import annotations
+
+    class Noeud:
+        def __init__(self,info,f_g=None,f_d=None):
+            self.info=info
+            self.f_g=f_g
+            self.f_d=f_d
+            
+            #Parcours préfixe
+        def prefixe(self)->list:
+            info=[self.info]
+            if self.f_g!=None:
+                info= info +self.f_g.prefixe()
+                
+            if self.f_d!=None:
+                info= info +self.f_d.prefixe()
+                
+            return info
+    
+    
+    #Construction de l'abre
+    n7=Noeud(7)
+    n8=Noeud(8)
+    n4=Noeud(4,n7,n8)
+    n5=Noeud(5)
+    n2=Noeud(2,n4,n5)
+    n10=Noeud(10)
+    n9=Noeud(9)
+    n6=Noeud(6,n9,n10)
+    n3=Noeud(3,f_d=n6)
+    n1=Noeud(1,n2,n3)
+    
+    
+    pre=n1.prefixe()
+    print(pre)
 \end{python}
-Voilà une intégration de code python directement sur TeX
-test test encore un testtttt encore test ??????????
-$\int_{\gimel }^{X } \,dx$ 
+Voilà l'intégration python du parcours préfixe de cet arbre : 
+
     \end{document} 
