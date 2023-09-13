@@ -12,7 +12,7 @@
 
 \title{TP 1: Parcours d'Arbre Binaire.}
 \author{HACINI Malik}
-\date{September 2023}
+\date{13 Septembre 2023}
 \renewcommand{\contentsname}{Table des Matières}
 
 
@@ -24,13 +24,8 @@
 \section{Introduction}
 
 Le but de ce TP est de représenter un arbre binaire en python via une classe,
-puis de le parcourir en profondeur de 3 façons différentes :
-\newline
--Préfixe
-\newline
--Postfixe
-\newline
--Infixe
+puis de le parcourir en profondeur de 3 façons différentes.
+
 
 
 \section{Classe "Noeud"}
@@ -50,6 +45,7 @@ class Noeud:
         self.f_d=f_
         
     #Ajoute un noeud a l'arbre, en tant que fils de son pere (self)
+
     def ajouter_d(self,info):
         self.f_d = Noeud(info)
         return self.f_d
@@ -91,9 +87,11 @@ class Noeud:
             };
  \end{tikzpicture}}
 \end{center}
+Nous allons travailler avec cet arbre binaire (non strict). Il sera efficace pour les tests, car il 
+comporte tout les types de noeuds possibles.
 \subsection{Implémentation.}
+On construit l'arbre de bas en haut, à l'aide de la classe Noeud.
 \begin{python}
-    #On construit l'arbre de bas en haut.
     n1=Noeud(1)
     n2=n1.ajouter_g(2)
     n3=n1.ajouter_d(3)
@@ -106,13 +104,23 @@ class Noeud:
     n10=n6.ajouter_d(10)
 \end{python}
 
-
+\newpage
 \section{Parcours de l'Arbre.}
- Nous définissons chaque parcours 
- comme une méthode différente de la classe Noeud.
+ Il y a 3 types de parcours en profondeur : préfixe, postfixe et infixe.
+ Chacun de ces parcours correspond à un ordre différent.
+ Pour chacun d'entre eux, on l'implémente de deux façons différentes :
+ \newline
+ -Une en tant que méthode de la classe Noeud
+ \newline
+ -Une en tant que fonction extérieure à la classe
 \subsection{Préfixe.}
-ordre : r -> g -> d
+Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils g. --> fils d.
+ Pour notre arbre, il correspond au parcours dans 
+ l’ordre 1 - 2 - 4 - 7 - 8 - 5 - 3 - 6 - 9 - 10 , 
+ c’est à dire suivant le premier passage à \textbf{gauche} d’un nœud.
 \begin{python}
+    #Methode de classe
+
     def prefixe(self)->list:
         info=[self.info]
         if self.f_g!= None:
@@ -120,24 +128,52 @@ ordre : r -> g -> d
         if self.f_d!= None:
             info= info + self.f_d.prefixe() 
         return info
+
+    #Fonction exterieure
+
+    def parcours_prefixe(n=Noeud)->list:
+        if n is None:
+            return []
+        
+        return [n.info] + parcours_prefixe(n.f_g) + parcours_prefixe(n.f_d)
+
+
 \end{python}
 \subsection{Postfixe.}
-Ordre : g d r
-\begin{python}
-    def postfixe(self)->list:
-    info=[]
-    if self.f_g!=None:
-        info= info + self.f_g.postfixe()  
-        
-    if self.f_d!=None:
-        info= info + self.f_d.postfixe()
-    info = info + [self.info]
-    return info
-\end{python}
+Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> fils d. --> r
+ Pour notre arbre, il correspond au parcours dans 
+ l’ordre 7 - 8 - 4 - 5 - 2 - 9 - 10 - 6 - 3 - 1 ,
+ c'est à dire suivant le premier passage à \textbf{droite} d'un noeud.
 
-\subsection{Infixe.}
-ordre : g r d
 \begin{python}
+    #Methode de classe
+    def postfixe(self)->list:
+        info=[]
+        if self.f_g!=None:
+            info= info + self.f_g.postfixe()  
+            
+        if self.f_d!=None:
+            info= info + self.f_d.postfixe()
+        info = info + [self.info]
+        return info
+
+    #Fonction exterieure
+
+    def parcours_postfixe(n=Noeud)->list:
+        if n is None:
+            return []
+        
+        return parcours_postfixe(n.f_g) + parcours_postfixe(n.f_d) + [n.info]
+\end{python}
+\newpage
+\subsection{Infixe.}
+Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r --> fils d.
+ Pour notre arbre, il correspond au parcours dans 
+ l’ordre 7 - 4 - 8 - 2 - 5 - 1 - 3 - 9 - 6 - 10,
+ c'est à dire suivant le premier passage \textbf{sous} un noeud.
+\begin{python}
+    #Methode de classe
+
     def infixe(self)->list:
     info=[]
     if self.f_g!=None:
@@ -148,40 +184,93 @@ ordre : g r d
     if self.f_d!=None:
         info= info + self.f_d.infixe()
     return info
+    
+    #Fonction exterieure
+    def parcours_infixe(n=Noeud)->list:
+    if n is None:
+        return []
+    return parcours_infixe(n.f_g) + [n.info] + parcours_infixe(n.f_d)
+
 \end{python}
+%\newpage
 \section{Tests.}
-On teste avec pytest des noeuds de tout types, sur chaque parcours.
+On écrit 3 tests, un dédié à chaque parcours.
+Chaque test est séparé en 2 parties: l'une pour la méthode et l'autre pour la fonction associé au parcours.
+Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types différents :
+\newline
+- Le noeud 1, racine de l'arbre
+\newline
+- Le noeud interne 4
+\newline
+- Les feuilles 5 et 9, à deux hauteurs différentes.
 \subsection{Préfixe.}
 
+
 \begin{python}
-    def test_prefixe():
+
+    #Methode de classe
+
+    def test_prefixe_classe():
+        
+        assert n1.prefixe()==[1, 2, 4, 7, 8, 5, 3, 6, 9, 10]
+        assert n4.prefixe()==[4, 7, 8]
+        assert n5.prefixe()==[5]
+        assert n9.prefixe()==[9]
+
+    #Fonction exterieure
+
+    def test_prefixe_fonction():
     
-    assert n1.prefixe()==[1, 2, 4, 7, 8, 5, 3, 6, 9, 10]
-    assert n4.prefixe()==[4, 7, 8]
-    assert n5.prefixe()==[5]
-    assert n9.prefixe()==[9]
+        assert parcours_prefixe(n1)==[1, 2, 4, 7, 8, 5, 3, 6, 9, 10]
+        assert parcours_prefixe(n4)==[4, 7, 8]
+        assert parcours_prefixe(n5)==[5]
+        assert parcours_prefixe(n9)==[9]
 \end{python}
 
 \subsection{Postfixe.}
 
 \begin{python}
+    #Methode de classe
+
     def test_postfixe():
-assert n1.postfixe()==[7, 8, 4, 5, 2, 9, 10, 6, 3, 1]
-assert n4.postfixe()==[7, 8, 4]
-assert n5.postfixe()==[5]
-assert n9.postfixe()==[9]
+        assert n1.postfixe()==[7, 8, 4, 5, 2, 9, 10, 6, 3, 1]
+        assert n4.postfixe()==[7, 8, 4]
+        assert n5.postfixe()==[5]
+        assert n9.postfixe()==[9]
+
+    #Fonction exterieure
+
+    def test_postfixe_fonction():
+    
+        assert parcours_postfixe(n1)==[7, 8, 4, 5, 2, 9, 10, 6, 3, 1]
+        assert parcours_postfixe(n4)==[7, 8, 4]
+        assert parcours_postfixe(n5)==[5]
+        assert parcours_postfixe(n9)==[9]
+    
+
+
 \end{python}
 
 \subsection{Infixe.}
 
 \begin{python}
+    #Methode de classe
+
     def test_infixe():
-    assert n1.infixe()==[7, 4, 8, 2, 5, 1, 3, 9, 6, 10]
-    assert n4.infixe()==[7, 4, 8]
-    assert n5.infixe()==[5]
-    assert n9.infixe()==[9]
+        assert n1.infixe()==[7, 4, 8, 2, 5, 1, 3, 9, 6, 10]
+        assert n4.infixe()==[7, 4, 8]
+        assert n5.infixe()==[5]
+        assert n9.infixe()==[9]
+
+    #Fonction exterieure
+
+    def test_infixe_fonction():
+    
+        assert parcours_infixe(n1)==[7, 4, 8, 2, 5, 1, 3, 9, 6, 10]
+        assert parcours_infixe(n4)==[7, 4, 8]
+        assert parcours_infixe(n5)==[5]
+        assert parcours_infixe(n9)==[9]
 \end{python}
 \subsection{Résultats}
-On lance pytest : 
-Les tests sont tous réussis YAHOUU c fini.
+Pytest valide tout les tests.
 \end{document} 
