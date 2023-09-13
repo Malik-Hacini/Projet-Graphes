@@ -10,7 +10,7 @@
 \usepackage{tabvar}
 \geometry{hmargin=2.2cm,vmargin=1.5cm}
 
-\title{TP 1: Parcours d'Arbre Binaire.}
+\title{TP 1: Parcours d'Arbre Binaire}
 \author{HACINI Malik}
 \date{13 Septembre 2023}
 \renewcommand{\contentsname}{Table des Matières}
@@ -56,9 +56,9 @@ class Noeud:
 
 \end{python}
 
-\section{Construction de l'Arbre.}
+\section{Construction de l'Arbre}
 
-\subsection{Schéma.}
+\subsection{Schéma}
 \begin{center}
 \resizebox {\textwidth} {!} {
 
@@ -105,7 +105,7 @@ On construit l'arbre de bas en haut, à l'aide de la classe Noeud.
 \end{python}
 
 \newpage
-\section{Parcours de l'Arbre.}
+\section{Parcours de l'Arbre}
  Il y a 3 types de parcours en profondeur : préfixe, postfixe et infixe.
  Chacun de ces parcours correspond à un ordre différent.
  Pour chacun d'entre eux, on l'implémente de deux façons différentes :
@@ -113,7 +113,7 @@ On construit l'arbre de bas en haut, à l'aide de la classe Noeud.
  -Une en tant que méthode de la classe Noeud
  \newline
  -Une en tant que fonction extérieure à la classe
-\subsection{Préfixe.}
+\subsection{Préfixe}
 Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils g. --> fils d.
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 1 - 2 - 4 - 7 - 8 - 5 - 3 - 6 - 9 - 10 , 
@@ -139,7 +139,7 @@ Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils 
 
 
 \end{python}
-\subsection{Postfixe.}
+\subsection{Postfixe}
 Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> fils d. --> r
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 7 - 8 - 4 - 5 - 2 - 9 - 10 - 6 - 3 - 1 ,
@@ -166,7 +166,7 @@ Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. -->
         return parcours_postfixe(n.f_g) + parcours_postfixe(n.f_d) + [n.info]
 \end{python}
 \newpage
-\subsection{Infixe.}
+\subsection{Infixe}
 Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r --> fils d.
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 7 - 4 - 8 - 2 - 5 - 1 - 3 - 9 - 6 - 10,
@@ -193,7 +193,7 @@ Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r
 
 \end{python}
 %\newpage
-\section{Tests.}
+\section{Tests}
 On écrit 3 tests, un dédié à chaque parcours.
 Chaque test est séparé en 2 parties: l'une pour la méthode et l'autre pour la fonction associé au parcours.
 Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types différents :
@@ -203,7 +203,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
 - Le noeud interne 4
 \newline
 - Les feuilles 5 et 9, à deux hauteurs différentes.
-\subsection{Préfixe.}
+\subsection{Préfixe}
 
 
 \begin{python}
@@ -226,8 +226,8 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
         assert parcours_prefixe(n5)==[5]
         assert parcours_prefixe(n9)==[9]
 \end{python}
-
-\subsection{Postfixe.}
+\newpage
+\subsection{Postfixe}
 
 \begin{python}
     #Methode de classe
@@ -251,7 +251,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
 
 \end{python}
 
-\subsection{Infixe.}
+\subsection{Infixe}
 
 \begin{python}
     #Methode de classe
