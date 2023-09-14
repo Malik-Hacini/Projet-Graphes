@@ -1,6 +1,6 @@
+
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
-\usepackage{pythonhighlight}
 \usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
 \usetikzlibrary{arrows}
 \usetikzlibrary{backgrounds}
@@ -8,14 +8,17 @@
 \usepackage[french]{babel}
 \usepackage{geometry}
 \usepackage{tabvar}
+\usepackage{fontspec}
+\usepackage{minted}
+
+
+
 \geometry{hmargin=2.2cm,vmargin=1.5cm}
 
 \title{TP 1: Parcours d'Arbre Binaire}
 \author{HACINI Malik}
 \date{13 Septembre 2023}
 \renewcommand{\contentsname}{Table des Matières}
-
-
 \begin{document}
 
 \maketitle
@@ -28,6 +31,7 @@ puis de le parcourir en profondeur de 3 façons différentes.
 
 
 
+
 \section{Classe "Noeud"}
 Voici l'implémentation de la classe Noeud.
 Chaque noeud a pour attribut l'information qu'il porte (un entier) 
@@ -35,16 +39,24 @@ et ses fils gauches et droits, d'autres noeuds.
 On ajoute aussi les méthode de classe ajouter-d et ajouter-g, qui
 permettent de créer un noeud, fils gauche ou droit d'un autre.
 
-\begin{python}
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
     from __future__ import annotations
 
-class Noeud:
+  class Noeud:
     def __init__(self,info=int,f_g=None,f_d=None):
         self.info=info
         self.f_g=f_g
         self.f_d=f_
         
-    #Ajoute un noeud a l'arbre, en tant que fils de son pere (self)
+    #Ajoute un noeud a l'arbre, en tant que fils de son père (self)
 
     def ajouter_d(self,info):
         self.f_d = Noeud(info)
@@ -54,7 +66,7 @@ class Noeud:
         self.f_g = Noeud(info)
         return self.f_g
 
-\end{python}
+\end{minted}
 
 \section{Construction de l'Arbre}
 
@@ -91,7 +103,15 @@ Nous allons travailler avec cet arbre binaire (non strict). Il sera efficace pou
 comporte tout les types de noeuds possibles.
 \subsection{Implémentation.}
 On construit l'arbre de haut en bas, à l'aide de la classe Noeud.
-\begin{python}
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
     n1=Noeud(1)
     n2=n1.ajouter_g(2)
     n3=n1.ajouter_d(3)
@@ -102,7 +122,7 @@ On construit l'arbre de haut en bas, à l'aide de la classe Noeud.
     n8=n4.ajouter_d(8)
     n9=n6.ajouter_g(9)
     n10=n6.ajouter_d(10)
-\end{python}
+\end{minted}
 
 \newpage
 \section{Parcours de l'Arbre}
@@ -118,8 +138,16 @@ Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils 
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 1 - 2 - 4 - 7 - 8 - 5 - 3 - 6 - 9 - 10 , 
  c’est à dire suivant le premier passage à \textbf{gauche} d’un nœud.
-\begin{python}
-    #Methode de classe
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
+    #Méthode de classe
 
     def prefixe(self)->list:
         info=[self.info]
@@ -129,7 +157,7 @@ Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils 
             info= info + self.f_d.prefixe() 
         return info
 
-    #Fonction exterieure
+    #Fonction extérieure
 
     def parcours_prefixe(n=Noeud)->list:
         if n is None:
@@ -138,15 +166,23 @@ Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils 
         return [n.info] + parcours_prefixe(n.f_g) + parcours_prefixe(n.f_d)
 
 
-\end{python}
-\subsection{Postfixe}
+\end{minted}
+\subsection{Postfixe}*
 Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> fils d. --> r
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 7 - 8 - 4 - 5 - 2 - 9 - 10 - 6 - 3 - 1 ,
  c'est à dire suivant le premier passage à \textbf{droite} d'un noeud.
 
-\begin{python}
-    #Methode de classe
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
+    #Méthode de classe
     def postfixe(self)->list:
         info=[]
         if self.f_g!=None:
@@ -157,22 +193,30 @@ Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. -->
         info = info + [self.info]
         return info
 
-    #Fonction exterieure
+    #Fonction extérieure
 
     def parcours_postfixe(n=Noeud)->list:
         if n is None:
             return []
         
         return parcours_postfixe(n.f_g) + parcours_postfixe(n.f_d) + [n.info]
-\end{python}
+\end{minted}
 \newpage
 \subsection{Infixe}
 Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r --> fils d.
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 7 - 4 - 8 - 2 - 5 - 1 - 3 - 9 - 6 - 10,
  c'est à dire suivant le premier passage \textbf{sous} un noeud.
-\begin{python}
-    #Methode de classe
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
+    #Méthode de classe
 
     def infixe(self)->list:
     info=[]
@@ -185,14 +229,15 @@ Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r
         info= info + self.f_d.infixe()
     return info
     
-    #Fonction exterieure
+    #Fonction extérieure
     def parcours_infixe(n=Noeud)->list:
     if n is None:
         return []
     return parcours_infixe(n.f_g) + [n.info] + parcours_infixe(n.f_d)
 
-\end{python}
+\end{minted}
 %\newpage
+
 \section{Tests}
 On écrit 3 tests, un dédié à chaque parcours.
 Chaque test est séparé en 2 parties: l'une pour la méthode et l'autre pour la fonction associé au parcours.
@@ -206,9 +251,17 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
 \subsection{Préfixe}
 
 
-\begin{python}
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
 
-    #Methode de classe
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
+
+    #Méthode de classe
 
     def test_prefixe_classe():
         
@@ -217,7 +270,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
         assert n5.prefixe()==[5]
         assert n9.prefixe()==[9]
 
-    #Fonction exterieure
+    #Fonction extérieure
 
     def test_prefixe_fonction():
     
@@ -225,12 +278,20 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
         assert parcours_prefixe(n4)==[4, 7, 8]
         assert parcours_prefixe(n5)==[5]
         assert parcours_prefixe(n9)==[9]
-\end{python}
+\end{minted}
 \newpage
 \subsection{Postfixe}
 
-\begin{python}
-    #Methode de classe
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
+    #Méthode de classe
 
     def test_postfixe():
         assert n1.postfixe()==[7, 8, 4, 5, 2, 9, 10, 6, 3, 1]
@@ -238,7 +299,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
         assert n5.postfixe()==[5]
         assert n9.postfixe()==[9]
 
-    #Fonction exterieure
+    #Fonction extérieure
 
     def test_postfixe_fonction():
     
@@ -249,12 +310,20 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
     
 
 
-\end{python}
+\end{minted}
 
 \subsection{Infixe}
 
-\begin{python}
-    #Methode de classe
+\renewcommand{\theFancyVerbLine}{
+  \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+
+\begin{minted}[mathescape,
+               linenos,
+               numbersep=5pt,
+               gobble=2,
+               frame=lines,
+               framesep=2mm]{python}
+    #Méthode de classe
 
     def test_infixe():
         assert n1.infixe()==[7, 4, 8, 2, 5, 1, 3, 9, 6, 10]
@@ -262,7 +331,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
         assert n5.infixe()==[5]
         assert n9.infixe()==[9]
 
-    #Fonction exterieure
+    #Fonction extérieure
 
     def test_infixe_fonction():
     
@@ -270,7 +339,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
         assert parcours_infixe(n4)==[7, 4, 8]
         assert parcours_infixe(n5)==[5]
         assert parcours_infixe(n9)==[9]
-\end{python}
+\end{minted}
 \subsection{Résultats}
 Pytest valide tout les tests.
 \end{document} 
