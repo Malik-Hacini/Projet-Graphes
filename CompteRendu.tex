@@ -2,10 +2,7 @@
 \documentclass{article}
 \usepackage{graphicx} % Required for inserting images
 \usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
-\usetikzlibrary{arrows}
 \usetikzlibrary{backgrounds}
-\usepackage[T1]{fontenc}
-\usepackage[french]{babel}
 \usepackage{geometry}
 \usepackage{tabvar}
 \usepackage{fontspec}
@@ -36,7 +33,7 @@ puis de le parcourir en profondeur de 3 façons différentes.
 Voici l'implémentation de la classe Noeud.
 Chaque noeud a pour attribut l'information qu'il porte (un entier) 
 et ses fils gauches et droits, d'autres noeuds.
-On ajoute aussi les méthode de classe ajouter-d et ajouter-g, qui
+On ajoute aussi les Méthode d'instance de classe ajouter-d et ajouter-g, qui
 permettent de créer un noeud, fils gauche ou droit d'un autre.
 
 \renewcommand{\theFancyVerbLine}{
@@ -130,7 +127,7 @@ On construit l'arbre de haut en bas, à l'aide de la classe Noeud.
  Chacun de ces parcours correspond à un ordre différent.
  Pour chacun d'entre eux, on l'implémente de deux façons différentes :
  \newline
- -Une en tant que méthode de la classe Noeud
+ -Une en tant que méthode d'instance de la classe Noeud
  \newline
  -Une en tant que fonction extérieure à la classe
 \subsection{Préfixe}
@@ -147,7 +144,7 @@ Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils 
                gobble=2,
                frame=lines,
                framesep=2mm]{python}
-    #Méthode de classe
+    #Méthode d'instance de classe
 
     def prefixe(self)->list:
         info=[self.info]
@@ -167,7 +164,7 @@ Le parcours préfixe consiste à parcourir l'arbre suivant l'ordre : r --> fils 
 
 
 \end{minted}
-\subsection{Postfixe}*
+\subsection{Postfixe}
 Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> fils d. --> r
  Pour notre arbre, il correspond au parcours dans 
  l’ordre 7 - 8 - 4 - 5 - 2 - 9 - 10 - 6 - 3 - 1 ,
@@ -182,7 +179,7 @@ Le parcours postfixe consiste à parcourir l'arbre suivant l'ordre : fils g. -->
                gobble=2,
                frame=lines,
                framesep=2mm]{python}
-    #Méthode de classe
+    #Méthode d'instance de classe
     def postfixe(self)->list:
         info=[]
         if self.f_g!=None:
@@ -216,7 +213,7 @@ Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r
                gobble=2,
                frame=lines,
                framesep=2mm]{python}
-    #Méthode de classe
+    #Méthode d'instance de classe
 
     def infixe(self)->list:
     info=[]
@@ -236,7 +233,7 @@ Le parcours infixe consiste à parcourir l'arbre suivant l'ordre : fils g. --> r
     return parcours_infixe(n.f_g) + [n.info] + parcours_infixe(n.f_d)
 
 \end{minted}
-%\newpage
+%\newpage  
 
 \section{Tests}
 On écrit 3 tests, un dédié à chaque parcours.
@@ -261,7 +258,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
                frame=lines,
                framesep=2mm]{python}
 
-    #Méthode de classe
+    #Méthode d'instance de classe
 
     def test_prefixe_classe():
         
@@ -291,7 +288,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
                gobble=2,
                frame=lines,
                framesep=2mm]{python}
-    #Méthode de classe
+    #Méthode d'instance de classe
 
     def test_postfixe():
         assert n1.postfixe()==[7, 8, 4, 5, 2, 9, 10, 6, 3, 1]
@@ -323,7 +320,7 @@ Pour s'assurer du bon fonctionnement du programme, on teste 4 noeuds de types di
                gobble=2,
                frame=lines,
                framesep=2mm]{python}
-    #Méthode de classe
+    #Méthode d'instance de classe
 
     def test_infixe():
         assert n1.infixe()==[7, 4, 8, 2, 5, 1, 3, 9, 6, 10]
