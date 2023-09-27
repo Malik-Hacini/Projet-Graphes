@@ -17,4 +17,4 @@ def to_csv(namecsvfile:str,fieldnames:list[str] ,rows : list[list [str]])−>Non
         for r in rows:
             csvwriter.writerow(r)
             
-            
+            #test
