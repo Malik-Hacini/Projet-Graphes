@@ -1,0 +1,6 @@
+"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
+"D","Tache de debut","2 mois",,,,
+"I1","Tache intermediaire 1","1 mois","D",,,
+"I2","Tache intermediaire 2","3 mois","D",,,
+"I3","Tache intermediaire 3","2 mois","D",,,
+"F","Tache de fin","2 mois","I1 I2 I3",,,
