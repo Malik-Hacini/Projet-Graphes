@@ -1,0 +1,13 @@
+document de projet:
+- faire un compte rendu à chaque avancement du projet (S0,S1,S2)
+- Faire un graphe de l'avancement à chque fois
+
+
+Chemin pondéré par une durée
+
+Donnée en entrée :
+
+taches : Nom 
+
+, durees, precedences, execution
+
