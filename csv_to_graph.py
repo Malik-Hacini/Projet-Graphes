@@ -29,21 +29,39 @@ def traitement_information(liste_informations)->tuple:
     """
     noeuds=set()
     arcs=set()
+    poids=set()
     for ligne in liste_informations:
         noeud=ligne[0]
         noeuds.add(noeud)
-        try:
+        duree_tache=ligne[2]
+        for i in range(4,7):
+            if ligne[i]!='':
+                duree_tache=ligne[i]
+        if ligne[3]!='':
             pre_noeuds=ligne[3]
             for pre_noeud in pre_noeuds.split():
-                arcs.add((pre_noeud,noeud))
-        except:
-            pass
-    
-    return(noeuds, arcs)
+                arcs.add((pre_noeud, noeud))
+        poids.add((noeud,duree_tache))
+    return noeuds, arcs, poids
+
+def ponderation_branches(arcs, poids):
+    """Fonction qui associe les branches et les poids de ces branches
+
+    Args:
+        arcs (set): l'ensemble des branches
+        poids (_type_): l'ensembles des poids
+    """
+    arcs_ponderee=set()
+    for arc in arcs:
+        pre_noeud=arc[0]
+        for p in poids:
+            if pre_noeud==p[0]:
+                poids_branche=p[1]
+        arcs_ponderee.add((arc[0], arc[1], poids_branche))
+    return arcs_ponderee 
 
 
-
-def csv_to_graph(nom_fichier_csv:str)-> DiGraphe:
+def csv_to_graph(nom_fichier_csv:str):
     """Fonction qui convertie un fichier CSV en graphe pondérée
 
     Args:
@@ -55,8 +73,6 @@ def csv_to_graph(nom_fichier_csv:str)-> DiGraphe:
     
     liste_csv=from_csv(nom_fichier_csv)
     liste_csv.pop(0)
-    noeuds, arcs = traitement_information(liste_csv)
-    return(noeuds, arcs)
-
-
-print(csv_to_graph(test))
+    noeuds, arcs, poids= traitement_information(liste_csv)
+    arcs_ponderee=ponderation_branches(arcs, poids)
+    return noeuds, arcs_ponderee
