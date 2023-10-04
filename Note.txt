@@ -2,3 +2,6 @@ Fichier Latex ressort graphe et faisabilité, durée totale du projet
 
 Suivis servent à changer la durée d'une tâche
 
+document de projet:
+- faire un compte rendu à chaque avancement du projet (S0,S1,S2)
+- Faire un graphe de l'avancement à chaque fois
