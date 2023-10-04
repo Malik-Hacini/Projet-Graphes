@@ -1,5 +1,5 @@
 import csv
-import graphe
+from Graphes import*
 
 def from_csv(nom_fichier_csv: str)->list:
     """Programme qui ouvre un fichier csv et qui le tranforme en liste de liste mot
