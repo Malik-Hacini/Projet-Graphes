@@ -1,0 +1,8 @@
+    digraph G{
+   rankdir=LR
+   B -> F [label="60.0"];
+   B -> 1 [label="60.0"];
+   2 -> B [label="90.0"];
+   1 -> 2 [label="30.0"];
+   D -> 1 [label="60.0"];
+   }
