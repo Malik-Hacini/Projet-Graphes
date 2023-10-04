@@ -41,10 +41,7 @@ class DiGraphe:
         self.noeuds=noeuds_dict
         self.mat_adj=mat_adj
         
-        
-
-        
-        
+    
     
         
 
