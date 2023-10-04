@@ -24,17 +24,20 @@ class DiGraphe:
         
         mat_adj=np.full((len(noeuds),len(noeuds)), float('inf'))
         
+        keys=list(noeuds_dict.keys())
+        vals=list(noeuds_dict.values())
         for arc in arcs_ponderes:
+            print(arc)
+            ligne=keys[vals.index(arc[0])]
+            col=keys[vals.index(arc[1])]
             
-            mat_adj[arc[0],arc[1]]=arc[2]
+            mat_adj[ligne,col]=arc[2]
 
         for i in range(len(noeuds)):
             mat_adj[i,i]=0
             
-        keys=list(noeuds_dict.keys())
-        vals=list(noeuds_dict.values())
         
-        self.dict_adj={n:[ (noeuds_dict[a[1]],a[2]) for a in arcs_ponderes if a[0]==keys[vals.index(n)]] for n in noeuds}
+        self.dict_adj={n:[ (a[1],a[2]) for a in arcs_ponderes if a[0]==n] for n in noeuds}
         self.noeuds=noeuds_dict
         self.mat_adj=mat_adj
         
@@ -168,18 +171,13 @@ def graphe_to_tex(g: DiGraphe)->str:
     for noeud, voisins in adj.items():
         for voisin in voisins:
             dot+=f"{noeud}"
-            dot+=f' -> {voisin[0]} [label="{voisin[1]}"]'
+            dot+=f' -> {voisin[0]} [label="{int(voisin[1])}"]'
             dot+="; \n" +"   "
     dot+="} \n"
     dot+="\\end{dot2tex}"
-    with open("C:\\Users\\juioi\\Desktop\\Majeure Info\\Graphes et Arbres\\Projet-Graphes\\graph.dot","w") as f:
+    with open("Tests\\graph.dot","w") as f:
         f.write(dot)
     return dot
 
 
             
-
-graphe_test=DiGraphe({"test0","test1","test2"},((0, 2, 2), (0, 1, 4),(2, 1, 6)))
-
-print(graphe_test.mat_adj)
-graphe_to_tex(graphe_test)

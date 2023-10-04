@@ -55,7 +55,7 @@ def conversion_unite(duree_tache):
     Returns:
         int: le nombre de jour qui correspond a la duree
     """
-    valeur=int(duree_tache.split()[0])
+    valeur=float(duree_tache.split()[0])
     unite=duree_tache.split()[1]
     if unite=='mois':
         valeur*=30
