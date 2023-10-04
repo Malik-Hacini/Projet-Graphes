@@ -37,12 +37,33 @@ def traitement_information(liste_informations)->tuple:
         for i in range(4,7):
             if ligne[i]!='':
                 duree_tache=ligne[i]
+        duree_tache=conversion_unite(duree_tache)
         if ligne[3]!='':
             pre_noeuds=ligne[3]
             for pre_noeud in pre_noeuds.split():
                 arcs.add((pre_noeud, noeud))
         poids.add((noeud,duree_tache))
     return noeuds, arcs, poids
+
+def conversion_unite(duree_tache):
+    """Fonction qui convertie un str d'une duree temporelle et qui le convertir en int qui correspond au nombre de jour 
+    que représente cette duree
+
+    Args:
+        duree_tache (str): la duree temporelle avec les unités (mois/annee/semaine)
+
+    Returns:
+        int: le nombre de jour qui correspond a la duree
+    """
+    valeur=int(duree_tache.split()[0])
+    unite=duree_tache.split()[1]
+    if unite=='mois':
+        valeur*=30
+    elif unite=='annees':
+        valeur*=365
+    elif unite=='semaines':
+        valeur*=7
+    return valeur
 
 def ponderation_branches(arcs, poids):
     """Fonction qui associe les branches et les poids de ces branches
@@ -60,7 +81,6 @@ def ponderation_branches(arcs, poids):
         arcs_ponderee.add((arc[0], arc[1], poids_branche))
     return arcs_ponderee 
 
-
 def csv_to_graph(nom_fichier_csv:str):
     """Fonction qui convertie un fichier CSV en graphe pondérée
 
@@ -70,7 +90,6 @@ def csv_to_graph(nom_fichier_csv:str):
     Returns:
         DiGraphe: Graphe pondérée
     """
-    
     liste_csv=from_csv(nom_fichier_csv)
     liste_csv.pop(0)
     noeuds, arcs, poids= traitement_information(liste_csv)
