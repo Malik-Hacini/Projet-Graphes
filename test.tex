@@ -1,0 +1,24 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage{geometry}
+\usepackage{tabvar}
+\usepackage{fontspec}
+\usepackage{dot2texi}
+
+\usepackage{minted}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}
+
+\begin{dot2tex}[autosize, options=-tmath,scale=0.8]
+    digraph G{ 
+   rankdir=LR 
+   test1 -> test2 [label="2"]; 
+   test1 -> test0 [label="4"]; 
+   test2 -> test0 [label="6"]; 
+   } 
+\end{dot2tex}
+\end{document}
