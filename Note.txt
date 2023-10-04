@@ -1,0 +1,4 @@
+Fichier Latex ressort graphe et faisabilité, durée totale du projet
+
+Suivis servent à changer la durée d'une tâche
+
