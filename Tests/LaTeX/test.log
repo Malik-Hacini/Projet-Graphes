@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  4 OCT 2023 10:23
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  8 OCT 2023 11:12
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/test.tex"
-(c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/test.tex
+**"c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Tests/LaTeX/test.tex"
+(c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Tests/LaTeX/test.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
 (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -439,7 +439,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \verbatim@out=\write4
-runsystem(echo 'write18-test-2023104623'>"test.w18")...executed.
+runsystem(echo 'write18-test-2023108672'>"test.w18")...executed.
 
 \instream=\read4
 runsystem(del "test.w18")...executed.
@@ -734,12 +734,12 @@ L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21262 strings out of 410379
- 462784 string characters out of 5788051
+ 21261 strings out of 410379
+ 462889 string characters out of 5788051
  1917432 words of memory out of 5000000
- 42254 multiletter control sequences out of 15000+600000
+ 42253 multiletter control sequences out of 15000+600000
  560277 words of font info for 51 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 79i,5n,93p,485b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,5n,93p,497b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on test.xdv (1 page, 13016 bytes).
+Output written on test.xdv (1 page, 12964 bytes).

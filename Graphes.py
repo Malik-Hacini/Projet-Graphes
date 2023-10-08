@@ -3,7 +3,7 @@ import random
 import numpy as np
 
 class DiGraphe:
-    def __init__(self,noeuds: set[str],arcs_ponderes : set[tuple[str, str, int]])->None:
+    def __init__(self,noeuds: list[str],arcs_ponderes : set[tuple[str, str, int]])->None:
         """Construit un graphe orienté à partir des deux ensembles le définissant :
         noeuds et arcs (pondérés). On suppose que le graphe est connexe. On le représentera
         En utilisant sa matrice d'adjacence (array numpy)
@@ -17,20 +17,20 @@ class DiGraphe:
         noeuds_dict=dict()
         
         i=0
-        for noeud  in noeuds:
+        for noeud in noeuds:
             noeuds_dict[i]= noeud
             i+=1
         
         
         mat_adj=np.full((len(noeuds),len(noeuds)), float('inf'))
         
-        keys=list(noeuds_dict.keys())
+        keys=list(range(len(noeuds)))
         vals=list(noeuds_dict.values())
+       
         for arc in arcs_ponderes:
             print(arc)
             ligne=keys[vals.index(arc[0])]
             col=keys[vals.index(arc[1])]
-            
             mat_adj[ligne,col]=arc[2]
 
         for i in range(len(noeuds)):

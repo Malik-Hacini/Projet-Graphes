@@ -19,7 +19,7 @@ def from_csv(nom_fichier_csv: str)->list:
 
 def traitement_information(liste_informations)->tuple:
     """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe 
-    et ses différentes arrêtes ainsi que leur pondéraatio n
+    et ses différentes arrêtes ainsi que leur pondéraation
 
     Args:
         liste_informations (list): la liste des lignes d'un fichier
