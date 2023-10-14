@@ -37,7 +37,7 @@ class DiGraphe:
             mat_adj[i,i]=0
             
         
-        self.dict_adj={n:[ (a[1],a[2]) for a in arcs_ponderes if a[0]==n] for n in noeuds}
+        self.dict_adj={key: [keys[vals.index(a[1])] for a in arcs_ponderes if a[0]==value] for key,value in noeuds_dict.items()}
         self.noeuds=noeuds_dict
         self.mat_adj=mat_adj
         
@@ -101,80 +101,6 @@ def parcours_profondeur(g: DiGraphe, noeud: int)->list:
                 pile.append(voisin)
     return parcours
 
-def cycle_detector_recursive_part(g:DiGraphe, noeud, visites: set, pile_recursive: list)->bool:
-    """Partie récursive du détécteur de cycle. Se base sur le DFS
-
-    Args:
-        g (DiGraphe): Graphe orienté à traiter
-        noeud (_type_): Noeud de départ du parcours
-        visites (set): La liste des noeuds visités
-        pile_recursive (list): La pile des noeuds du parcours en cours.
-
-    Returns:
-        bool: True si le graphe a un cycle à partir du noeud de départ, False sinon.
-    """
-        
-    visites.add(noeud)
-    pile_recursive.append(noeud)
-
-    for voisin in g.dict_adj[noeud]:
-        
-        if voisin not in visites:
-            if cycle_detector_recursive_part(g, voisin, visites, pile_recursive):
-                return True
-        elif voisin in pile_recursive:
-            return True
-
-    pile_recursive.remove(noeud)
-    return False
-
-
-def cycle_detector(g: DiGraphe)->bool:
-    """Détécteur de cycle dans un graphe orienté
-
-    Args:
-        g (DiGraphe): Graphe à traiter
-    Returns:
-        bool: True si le graphe a un cycle à partir du noeud de départ, False sinon.
-    """
-    visites=set()
-    pile_recursive=[]
-    for noeud in list(g.noeuds):
-        if noeud not in visites:
-            if cycle_detector_recursive_part(g, noeud, visites, pile_recursive):
-                return True
-            
-    return False
-
-
-def graphe_to_tex(g: DiGraphe)->str:
-    """Donne l'écriture en langage dot d'un graphe de la classe DiGraphe.
-    L'écrit ensuite dans un fichier texte séparé.
-
-    Args:
-        g (DiGraphe): graphe orienté à traiter
-
-    Returns:
-        str: Le code dot du graphe, directement utilisable en LaTeX
-    """
-    
-    adj=g.dict_adj
-    print(adj)
-    dot="\\begin{dot2tex}[autosize, options=-tmath,scale=0.8]"
-    
-    dot+= """
-    digraph G{ \n""" + " "*3 + "rankdir=LR \n" + " "*3
-    
-    for noeud, voisins in adj.items():
-        for voisin in voisins:
-            dot+=f"{noeud}"
-            dot+=f' -> {voisin[0]} [label="{int(voisin[1])}"]'
-            dot+="; \n" +"   "
-    dot+="} \n"
-    dot+="\\end{dot2tex}"
-    with open("Tests\\graph.dot","w") as f:
-        f.write(dot)
-    return dot
 
 
             

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  8 OCT 2023 11:12
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  14 OCT 2023 12:08
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -439,7 +439,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \verbatim@out=\write4
-runsystem(echo 'write18-test-2023108672'>"test.w18")...executed.
+runsystem(echo 'write18-test-20231014728'>"test.w18")...executed.
 
 \instream=\read4
 runsystem(del "test.w18")...executed.
@@ -714,7 +714,7 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 Opening dot2tex stream test-dot2tex-fig1.dot
 runsystem(dot2tex --figonly -ftikz    --autosize    --graphstyle="scale=0.8,transform shape" -o test-dot2tex-fig1.tex -tmath test-dot2tex-fig1.dot)...executed.
 
-Package dot2texo Info: test-dot2tex-fig1.dot converted on input line 25.
+Package dot2texo Info: test-dot2tex-fig1.dot converted on input line 26.
  (test-dot2tex-fig1.tex
 LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
  (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
@@ -734,12 +734,12 @@ L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 21261 strings out of 410379
- 462889 string characters out of 5788051
- 1917432 words of memory out of 5000000
- 42253 multiletter control sequences out of 15000+600000
+ 21263 strings out of 410379
+ 462849 string characters out of 5788051
+ 1918432 words of memory out of 5000000
+ 42255 multiletter control sequences out of 15000+600000
  560277 words of font info for 51 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 79i,5n,93p,497b,825s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 79i,5n,93p,497b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on test.xdv (1 page, 12964 bytes).
+Output written on test.xdv (1 page, 14828 bytes).

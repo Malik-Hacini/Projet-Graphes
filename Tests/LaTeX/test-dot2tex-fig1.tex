@@ -1,32 +1,36 @@
 
 \begin{tikzpicture}[>=latex,line join=bevel,scale=0.8,transform shape]
 %%
-\node (zone) at (205.25bp,54.496bp) [draw,ellipse] {$zone$};
-  \node (niska) at (305.12bp,26.496bp) [draw,ellipse] {$niska$};
-  \node (la) at (98.838bp,53.496bp) [draw,ellipse] {$la$};
-  \node (gang) at (147.77bp,11.496bp) [draw,ellipse] {$gang$};
-  \node (wsh) at (17.489bp,32.496bp) [draw,ellipse] {$wsh$};
-  \draw [->] (zone) ..controls (236.25bp,45.914bp) and (257.65bp,39.788bp)  .. (niska);
+\node (D) at (10.923bp,50.709bp) [draw,ellipse] {$D$};
+  \node (I1) at (91.914bp,91.709bp) [draw,ellipse] {$I1$};
+  \node (I2) at (91.914bp,50.709bp) [draw,ellipse] {$I2$};
+  \node (I3) at (91.914bp,9.709bp) [draw,ellipse] {$I3$};
+  \node (F) at (167.38bp,50.709bp) [draw,ellipse] {$F$};
+  \draw [->] (D) ..controls (25.413bp,60.749bp) and (32.856bp,65.871bp)  .. (39.847bp,69.709bp) .. controls (49.472bp,74.994bp) and (60.626bp,79.926bp)  .. (I1);
   \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
   \pgfsetstrokecolor{strokecol}
-  \draw (253.65bp,53.496bp) node {$10$};
-  \draw (227.97bp,43.997bp) node {$$};
-  \draw (279.77bp,37.746bp) node {$$};
-  \draw [->] (la) ..controls (124.58bp,53.733bp) and (152.69bp,54.002bp)  .. (zone);
-  \draw (147.77bp,62.496bp) node {$3$};
-  \draw (115.85bp,47.591bp) node {$$};
-  \draw (179.71bp,48.318bp) node {$$};
-  \draw [->] (gang) ..controls (193.61bp,15.825bp) and (240.02bp,20.306bp)  .. (niska);
-  \draw (205.25bp,28.496bp) node {$1$};
-  \draw (173.82bp,7.3349bp) node {$$};
-  \draw (276.67bp,18.425bp) node {$$};
-  \draw [->] (wsh) ..controls (46.063bp,39.793bp) and (63.42bp,44.387bp)  .. (la);
-  \draw (61.478bp,55.496bp) node {$4$};
-  \draw (39.788bp,42.545bp) node {$$};
-  \draw (82.088bp,44.915bp) node {$$};
-  \draw [->] (wsh) ..controls (38.573bp,24.499bp) and (46.042bp,22.012bp)  .. (52.978bp,20.496bp) .. controls (73.822bp,15.938bp) and (97.773bp,13.689bp)  .. (gang);
-  \draw (61.478bp,29.496bp) node {$6$};
-  \draw (38.366bp,20.816bp) node {$$};
-  \draw (121.52bp,6.0bp) node {$$};
+  \draw (50.847bp,88.709bp) node {$60$};
+  \draw (25.97bp,62.79bp) node {$$};
+  \draw (74.467bp,81.884bp) node {$$};
+  \draw [->] (D) ..controls (33.931bp,50.709bp) and (53.304bp,50.709bp)  .. (I2);
+  \draw (50.847bp,59.709bp) node {$60$};
+  \draw (28.25bp,44.709bp) node {$$};
+  \draw (73.562bp,44.709bp) node {$$};
+  \draw [red,->] (D) ..controls (24.668bp,39.123bp) and (32.313bp,32.94bp)  .. (39.847bp,28.709bp) .. controls (49.009bp,23.563bp) and (59.836bp,19.305bp)  .. (I3);
+  \draw (50.847bp,37.709bp) node {$60$};
+  \draw (13.287bp,37.858bp) node {$$};
+  \draw (73.921bp,6.7126bp) node {$$};
+  \draw [->] (I1) ..controls (112.53bp,83.301bp) and (127.02bp,76.65bp)  .. (138.98bp,69.709bp) .. controls (142.49bp,67.675bp) and (146.12bp,65.332bp)  .. (F);
+  \draw (130.48bp,86.709bp) node {$5$};
+  \draw (109.04bp,81.438bp) node {$$};
+  \draw (152.92bp,62.371bp) node {$$};
+  \draw [->] (I2) ..controls (115.28bp,50.709bp) and (131.91bp,50.709bp)  .. (F);
+  \draw (130.48bp,59.709bp) node {$2$};
+  \draw (110.39bp,44.709bp) node {$$};
+  \draw (150.63bp,44.709bp) node {$$};
+  \draw [red,->] (I3) ..controls (113.17bp,16.431bp) and (127.51bp,21.93bp)  .. (138.98bp,28.709bp) .. controls (143.0bp,31.084bp) and (147.06bp,34.004bp)  .. (F);
+  \draw (130.48bp,37.709bp) node {$1$};
+  \draw (109.56bp,19.126bp) node {$$};
+  \draw (165.58bp,38.328bp) node {$$};
 %
 \end{tikzpicture}
