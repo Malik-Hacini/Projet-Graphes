@@ -15,15 +15,14 @@ while not nom_correct:
         print("Fichier introuvable ou format incorrect")
          """
          
-noeuds, arcs_ponderes= csv_to_graph(f"Tests\\CSV\\test_boucle")
+noeuds, arcs_ponderes= csv_to_graph(f"Tests\\CSV\\test_cour")
 g=DiGraphe(noeuds,arcs_ponderes)
 print(g.noeuds,g.dict_adj)
 cycle=cycle_detector(g)
-
-if cycle:
-    print("Votre projet est infaisable, l'ordonnancement des taches contient une boucle.")
-    sys.exit()
 chemin,dist=chemin_critique(g,0,len(g.noeuds)-1)
 graphe_to_tex(g,chemin)
 
 print(chemin,dist)
+if cycle:
+    print("Votre projet est infaisable, l'ordonnancement des taches contient une boucle.")
+    sys.exit()

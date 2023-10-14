@@ -1,9 +1,35 @@
     digraph G{
    rankdir=LR
-   D -> I1 [label="60"];
-   D -> I2 [label="60"];
-   D -> I3 [label="60" color="red"];
-   I1 -> F [label="5"];
-   I2 -> F [label="2"];
-   I3 -> F [label="1" color="red"];
+   PC -> F [label="60" color="red"];
+   F -> GE1 [label="1"];
+   F -> CM [label="1" color="red"];
+   GE1 -> DRC [label="3"];
+   DRC -> MP [label="1"];
+   MP -> DP [label="14"];
+   DP -> C [label="1"];
+   DP -> GE2 [label="1"];
+   GE2 -> T [label="3"];
+   GE2 -> IE [label="3"];
+   T -> PE [label="14"];
+   T -> FE [label="14"];
+   C -> R1 [label="1"];
+   C -> PE [label="1"];
+   C -> C1 [label="1"];
+   C -> P [label="1"];
+   C1 -> CM [label="1"];
+   P -> CM [label="1"];
+   P -> S [label="1"];
+   CM -> FC [label="10"];
+   CM -> S [label="10" color="red"];
+   FC -> IC [label="1"];
+   FC -> IW [label="1"];
+   FC -> CM [label="1"];
+   FC -> IS [label="1"];
+   IC -> PP [label="1"];
+   IW -> PP [label="3"];
+   IS -> PP [label="1"];
+   PP -> PM [label="1"];
+   PM -> R [label="1"];
+   S -> R1 [label="3"];
+   S -> R [label="3" color="red"];
    }

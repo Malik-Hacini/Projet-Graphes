@@ -40,9 +40,7 @@ class DiGraphe:
         self.noeuds=noeuds_dict
         self.mat_adj=mat_adj
         
-    
-noeuds={1,2,3,4,5,6,7,8,9}
-arcs_ponderes={(0,5),(3)} 
+
         
 
 def parcours_largeur(g: DiGraphe, noeud: int)->list:

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  14 OCT 2023 12:08
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  14 OCT 2023 14:10
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -439,7 +439,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \verbatim@out=\write4
-runsystem(echo 'write18-test-20231014728'>"test.w18")...executed.
+runsystem(echo 'write18-test-20231014850'>"test.w18")...executed.
 
 \instream=\read4
 runsystem(del "test.w18")...executed.
@@ -681,65 +681,4 @@ LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 14.
 LaTeX Font Info:    Redeclaring math symbol \Phi on input line 14.
 LaTeX Font Info:    Redeclaring math symbol \Psi on input line 14.
 LaTeX Font Info:    Redeclaring math symbol \Omega on input line 14.
-LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 14.
-LaTeX Font Info:    Redeclaring symbol font `operators' on input line 14.
-LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `normal' on input line 14.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmr/m/n --> TU/lmr/m/n on input line 14.
-LaTeX Font Info:    Encoding `OT1' has changed to `TU' for symbol font
-(Font)              `operators' in the math version `bold' on input line 14.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/m/n on input line 14.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  TU/lmr/m/n --> TU/lmr/m/n on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/cmr/m/it --> TU/lmr/m/it on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
-(Font)                  OT1/cmr/bx/n --> TU/lmr/b/n on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/cmss/m/n --> TU/lmss/m/n on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/m/n on input line 14.
-LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  TU/lmr/m/n --> TU/lmr/b/n on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/cmr/bx/it --> TU/lmr/b/it on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/cmss/bx/n --> TU/lmss/b/n on input line 14.
-LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/cmtt/m/n --> TU/lmtt/b/n on input line 14.
-\openout4 = `test-dot2tex-fig1.dot'.
-
-Opening dot2tex stream test-dot2tex-fig1.dot
-runsystem(dot2tex --figonly -ftikz    --autosize    --graphstyle="scale=0.8,transform shape" -o test-dot2tex-fig1.tex -tmath test-dot2tex-fig1.dot)...executed.
-
-Package dot2texo Info: test-dot2tex-fig1.dot converted on input line 26.
- (test-dot2tex-fig1.tex
-LaTeX Font Info:    Trying to load font information for U+msa on input line 4.
- (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 4.
- (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Missing character: There is no ; in font nullfont!
-) [1
-
-] (test.aux)
- ***********
-LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-29>
- ***********
- ) 
-Here is how much of TeX's memory you used:
- 21263 strings out of 410379
- 462849 string characters out of 5788051
- 1918432 words of memory out of 5000000
- 42255 multiletter control sequences out of 15000+600000
- 560277 words of font info for 51 fonts, out of 8000000 for 9000
- 1348 hyphenation exceptions out of 8191
- 79i,5n,93p,497b,854s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-Output written on test.xdv (1 page, 14828 bytes).
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on inpu
