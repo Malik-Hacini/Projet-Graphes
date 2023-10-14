@@ -22,13 +22,12 @@ class DiGraphe:
             i+=1
         
         
-        mat_adj=np.full((len(noeuds),len(noeuds)), float('inf'))
+        mat_adj=np.full((len(noeuds),len(noeuds)), np.inf)
         
         keys=list(range(len(noeuds)))
         vals=list(noeuds_dict.values())
-       
+        print(mat_adj.size)
         for arc in arcs_ponderes:
-            print(arc)
             ligne=keys[vals.index(arc[0])]
             col=keys[vals.index(arc[1])]
             mat_adj[ligne,col]=arc[2]
@@ -42,7 +41,8 @@ class DiGraphe:
         self.mat_adj=mat_adj
         
     
-    
+noeuds={1,2,3,4,5,6,7,8,9}
+arcs_ponderes={(0,5),(3)} 
         
 
 def parcours_largeur(g: DiGraphe, noeud: int)->list:

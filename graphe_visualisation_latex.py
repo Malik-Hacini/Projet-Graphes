@@ -13,6 +13,7 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
         str: Le code dot du graphe, directement utilisable en LaTeX
     """
     arcs_chemin_critique=[(chemin_critique[i],chemin_critique[i+1]) for i in range(len(chemin_critique)-1)]
+    #on détermine tout les arcs du chemin critique (le chemin en lui meme n'est qu'une liste)
     adj=g.dict_adj
     print(adj)
     dot="\\begin{dot2tex}[autosize, options=-tmath,scale=0.8]"
@@ -24,12 +25,13 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
         for voisin in voisins:
             dot+=f"{g.noeuds[noeud]}"
             dot+=f' -> {g.noeuds[voisin]} [label="{int(g.mat_adj[noeud,voisin])}"'
-            if (noeud,voisin) in arcs_chemin_critique:
+            
+            if (noeud,voisin) in arcs_chemin_critique: #on colore en rouge les arcs du chelin critique
                 dot+=' color="red"'
             dot+="]; \n" +"   "
     dot+="} \n"
     dot+="\\end{dot2tex}"
-    with open("Tests\\graph.dot","w") as f:
+    with open("Tests\\Python\\graph.dot","w") as f:
         f.write(dot)
     return dot
 

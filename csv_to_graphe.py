@@ -28,7 +28,7 @@ def traitement_information(liste_informations)->tuple:
         tuple: 
     """
     noeuds=[]
-    arcs=[]
+    arcs=set()
     poids=[]
     for ligne in liste_informations:
         noeud=ligne[0]
@@ -41,7 +41,7 @@ def traitement_information(liste_informations)->tuple:
         if ligne[3]!='':
             pre_noeuds=ligne[3]
             for pre_noeud in pre_noeuds.split():
-                arcs.append((pre_noeud, noeud))
+                arcs.add((pre_noeud, noeud))
         poids.append((noeud,duree_tache))
     return noeuds, arcs, poids
 
@@ -72,13 +72,13 @@ def ponderation_branches(arcs, poids):
         arcs (set): l'ensemble des branches
         poids (_type_): l'ensembles des poids
     """
-    arcs_ponderee=[]
+    arcs_ponderee=set()
     for arc in arcs:
         pre_noeud=arc[0]
         for p in poids:
             if pre_noeud==p[0]:
                 poids_branche=p[1]
-        arcs_ponderee.append((arc[0], arc[1], poids_branche))
+        arcs_ponderee.add((arc[0], arc[1], poids_branche))
     return arcs_ponderee 
 
 def csv_to_graph(nom_fichier_csv:str):
