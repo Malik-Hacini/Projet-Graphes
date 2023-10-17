@@ -19,7 +19,7 @@ def from_csv(nom_fichier_csv: str)->list:
 
 def traitement_information(liste_informations)->tuple:
     """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe 
-    et ses différentes arrêtes ainsi que leur pondéraatio n
+    et ses différentes arrêtes ainsi que leur pondéraation
 
     Args:
         liste_informations (list): la liste des lignes d'un fichier
@@ -27,12 +27,12 @@ def traitement_information(liste_informations)->tuple:
     Returns:
         tuple: 
     """
-    noeuds=set()
+    noeuds=[]
     arcs=set()
-    poids=set()
+    poids=[]
     for ligne in liste_informations:
         noeud=ligne[0]
-        noeuds.add(noeud)
+        noeuds.append(noeud)
         duree_tache=ligne[2]
         for i in range(4,7):
             if ligne[i]!='':
@@ -42,7 +42,7 @@ def traitement_information(liste_informations)->tuple:
             pre_noeuds=ligne[3]
             for pre_noeud in pre_noeuds.split():
                 arcs.add((pre_noeud, noeud))
-        poids.add((noeud,duree_tache))
+        poids.append((noeud,duree_tache))
     return noeuds, arcs, poids
 
 def conversion_unite(duree_tache):
