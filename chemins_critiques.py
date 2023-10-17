@@ -31,7 +31,6 @@ def dijkstra(g: DiGraphe, source: int)->tuple[dict,dict]:
     """
     traites={} #Dictionnaire dont les clés sont les sommets traités  
     distances={noeud:np.inf for noeud in g.noeuds} #Dictionnaire des distances (valeur) pour aller de la source à un noeud (clé)
-    print(distances)
     distances[source]=0
     pred={source:source} #Le dictionnaire des prédecésseurs
     
@@ -40,7 +39,6 @@ def dijkstra(g: DiGraphe, source: int)->tuple[dict,dict]:
         traites[noeud_dis_min]=noeud_dis_min #On utilise un dict au lieu d'une list, car l'accès à un dict se fait en temps constant,contrairement aux listes.
         #Cela améliore grandement le temps de calcul lorsque le graphe possède beaucoup d'arretes.
         for voisin in g.dict_adj[noeud_dis_min]:
-            print("noeud_min",noeud_dis_min,"voisin", voisin)
             distance_noeud_dis_min_puis_voisin= distances[noeud_dis_min] + g.mat_adj[noeud_dis_min,voisin] #Distance de la source au noeud_dis_min, puis au voisin
             if distances[voisin]>distance_noeud_dis_min_puis_voisin: #On vérifie si passer par le noeud_dis_min est une bonne idée (cela rend il la distance de source à voisin plus faible)
                 distances[voisin]=distance_noeud_dis_min_puis_voisin
@@ -63,8 +61,6 @@ def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
     """
     etape_chemin=arrivee
     distances,pred=dijkstra(g, source)
-    print("pred",pred)
-    print("distances",distances)
     chemin=[etape_chemin]
     while etape_chemin!=source: 
         etape_chemin=pred[etape_chemin] #On remonte le chemin à l'envers (à partir des prédécésseurs)
