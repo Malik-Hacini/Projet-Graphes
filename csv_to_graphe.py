@@ -17,7 +17,7 @@ def from_csv(nom_fichier_csv: str)->list:
             l.append(r)
         return l
 
-def traitement_information(liste_informations)->tuple:
+def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,list]:
     """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe 
     et ses différentes arrêtes ainsi que leur pondéraation
 
@@ -25,7 +25,7 @@ def traitement_information(liste_informations)->tuple:
         liste_informations (list): la liste des lignes d'un fichier
 
     Returns:
-        tuple: 
+        tuple: noeud
     """
     noeuds=[]
     arcs=set()
@@ -34,15 +34,16 @@ def traitement_information(liste_informations)->tuple:
         noeud=ligne[0]
         noeuds.append(noeud)
         duree_tache=ligne[2]
-        for i in range(4,7):
-            if ligne[i]!='':
-                duree_tache=ligne[i]
+        if n_suivi!=None:
+            for i in range(4,5+n_suivi):
+                if ligne[i]!='':
+                    duree_tache=ligne[i]
         duree_tache=conversion_unite(duree_tache)
+        poids.append((noeud,duree_tache))
         if ligne[3]!='':
             pre_noeuds=ligne[3]
             for pre_noeud in pre_noeuds.split():
                 arcs.add((pre_noeud, noeud))
-        poids.append((noeud,duree_tache))
     return noeuds, arcs, poids
 
 def conversion_unite(duree_tache):
@@ -59,18 +60,24 @@ def conversion_unite(duree_tache):
     unite=duree_tache.split()[1]
     if unite=='mois':
         valeur*=30
-    elif unite=='annees':
+    elif unite=='annees' or unite=='annee':
         valeur*=365
-    elif unite=='semaines':
+    elif unite=='semaines' or unite=='semaine':
         valeur*=7
+    elif unite=='jours' or unite=='jour':
+        valeur=valeur
     return valeur
 
-def ponderation_branches(arcs, poids):
+
+def ponderation_branches(arcs, poids)->set:
     """Fonction qui associe les branches et les poids de ces branches
 
     Args:
         arcs (set): l'ensemble des branches
         poids (_type_): l'ensembles des poids
+    
+    Returns:
+        set: l'ensemble des arcs ponderees
     """
     arcs_ponderee=set()
     for arc in arcs:
@@ -90,8 +97,11 @@ def csv_to_graph(nom_fichier_csv:str):
     Returns:
         DiGraphe: Graphe pondérée
     """
-    liste_csv=from_csv(nom_fichier_csv)
-    liste_csv.pop(0)
-    noeuds, arcs, poids= traitement_information(liste_csv)
-    arcs_ponderee=ponderation_branches(arcs, poids)
-    return noeuds, arcs_ponderee
+    graphs=[]
+    for n_suivi in [None,0,1,2]:
+        liste_csv=from_csv(nom_fichier_csv)
+        liste_csv.pop(0)
+        noeuds, arcs, poids= traitement_information(liste_csv,n_suivi)
+        arcs_ponderee=ponderation_branches(arcs, poids)
+        graphs.append((noeuds,arcs_ponderee))
+    return graphs
