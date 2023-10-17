@@ -14,15 +14,40 @@ while not nom_correct:
     except:
         print("Fichier introuvable ou format incorrect")
          """
-         
-noeuds, arcs_ponderes= csv_to_graph(f"Tests\\CSV\\test_cour")
-g=DiGraphe(noeuds,arcs_ponderes)
-print(g.noeuds,g.dict_adj)
-cycle=cycle_detector(g)
-chemin,dist=chemin_critique(g,0,len(g.noeuds)-1)
-graphe_to_tex(g,chemin)
+        
+output="""\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage{geometry}
+\usepackage{tabvar}
+\usepackage{fontspec}
+\usepackage{dot2texi}
 
-print(chemin,dist)
-if cycle:
-    print("Votre projet est infaisable, l'ordonnancement des taches contient une boucle.")
-    sys.exit()
+\usepackage{minted}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\begin{document}"""
+
+
+for compte_rendu in csv_to_graph(f"Tests\\CSV\\test_cool"):
+    noeuds, arcs_ponderes, duree_finale = compte_rendu
+    graphe_taches=DiGraphe(noeuds,arcs_ponderes)
+
+
+    output+="\section{Votre Graphe de tâches}\n"    
+    chemin,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
+    graphe_dot=graphe_to_tex(graphe_taches,chemin)
+    
+    dates=dates_tot_tard(graphe_taches)
+
+    if cycle_detector(g):
+        print("Votre projet est infaisable, l'ordonnancement des taches contient une boucle.")
+        sys.exit()
+        
+        
+            
+         
+with open("//output//output.tex","w") as fichier_sortie:
+    fichier_sortie.write(output)
