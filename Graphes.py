@@ -100,5 +100,4 @@ def parcours_profondeur(g: DiGraphe, noeud: int)->list:
     return parcours
 
 
-
-            
+       

@@ -35,3 +35,4 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
         f.write(dot)
     return dot
 
+graphe_to_tex()

@@ -13,7 +13,7 @@
 "C","Chape ","1 semaine","DP",,,
 "C1","Carrelage sol","1 semaine","C",,,
 "P","Parquets","1 semaine","C",,,
-"CM","Cloisons et menuiserie intérieure ","10 jours","F C1 P FC",,,
+"CM","Cloisons et menuiserie intérieure ","10 jours","F C1 P T",,,
 "FC","Finition des cloisons","1 semaine","CM",,,
 "IC","Implantation de la cuisine","1 semaine","FC",,,
 "IW","Implantation des wc","3 jours","FC",,,

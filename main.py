@@ -15,7 +15,7 @@ while not nom_correct:
         print("Fichier introuvable ou format incorrect")
          """
          
-noeuds, arcs_ponderes= csv_to_graph(f"Tests\\CSV\\test_cour")
+noeuds, arcs_ponderes= csv_to_graph(f"Tests\\CSV\\test_2_crit")
 g=DiGraphe(noeuds,arcs_ponderes)
 print(g.noeuds,g.dict_adj)
 cycle=cycle_detector(g)
