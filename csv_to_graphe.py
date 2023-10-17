@@ -25,7 +25,13 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
         liste_informations (list): la liste des lignes d'un fichier
 
     Returns:
-        tuple: noeud
+        tuple: 
+            list: la liste des différents noeuds du graphes 
+            set: l'ensemble des arcs du graphe
+            list: la liste des poids de chaque noeud
+                tuple: 
+                    str: le nom du noeud
+                    int: son poids
     """
     noeuds=[]
     arcs=set()
