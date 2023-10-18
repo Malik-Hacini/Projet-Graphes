@@ -112,7 +112,7 @@ def csv_to_graph(nom_fichier_csv:str):
         liste_csv.pop(0)
         noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi)
         arcs_ponderee=ponderation_branches(arcs, poids)
-        graphs.append((noeuds,arcs_ponderee))
-    return graphs, poids_final
+        graphs.append((noeuds,arcs_ponderee, poids_final))
+    return graphs
 
 print(from_csv('test'))
