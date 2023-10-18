@@ -98,4 +98,5 @@ for suivi in infos_projet:
     with open(f"Analyses\\{dir}\\{nom_analyse}\\{nom_analyse}.tex","w", encoding="utf-8") as fichier_sortie:
         fichier_sortie.write(output) 
     i+=1
-print("Analyse effectuée.")
+exit=input("""Analyse effectuée.\n
+           Appuyez sur une touche pour quitter.""")
