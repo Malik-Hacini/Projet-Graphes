@@ -87,10 +87,10 @@ for suivi in infos_projet:
     \\end{tabular} \n"""
     output+="\\end{document}"
 
-
+   #Ecriture des résultats
     if i==0:
         dir=f"Historique_{nom_projet}"
-        os.mkdir(f"./Analyses/{dir}")
+        os.makedirs(f"./Analyses/{dir}")
         nom_analyse="Analyse_Initiale"
     else:
         nom_analyse=f"Compte_Rendu_Execution_{i}"
