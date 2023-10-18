@@ -25,7 +25,13 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
         liste_informations (list): la liste des lignes d'un fichier
 
     Returns:
-        tuple: noeud
+        tuple: 
+            list: la liste des différents noeuds du graphes 
+            set: l'ensemble des arcs du graphe
+            list: la liste des poids de chaque noeud
+                tuple: 
+                    str: le nom du noeud
+                    int: son poids
     """
     noeuds=[]
     arcs=set()
@@ -44,7 +50,10 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
             pre_noeuds=ligne[3]
             for pre_noeud in pre_noeuds.split():
                 arcs.add((pre_noeud, noeud))
-    return noeuds, arcs, poids
+        if noeud=='F':
+            poids_final=duree_tache       
+        
+    return noeuds, arcs, poids, poids_final
 
 def conversion_unite(duree_tache):
     """Fonction qui convertie un str d'une duree temporelle et qui le convertir en int qui correspond au nombre de jour 
@@ -101,7 +110,7 @@ def csv_to_graph(nom_fichier_csv:str):
     for n_suivi in [None,0,1,2]:
         liste_csv=from_csv(nom_fichier_csv)
         liste_csv.pop(0)
-        noeuds, arcs, poids= traitement_information(liste_csv,n_suivi)
+        noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi)
         arcs_ponderee=ponderation_branches(arcs, poids)
-        graphs.append((noeuds,arcs_ponderee))
+        graphs.append((noeuds,arcs_ponderee, poids_final))
     return graphs

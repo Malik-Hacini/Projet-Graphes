@@ -29,7 +29,7 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
                 dot+=' color="red"'
             dot+="]; \n" +"   "
     dot+="} \n"
-    dot+="\\end{dot2tex}"
+    dot+="\\end{dot2tex}\n"
     with open("Tests\\Python\\graph.dot","w") as f:
         f.write(dot)
     return dot

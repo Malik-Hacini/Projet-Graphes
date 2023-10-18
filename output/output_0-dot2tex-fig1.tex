@@ -1,0 +1,32 @@
+
+\begin{tikzpicture}[>=latex,line join=bevel,scale=0.8,transform shape]
+%%
+\node (D) at (10.923bp,13.631bp) [draw,ellipse] {$D$};
+  \node (1) at (88.264bp,13.631bp) [draw,ellipse] {$1$};
+  \node (2) at (165.68bp,42.631bp) [draw,ellipse] {$2$};
+  \node (B) at (245.27bp,13.631bp) [draw,ellipse] {$B$};
+  \node (F) at (324.27bp,13.631bp) [draw,ellipse] {$F$};
+  \draw [red,->] (D) ..controls (33.889bp,13.631bp) and (53.619bp,13.631bp)  .. (1);
+  \definecolor{strokecol}{rgb}{0.0,0.0,0.0};
+  \pgfsetstrokecolor{strokecol}
+  \draw (50.847bp,22.631bp) node {$60$};
+  \draw (28.084bp,7.6307bp) node {$$};
+  \draw (73.544bp,7.6307bp) node {$$};
+  \draw [red,->] (1) ..controls (108.29bp,20.947bp) and (130.66bp,29.549bp)  .. (2);
+  \draw (125.68bp,39.631bp) node {$30$};
+  \draw (102.77bp,22.517bp) node {$$};
+  \draw (151.2bp,33.756bp) node {$$};
+  \draw [red,->] (2) ..controls (185.6bp,35.561bp) and (208.01bp,27.185bp)  .. (B);
+  \draw (205.68bp,39.631bp) node {$90$};
+  \draw (180.12bp,33.85bp) node {$$};
+  \draw (229.07bp,23.069bp) node {$$};
+  \draw [->] (B) ..controls (217.82bp,9.4805bp) and (183.66bp,5.0847bp)  .. (154.68bp,6.6307bp) .. controls (138.94bp,7.4704bp) and (121.16bp,9.4389bp)  .. (1);
+  \draw (165.68bp,15.631bp) node {$60$};
+  \draw (228.34bp,6.0bp) node {$$};
+  \draw (102.9bp,6.5467bp) node {$$};
+  \draw [red,->] (B) ..controls (267.93bp,13.631bp) and (287.29bp,13.631bp)  .. (F);
+  \draw (284.87bp,22.631bp) node {$60$};
+  \draw (262.34bp,7.6307bp) node {$$};
+  \draw (307.44bp,7.6307bp) node {$$};
+%
+\end{tikzpicture}

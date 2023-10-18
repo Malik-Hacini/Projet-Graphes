@@ -1,0 +1,35 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage{geometry}
+\usepackage{tabvar}
+\usepackage{fontspec}
+\usepackage{dot2texi}
+\usepackage[utf8]{inputenc}
+\usepackage{minted}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+\title{\centering Peer Review and Evaluation Technique : Votre Projet. 
+}
+
+\author{PERT Maker}
+\date{26 Septembre 2023}
+\renewcommand{\contentsname}{Table des Matières}
+\begin{document}
+\maketitle
+\tableofcontents{}
+\section{Votre Graphe de tâches}
+\begin{dot2tex}[autosize, options=-tmath,scale=0.8]
+    digraph G{ 
+   rankdir=LR 
+   D -> 1 [label="60" color="red"]; 
+   1 -> 2 [label="30" color="red"]; 
+   2 -> B [label="90" color="red"]; 
+   B -> F [label="60" color="red"]; 
+   B -> 1 [label="60"]; 
+   } 
+\end{dot2tex}
+\section{Analyse de votre projet}
+Votre projet est infaisable, l'ordonnancement des taches contient une boucle.
+\end{document}
