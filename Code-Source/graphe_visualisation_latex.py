@@ -34,7 +34,5 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
     dot+="""\\end{dot2tex}
 \\end{tikzpicture}
 \\end{center}\n"""
-    with open("Tests\\Python\\graph.dot","w") as f:
-        f.write(dot)
     return dot
 
