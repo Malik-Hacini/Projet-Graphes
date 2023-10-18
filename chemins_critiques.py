@@ -1,5 +1,7 @@
 from Graphes import*
 import copy
+import os
+
 def noeud_distance_mini(distances: dict,traites: list)->int:
     """Renvoie un noeud non traité dont la valeur dans
     le dictionnaire des distances est minimale.
@@ -70,7 +72,7 @@ def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
     return chemin,distances[arrivee]
 
 
-def dates_tot_tard(g: DiGraphe)->tuple[float,float]:
+def dates_tot_tard(g: DiGraphe,duree_finale)->tuple[float,float]:
 
 
     dates=dict()
@@ -88,9 +90,15 @@ def dates_tot_tard(g: DiGraphe)->tuple[float,float]:
     distances_plus_longues,pred=dijkstra(g_oppose,0)
     print("longues",distances_plus_longues)
 
-    for i in range(1,len(g.noeuds)-1):
-        dates[i]=(distances_plus_courtes[i],-distances_plus_longues[i])
+    for i in range(len(g.noeuds)): #On ne prend pas la tache finale (pas de voisin)
+        #car sa duree est en paramètre de la fonction.
+        
+        if i!=(len(g.noeuds)-1): 
+            voisin=g.dict_adj[i][0]  
+            duree=g.mat_adj[i,voisin]
+        else:
+            duree=duree_finale
+        dates[i]=(distances_plus_courtes[i],distances_plus_courtes[i]+duree,-distances_plus_longues[i]+duree)
         print(i,dates[i])
-    
     return dates
     

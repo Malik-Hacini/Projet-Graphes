@@ -1,12 +1,11 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
 \documentclass{article}
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage[dvipsnames]{xcolor}
 \usepackage{geometry}
 \usepackage{tabvar}
-\usepackage{fontspec}
 \usepackage{dot2texi}
-\usepackage[utf8]{inputenc}
-\usepackage{minted}
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{shapes.geometric}
@@ -20,7 +19,10 @@
 \maketitle
 \tableofcontents{}
 \section{Votre Graphe de tâches}
-\begin{dot2tex}[autosize, options=-tmath,scale=0.8]
+\begin{center}
+\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+\begin{dot2tex}[codeonly]
+
     digraph G{ 
    rankdir=LR 
    D -> 1 [label="60" color="red"]; 
@@ -30,6 +32,8 @@
    B -> 1 [label="60"]; 
    } 
 \end{dot2tex}
+\end{tikzpicture}
+\end{center}
 \section{Analyse de votre projet}
 Votre projet est infaisable, l'ordonnancement des taches contient une boucle.
 \end{document}

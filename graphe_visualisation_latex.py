@@ -15,7 +15,9 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
     arcs_chemin_critique=[(chemin_critique[i],chemin_critique[i+1]) for i in range(len(chemin_critique)-1)]
     #on détermine tout les arcs du chemin critique (le chemin en lui meme n'est qu'une liste)
     adj=g.dict_adj
-    dot="\\begin{dot2tex}[autosize, options=-tmath,scale=0.8]"
+    dot="""\\begin{center}
+\\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+\\begin{dot2tex}[codeonly]\n"""
     
     dot+= """
     digraph G{ \n""" + " "*3 + "rankdir=LR \n" + " "*3
@@ -29,7 +31,9 @@ def graphe_to_tex(g: DiGraphe,chemin_critique: list)->str:
                 dot+=' color="red"'
             dot+="]; \n" +"   "
     dot+="} \n"
-    dot+="\\end{dot2tex}\n"
+    dot+="""\\end{dot2tex}
+\\end{tikzpicture}
+\\end{center}\n"""
     with open("Tests\\Python\\graph.dot","w") as f:
         f.write(dot)
     return dot

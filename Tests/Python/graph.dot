@@ -1,4 +1,7 @@
-\begin{dot2tex}[autosize, options=-tmath,scale=0.8]
+\begin{center}
+\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+\begin{dot2tex}[codeonly]
+
     digraph G{ 
    rankdir=LR 
    D -> 1 [label="60" color="red"]; 
@@ -8,3 +11,5 @@
    B -> 1 [label="60"]; 
    } 
 \end{dot2tex}
+\end{tikzpicture}
+\end{center}
