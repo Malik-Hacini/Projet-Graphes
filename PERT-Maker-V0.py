@@ -30,6 +30,7 @@ bc="}"
 i=0
 
 nom_correct=False
+csv_to_graph(f"Projets\\test_boucle")
 while not nom_correct:
     try:
         nom_projet=input("Veuillez entrer le nom du fichier de votre projet (Au préalable, vérifier via le manuel d'utilisation qu'il est du format attendu) : \n")
