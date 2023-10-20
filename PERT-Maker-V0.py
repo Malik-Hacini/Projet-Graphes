@@ -1,4 +1,5 @@
 import sys
+import time
 from csv_to_graphe import*
 from cycle_detector import*
 from chemins_critiques import*
@@ -30,10 +31,21 @@ bc="}"
 i=0
 
 nom_correct=False
-csv_to_graph(f"Projets\\test_boucle")
+liste_fichiers=[fichier for fichier in os.listdir("./Projets") if os.path.splitext(fichier)[-1].lower()==".csv"]
+if liste_fichiers ==[]:
+    exit=input("""Le dossier Projet est vide, ou ne contient pas de fichier CSV. Veuillez vérifier quer vous avez placé votre fichier CSV dans le dossier,
+          conformément au manuel d'utilisation. Appuyez sur une touche pour quitter""")
+    sys.exit()
+    
+print("Voici les fichiers disponibles: ")
+for fichier in liste_fichiers:
+    print("-", fichier[:-4])
+print("Si vous ne voyez pas votre fichier, veuillez vérifier qu'il est bien au format CSV, et situé dans le dossier Projets. ")
+
+
 while not nom_correct:
     try:
-        nom_projet=input("Veuillez entrer le nom du fichier de votre projet (Au préalable, vérifier via le manuel d'utilisation qu'il est du format attendu) : \n")
+        nom_projet=input("Nom du fichier projet : \n")
         infos_projet=csv_to_graph(f"Projets\\{nom_projet}")
         nom_correct=True
     except OSError:
@@ -91,13 +103,22 @@ for suivi in infos_projet:
    #Ecriture des résultats
     if i==0:
         dir=f"Historique_{nom_projet}"
-        os.makedirs(f"./Analyses/{dir}")
+        if not(os.path.exists(f"./Analyses/{dir}") and os.path.isdir(f"./Analyses/{dir}")):
+            os.makedirs(f"./Analyses/{dir}")
         nom_analyse="Analyse_Initiale"
     else:
         nom_analyse=f"Compte_Rendu_Execution_{i}"
-    os.mkdir(f"./Analyses/{dir}/{nom_analyse}")
+    if not(os.path.exists(f"./Analyses/{dir}/{nom_analyse}") and os.path.isdir(f"./Analyses/{dir}/{nom_analyse}")):
+        os.mkdir(f"./Analyses/{dir}/{nom_analyse}")
     with open(f"Analyses\\{dir}\\{nom_analyse}\\{nom_analyse}.tex","w", encoding="utf-8") as fichier_sortie:
         fichier_sortie.write(output) 
+        print("Fichier TeX généré")
+        
     i+=1
+    
 exit=input("""Analyse effectuée.\n
            Appuyez sur une touche pour quitter.""")
+print("Merci d'avoir utilisé PERT-Maker !")
+time.sleep(5)
+sys.exit()
+
