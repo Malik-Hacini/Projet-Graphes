@@ -1,6 +1,10 @@
 import csv
 from Graphes import*
 
+
+class UniteError(Exception):
+    pass
+
 def from_csv(nom_fichier_csv: str)->list:
     """Programme qui ouvre un fichier csv et qui le tranforme en liste de liste mot
 
@@ -75,6 +79,8 @@ def conversion_unite(duree_tache):
         valeur*=7
     elif unite=='jours' or unite=='jour':
         valeur=valeur
+    else:
+        raise UniteError
     return valeur
 
 
@@ -115,4 +121,4 @@ def csv_to_graph(nom_fichier_csv:str):
         graphs.append((noeuds,arcs_ponderee, poids_final))
     return graphs
 
-print(from_csv('test'))
+print(from_csv("test"))
