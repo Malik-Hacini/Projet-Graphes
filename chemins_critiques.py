@@ -1,9 +1,9 @@
 from Graphes import*
 import copy
 import os
-
+"""
 def noeud_distance_mini(distances: dict,traites: list)->int:
-    """Renvoie un noeud non traité dont la valeur dans
+    Renvoie un noeud non traité dont la valeur dans
     le dictionnaire des distances est minimale.
 
     Args:
@@ -11,7 +11,7 @@ def noeud_distance_mini(distances: dict,traites: list)->int:
         traites (list): la liste des sommets déjà traités
     Returns:
         noeud_min(int): le noeud non traité dont la distance est la plus faible
-    """
+    
     min=np.inf
     for noeud in distances:
         if noeud not in traites and distances[noeud]<=min:
@@ -21,7 +21,7 @@ def noeud_distance_mini(distances: dict,traites: list)->int:
     return noeud_min
 
 def dijkstra(g: DiGraphe, source: int)->tuple[dict,dict]:
-    """Performe l'algorithme de Dijkstra sur un DiGraphe. A partir 
+    Performe l'algorithme de Dijkstra sur un DiGraphe. A partir 
     d'un certain noeud source, détermine les plus courts chemins jusqu'à chaque noeud du graphe.
 
     Args:
@@ -30,7 +30,7 @@ def dijkstra(g: DiGraphe, source: int)->tuple[dict,dict]:
 
     Returns:
         tuple(dict,dict)]: le dictionnaire des distances des plus cours chemin, le dictionnaire des prédécésseurs
-    """
+    
     traites={} #Dictionnaire dont les clés sont les sommets traités  
     distances={noeud:np.inf for noeud in g.noeuds} #Dictionnaire des distances (valeur) pour aller de la source à un noeud (clé)
     distances[source]=0
@@ -47,7 +47,27 @@ def dijkstra(g: DiGraphe, source: int)->tuple[dict,dict]:
                 distances[voisin]=distance_noeud_dis_min_puis_voisin
                 pred[voisin]=noeud_dis_min
     return distances,pred
-            
+"""
+
+def bellmanFord(g: DiGraphe, source:int)->tuple[dict,dict]:
+    distances = {} 
+    predecesseurs = {}
+    for noeud in g.noeuds:
+        distances[noeud] = np.inf
+        predecesseurs[noeud] = None
+    distances[source] = 0
+    
+    for i in range(len(g.noeuds)-1):
+        for j in g.noeuds:
+            for k in g.dict_adj[j]: 
+                if distances[k] > distances[j] + g.mat_adj[j,k]:
+                    distances[k]  = distances[j] + g.mat_adj[j,k]
+                    predecesseurs[k] = j
+    for i in g.noeuds:
+        for j in g.dict_adj[i]:
+            assert distances[j] <= distances[i] + g.mat_adj[i,j]
+    return distances, predecesseurs
+          
 def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
     """Renvoie un des chemins critiques (le plus court) d'un DiGraphe d'une source à une arrivée,
     ainsi que sa durée.
@@ -62,7 +82,7 @@ def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
         tuple[list,float]: Le chemin, et sa durée (distance)
     """
     etape_chemin=arrivee
-    distances,pred=dijkstra(g, source)
+    distances,pred=bellmanFord(g, source)
     chemin=[etape_chemin]
     while etape_chemin!=source: 
         etape_chemin=pred[etape_chemin] #On remonte le chemin à l'envers (à partir des prédécésseurs)
@@ -80,14 +100,14 @@ def dates_tot_tard(g: DiGraphe,duree_finale)->tuple[float,float]:
     
     for i in range(len(g.noeuds)):
         for j in range(len(g.noeuds)):
-            if (i,j)==(3,4) :
-                print(i,j , g_oppose.mat_adj[i,j])
+            #if (i,j)==(3,4) :
+                #print(i,j , g_oppose.mat_adj[i,j])
             g_oppose.mat_adj[i,j]= -g_oppose.mat_adj[i,j]
     
-    distances_plus_courtes,pred=dijkstra(g,0)
+    distances_plus_courtes,pred=bellmanFord(g,0)
+    print("courtes",distances_plus_courtes)
     
-    
-    distances_plus_longues,pred=dijkstra(g_oppose,0)
+    distances_plus_longues,pred=bellmanFord(g_oppose,0)
     print("longues",distances_plus_longues)
 
     for i in range(len(g.noeuds)): #On ne prend pas la tache finale (pas de voisin)
@@ -99,6 +119,6 @@ def dates_tot_tard(g: DiGraphe,duree_finale)->tuple[float,float]:
         else:
             duree=duree_finale
         dates[i]=(distances_plus_courtes[i],distances_plus_courtes[i]+duree,-distances_plus_longues[i]+duree)
-        print(i,dates[i])
+        #print(i,dates[i])
     return dates
     

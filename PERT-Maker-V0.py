@@ -1,9 +1,10 @@
 import sys
 import time
+from Graphes import*
 from csv_to_graphe import*
 from cycle_detector import*
 from chemins_critiques import*
-from graphe_visualisation_latex import*
+from graphe_to_latex import*
 
 
 start_document="""\\PassOptionsToPackage{dvipsnames}{xcolor}
@@ -21,20 +22,20 @@ start_document="""\\PassOptionsToPackage{dvipsnames}{xcolor}
 }
 
 \\author{PERT Maker}
-\\date{26 Septembre 2023}
 \\renewcommand{\contentsname}{Table des Matières}
 \\begin{document}
 \\maketitle
 \\tableofcontents{}\n"""
-bo="{"
-bc="}"
+
 i=0
 
 nom_correct=False
 liste_fichiers=[fichier for fichier in os.listdir("./Projets") if os.path.splitext(fichier)[-1].lower()==".csv"]
 if liste_fichiers ==[]:
     exit=input("""Le dossier Projet est vide, ou ne contient pas de fichier CSV. Veuillez vérifier quer vous avez placé votre fichier CSV dans le dossier,
-          conformément au manuel d'utilisation. Appuyez sur une touche pour quitter""")
+conformément au manuel d'utilisation. 
+Appuyez sur Entrée pour quitter""")
+    time.sleep(1)
     sys.exit()
     
 print("Voici les fichiers disponibles: ")
@@ -45,7 +46,7 @@ print("Si vous ne voyez pas votre fichier, veuillez vérifier qu'il est bien au 
 
 while not nom_correct:
     try:
-        nom_projet=input("Nom du fichier projet : \n")
+        nom_projet=input("Veuillez entrer le nom du fichier du projet à analyser ? : \n")
         infos_projet=csv_to_graph(f"Projets\\{nom_projet}")
         nom_correct=True
     except OSError:
@@ -55,15 +56,23 @@ while not nom_correct:
 
 for suivi in infos_projet:
     
+    if i==0:
+        print(("Analyse Initiale..."))
+    else:
+        print(f"Compe Rendu d'éxécution {i}")
     noeuds, arcs_ponderes,duree_finale= suivi
-    
+    print(noeuds)
+    print(arcs_ponderes)
     graphe_taches=DiGraphe(noeuds,arcs_ponderes)
+    
+    print("Graphe de tâches crée.")
+    print("Analyse du graphe en cours...")
     chemin,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
     dates=dates_tot_tard(graphe_taches,duree_finale)
     cycle=cycle_detector(graphe_taches)
-
+    print("Analyse du graphe terminée.")
+    print("Création du LaTeX en cours...")
     output=start_document
-    
     output+="\section{Votre Graphe de tâches}\n"    
     output+=graphe_to_tex(graphe_taches,chemin)
 
@@ -73,7 +82,7 @@ for suivi in infos_projet:
         output+="Votre projet est infaisable, l'ordonnancement des taches contient une boucle.\n"
     else:
         output+=f"""Votre projet possède un temps incompressible de {round(duree_finale+dist)} jours.
-    Il s'agit de la durée totale du \\textcolor{bo}red{bc}{bo}chemin critique{bc}.
+    Il s'agit de la durée totale du \\textcolor{{red}}{{chemin critique}}.
     Pour terminer le projet dans ces délais, les durées de toutes les tâches parallèles au tâches critiques doivent pouvoir être réduites
     à la même durée que celle des tâches critiques, et aucune tâche ne doit prendre du retard."""
 
@@ -100,7 +109,9 @@ for suivi in infos_projet:
     \\end{tabular} \n"""
     output+="\\end{document}"
 
+    print("LaTeX généré.")
    #Ecriture des résultats
+    print("Ecriture des résultats...")
     if i==0:
         dir=f"Historique_{nom_projet}"
         if not(os.path.exists(f"./Analyses/{dir}") and os.path.isdir(f"./Analyses/{dir}")):
@@ -112,13 +123,11 @@ for suivi in infos_projet:
         os.mkdir(f"./Analyses/{dir}/{nom_analyse}")
     with open(f"Analyses\\{dir}\\{nom_analyse}\\{nom_analyse}.tex","w", encoding="utf-8") as fichier_sortie:
         fichier_sortie.write(output) 
-        print("Fichier TeX généré")
-        
+        "Ecriture terminée."
     i+=1
     
-exit=input("""Analyse effectuée.\n
-           Appuyez sur une touche pour quitter.""")
+exit=input("""Analyse correctement effectuée.\n
+Appuyez sur Entrée pour quitter.""")
 print("Merci d'avoir utilisé PERT-Maker !")
-time.sleep(5)
+time.sleep(1)
 sys.exit()
-

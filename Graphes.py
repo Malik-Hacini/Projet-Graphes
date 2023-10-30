@@ -26,7 +26,6 @@ class DiGraphe:
         
         keys=list(range(len(noeuds)))
         vals=list(noeuds_dict.values())
-        print(mat_adj.size)
         for arc in arcs_ponderes:
             ligne=keys[vals.index(arc[0])]
             col=keys[vals.index(arc[1])]
