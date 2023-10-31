@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  31 OCT 2023 11:32
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  31 OCT 2023 11:33
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_test_cool/Analyse_Initiale/Analyse_Initiale.tex"
-(c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_test_cool/Analyse_Initiale/Analyse_Initiale.tex
+**"c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_test_boucle/Analyse_Initiale/Analyse_Initiale.tex"
+(c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_test_boucle/Analyse_Initiale/Analyse_Initiale.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
 (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -410,7 +410,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \verbatim@out=\write4
-runsystem(echo 'write18-test-20231031692'>"Analyse_Initiale.w18")...executed.
+runsystem(echo 'write18-test-20231031693'>"Analyse_Initiale.w18")...executed.
 
 \instream=\read4
 runsystem(del "Analyse_Initiale.w18")...executed.
@@ -513,24 +513,24 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  Opening dot2tex stream Analyse_Initiale-dot2tex-fig1.dot
 runsystem(dot2tex --codeonly -ftikz         -o Analyse_Initiale-dot2tex-fig1.tex  Analyse_Initiale-dot2tex-fig1.dot)...executed.
 
-Package dot2texo Info: Analyse_Initiale-dot2tex-fig1.dot converted on input line 42.
+Package dot2texo Info: Analyse_Initiale-dot2tex-fig1.dot converted on input line 33.
  (Analyse_Initiale-dot2tex-fig1.tex
 Missing character: There is no ; in font nullfont!
 ) [1
 
-] [2] (Analyse_Initiale.aux)
+] (Analyse_Initiale.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15430 strings out of 410379
- 306141 string characters out of 5788051
- 1930432 words of memory out of 5000000
- 36484 multiletter control sequences out of 15000+600000
- 565423 words of font info for 75 fonts, out of 8000000 for 9000
+ 15360 strings out of 410379
+ 305202 string characters out of 5788051
+ 1917432 words of memory out of 5000000
+ 36417 multiletter control sequences out of 15000+600000
+ 563239 words of font info for 63 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 69i,9n,75p,554b,858s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 69i,7n,75p,556b,834s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Analyse_Initiale.xdv (2 pages, 37800 bytes).
+Output written on Analyse_Initiale.xdv (1 page, 12724 bytes).

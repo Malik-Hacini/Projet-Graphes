@@ -50,6 +50,16 @@ def dijkstra(g: DiGraphe, source: int)->tuple[dict,dict]:
 """
 
 def bellmanFord(g: DiGraphe, source:int)->tuple[dict,dict]:
+    """Performe l'algortihme de Bellman-Ford sur un graphe pondéré. Parcours un graphe à partir 
+    d'une source, et en détérmine les plus courts chemins vers chaque noeud.
+
+    Args:
+        g (DiGraphe): graphe à traiter
+        source (int): noeud de départ
+
+    Returns:
+        tuple[dict,dict]: le dict des distances , le dict des prédécésseurs (pour reconstruire le chemin)
+    """
     distances = {} 
     predecesseurs = {}
     for noeud in g.noeuds:
@@ -63,20 +73,18 @@ def bellmanFord(g: DiGraphe, source:int)->tuple[dict,dict]:
                 if distances[k] > distances[j] + g.mat_adj[j,k]:
                     distances[k]  = distances[j] + g.mat_adj[j,k]
                     predecesseurs[k] = j
-    for i in g.noeuds:
-        for j in g.dict_adj[i]:
-            assert distances[j] <= distances[i] + g.mat_adj[i,j]
+
     return distances, predecesseurs
           
 def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
     """Renvoie un des chemins critiques (le plus court) d'un DiGraphe d'une source à une arrivée,
-    ainsi que sa durée.
+    ainsi que sa durée. S'appuie sur la fonction bellmanFord
     
 
     Args:
-        g (DiGraphe): Graphe à traiter
-        source (int): Noeud (tache) source
-        arrivee (int): Noeud (tache) d'arrivée
+        g (DiGraphe): graphe à traiter
+        source (int): noeud source
+        arrivee (int): noeud d'arrivée
 
     Returns:
         tuple[list,float]: Le chemin, et sa durée (distance)
@@ -92,24 +100,32 @@ def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
     return chemin,distances[arrivee]
 
 
-def dates_tot_tard(g: DiGraphe,duree_finale)->tuple[float,float]:
+def dates_tot_tard(g: DiGraphe,duree_finale:int)->dict[tuple[float,float,float]]:
+    """Renvoie les dates de référence de chaque tâche d'un graphe.
+    S'appuie sur la fonction bellmanFord. La durée de la tâche finale
+    est un paramètre nécéssaire, car n'ayant pas de voisin, sa durée n'est pas encodée dans 
+    les arcs menants à ses voisins, contrairement aux autres tâches.
 
+    Args:
+        g (DiGraphe): graphe à traiter
+        duree_finale (int): durée de la tâche finale
+
+    Returns:
+        dict[tuple[float,float,float]]: dictionnaire des dates. 3 dates pour chaque tâche
+    """
 
     dates=dict()
-    g_oppose=copy.deepcopy(g)
     
-    for i in range(len(g.noeuds)):
-        for j in range(len(g.noeuds)):
-            #if (i,j)==(3,4) :
-                #print(i,j , g_oppose.mat_adj[i,j])
-            g_oppose.mat_adj[i,j]= -g_oppose.mat_adj[i,j]
+    #On crée un graphe dont les poids sont les opposés des poids du graphe d'origine.
+    #De cette manière, la recherche des distances les plus longues revient à la recherche
+    #des distances les plus courtes dans ce nouveau graphe.
+    g_oppose=copy.deepcopy(g)
+    g_oppose.mat_adj=-g_oppose.mat_adj
     
     distances_plus_courtes,pred=bellmanFord(g,0)
-    print("courtes",distances_plus_courtes)
-    
-    distances_plus_longues,pred=bellmanFord(g_oppose,0)
-    print("longues",distances_plus_longues)
 
+    distances_plus_longues,pred=bellmanFord(g_oppose,0)
+    
     for i in range(len(g.noeuds)): #On ne prend pas la tache finale (pas de voisin)
         #car sa duree est en paramètre de la fonction.
         
@@ -118,7 +134,7 @@ def dates_tot_tard(g: DiGraphe,duree_finale)->tuple[float,float]:
             duree=g.mat_adj[i,voisin]
         else:
             duree=duree_finale
+        #On renvoie les 3 dates de références pour chaque tâche : début au plus tôt, fin au plus tôt, fin au plus tard.
         dates[i]=(distances_plus_courtes[i],distances_plus_courtes[i]+duree,-distances_plus_longues[i]+duree)
-        #print(i,dates[i])
     return dates
     

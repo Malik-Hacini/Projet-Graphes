@@ -1,7 +1,7 @@
 from Graphes import*
 
 def cycle_detector_recursive_part(g:DiGraphe, noeud, visites: set, pile_recursive: list)->bool:
-    """Partie récursive du détécteur de cycle. Se base sur le DFS
+    """Partie récursive du détecteur de cycle. Se base sur le DFS
 
     Args:
         g (DiGraphe): Graphe orienté à traiter

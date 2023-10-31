@@ -6,6 +6,10 @@ from cycle_detector import*
 from chemins_critiques import*
 from graphe_to_latex import*
 
+"""Ce fichier est le principal du logiciel. C'est lui qu'on compile en éxécutable. On analyse
+un graphe, et on écrit les analyses en LaTeX dans des fichiers .tex.
+"""
+
 
 start_document="""\\PassOptionsToPackage{dvipsnames}{xcolor}
 \\documentclass{article}
@@ -54,33 +58,42 @@ while not nom_correct:
     except Exception:
         print("Fichier de format invalide. Se référer au manuel d'utilisation.")
 
-for suivi in infos_projet:
+for cr_exec in infos_projet:
     
     if i==0:
         print(("Analyse Initiale..."))
     else:
         print(f"Compe Rendu d'éxécution {i}")
-    noeuds, arcs_ponderes,duree_finale= suivi
-    print(noeuds)
-    print(arcs_ponderes)
+        
+    #On crée le graphe de tâches.
+    noeuds, arcs_ponderes,duree_finale= cr_exec
     graphe_taches=DiGraphe(noeuds,arcs_ponderes)
     
     print("Graphe de tâches crée.")
-    print("Analyse du graphe en cours...")
-    chemin,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
-    dates=dates_tot_tard(graphe_taches,duree_finale)
-    cycle=cycle_detector(graphe_taches)
-    print("Analyse du graphe terminée.")
-    print("Création du LaTeX en cours...")
+    print("Analyse du graphe et création du LaTeX en cours...")
+    
     output=start_document
-    output+="\section{Votre Graphe de tâches}\n"    
-    output+=graphe_to_tex(graphe_taches,chemin)
-
-    output+="\section{Analyse de votre projet}\n"
-
+    output+="\section{Votre Graphe de tâches}\n"  
+      
+    #On ajoute la visualisation du graphe à l'analyse.
+    
+    cycle=cycle_detector(graphe_taches)
     if cycle:
+        #Si le graphe de tâches du projet est cyclique, l'analyse ne peut pas poursuivre.
+        output+=graphe_to_tex(graphe_taches)
+        output+="\section{Analyse de votre projet}\n"
         output+="Votre projet est infaisable, l'ordonnancement des taches contient une boucle.\n"
+        print("Analyse du graphe terminée.")
+
     else:
+        chemin,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
+        dates=dates_tot_tard(graphe_taches,duree_finale)
+        print("Analyse du graphe terminée.")
+        
+        output+=graphe_to_tex(graphe_taches,chemin)
+        output+="\section{Analyse de votre projet}\n"
+        
+    
         output+=f"""Votre projet possède un temps incompressible de {round(duree_finale+dist)} jours.
     Il s'agit de la durée totale du \\textcolor{{red}}{{chemin critique}}.
     Pour terminer le projet dans ces délais, les durées de toutes les tâches parallèles au tâches critiques doivent pouvoir être réduites
@@ -94,7 +107,8 @@ for suivi in infos_projet:
     Chaque tâche possède trois dates de référence : La date de début au plus tôt,
     fin au plus tôt, fin au plus tard.
     Voici le tableau récapitulatif des dates de référence pour votre projet :\\newline \n"""
-        
+
+        #On écrit le tableau des dates en LaTeX
         output+="""\\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
         \\hline
         \\multicolumn{4}{|c|}{Dates de références} \\\\
@@ -110,8 +124,12 @@ for suivi in infos_projet:
     output+="\\end{document}"
 
     print("LaTeX généré.")
+    
+    
    #Ecriture des résultats
+   
     print("Ecriture des résultats...")
+   #Si nécéssaire, on crée les dossiers manquants grace au module os.
     if i==0:
         dir=f"Historique_{nom_projet}"
         if not(os.path.exists(f"./Analyses/{dir}") and os.path.isdir(f"./Analyses/{dir}")):
@@ -119,13 +137,18 @@ for suivi in infos_projet:
         nom_analyse="Analyse_Initiale"
     else:
         nom_analyse=f"Compte_Rendu_Execution_{i}"
+    
+    
     if not(os.path.exists(f"./Analyses/{dir}/{nom_analyse}") and os.path.isdir(f"./Analyses/{dir}/{nom_analyse}")):
         os.mkdir(f"./Analyses/{dir}/{nom_analyse}")
+        
+    #On écrit dans le fichier de sortie.
     with open(f"Analyses\\{dir}\\{nom_analyse}\\{nom_analyse}.tex","w", encoding="utf-8") as fichier_sortie:
         fichier_sortie.write(output) 
         "Ecriture terminée."
     i+=1
-    
+
+#Fin
 exit=input("""Analyse correctement effectuée.\n
 Appuyez sur Entrée pour quitter.""")
 print("Merci d'avoir utilisé PERT-Maker !")

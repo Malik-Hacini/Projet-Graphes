@@ -2,13 +2,14 @@ import csv
 from Graphes import*
 
 def from_csv(nom_fichier_csv: str)->list:
-    """Programme qui ouvre un fichier csv et qui le tranforme en liste de liste mot
+    """Ouvre un fichier csv et le traduit en liste imbriquée.
+    Le fichier est découpé en lignes, et chaque ligne est une liste, contenants ses mots."
 
     Args:
-        nom_fichier_csv (str): Nom du fichier à utiliser
+        nom_fichier_csv (str): nom du fichier à utiliser
 
     Returns:
-        list: Liste ou chaque terme est une liste qui correspond à une ligne et chaque terme de cette liste est un mot de la ligne
+        list
     """
     with open(nom_fichier_csv + ".csv" , 'r', encoding="utf−8" ) as fichier_csv:
         lecture_fichier_csv =csv.reader(fichier_csv, delimiter= "," ,quoting=csv.QUOTE_ALL)
@@ -18,11 +19,10 @@ def from_csv(nom_fichier_csv: str)->list:
         return l
 
 def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,list]:
-    """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe 
-    et ses différentes arrêtes ainsi que leur pondéraation
+    """Traite l'information d'une liste (output de from_csv). Renvoie les noeuds,arcs et poids des noeuds
 
     Args:
-        liste_informations (list): la liste des lignes d'un fichier
+        liste_informations (list): la liste des lignes d'un fichier csv
 
     Returns:
         tuple: 
@@ -56,14 +56,13 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
     return noeuds, arcs, poids, poids_final
 
 def conversion_unite(duree_tache):
-    """Fonction qui convertie un str d'une duree temporelle et qui le convertir en int qui correspond au nombre de jour 
-    que représente cette duree
+    """Convertit toutes les unités de temps en jours. On suppose 1 mois=30 jours.
 
     Args:
-        duree_tache (str): la duree temporelle avec les unités (mois/annee/semaine)
+        duree_tache (str): la duree avec les unités (jours/mois/annee/semaine)
 
     Returns:
-        int: le nombre de jour qui correspond a la duree
+        int: la durée en jours.
     """
     valeur=float(duree_tache.split()[0])
     unite=duree_tache.split()[1]
@@ -79,14 +78,15 @@ def conversion_unite(duree_tache):
 
 
 def ponderation_branches(arcs, poids)->set:
-    """Fonction qui associe les branches et les poids de ces branches
+    """Pour réaliser un graphe à partir de l'output de traitement_information, associe chaque
+    voisin d'un noeud donné par un arc du poids du noeud donné. 
 
     Args:
         arcs (set): l'ensemble des branches
-        poids (_type_): l'ensembles des poids
+        poids (_type_): l'ensemble des poids
     
     Returns:
-        set: l'ensemble des arcs ponderees
+        set: l'ensemble des arcs ponderés
     """
     arcs_ponderee=set()
     for arc in arcs:
@@ -98,16 +98,17 @@ def ponderation_branches(arcs, poids)->set:
     return arcs_ponderee 
 
 def csv_to_graph(nom_fichier_csv:str):
-    """Fonction qui convertie un fichier CSV en graphe pondérée
+    """A partir d'un nom de fichier csv, renvoie les ensembles de définitions des graphes de tâches
+    associés à l'analyse initiale, et chaque compte rendu d'éxécution du fichier.
 
     Args:
-        nom_fichier_csv (str): Nom du fichier à convertir
+        nom_fichier_csv (str): nom du fichier à convertir
 
     Returns:
-        DiGraphe: Graphe pondérée
+        graphs (list): Liste imbriquée d'ensembles de définition de graphes associés au fichier
     """
     graphs=[]
-    for n_suivi in [None,0,1,2]:
+    for n_suivi in [None,0,1,2]: #On répète l'opération pour chaque compte rendu d'éxécution
         liste_csv=from_csv(nom_fichier_csv)
         liste_csv.pop(0)
         noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi)
