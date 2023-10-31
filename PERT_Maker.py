@@ -58,6 +58,7 @@ while not nom_correct:
     except Exception:
         print("Fichier de format invalide. Se référer au manuel d'utilisation.")
 
+
 for cr_exec in infos_projet:
     
     if i==0:
@@ -69,7 +70,7 @@ for cr_exec in infos_projet:
     noeuds, arcs_ponderes,duree_finale= cr_exec
     graphe_taches=DiGraphe(noeuds,arcs_ponderes)
     
-    print("Graphe de tâches crée.")
+    print("Graphe de tâches créé.")
     print("Analyse du graphe et création du LaTeX en cours...")
     
     output=start_document
@@ -117,7 +118,10 @@ for cr_exec in infos_projet:
         \\hline \n"""
 
         for tache in dates.keys():
-            output+=f" {graphe_taches.noeuds[tache]}&T0+{round(dates[tache][0])}&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
+            if tache=='D':
+                output+=f" {graphe_taches.noeuds[tache]}&T0&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
+            else:
+                output+=f" {graphe_taches.noeuds[tache]}&T0+{round(dates[tache][0])}&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
         
         output+="""\\hline
     \\end{tabular} \n"""
