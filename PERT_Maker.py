@@ -2,6 +2,7 @@ import sys
 import time
 from Graphes import*
 from csv_to_graphe import*
+from csv_verifier import*
 from cycle_detector import*
 from chemins_critiques import*
 from graphe_to_latex import*
@@ -33,7 +34,7 @@ start_document="""\\PassOptionsToPackage{dvipsnames}{xcolor}
 
 i=0
 
-nom_correct=False
+#On extrait et affiche les fichiers projets disponibles
 liste_fichiers=[fichier for fichier in os.listdir("./Projets") if os.path.splitext(fichier)[-1].lower()==".csv"]
 if liste_fichiers ==[]:
     exit=input("""Le dossier Projet est vide, ou ne contient pas de fichier CSV. Veuillez vérifier quer vous avez placé votre fichier CSV dans le dossier,
@@ -47,24 +48,33 @@ for fichier in liste_fichiers:
     print("-", fichier[:-4])
 print("Si vous ne voyez pas votre fichier, veuillez vérifier qu'il est bien au format CSV, et situé dans le dossier Projets. ")
 
-
-while not nom_correct:
+#On demande le nom du projet à l'utilisateur et on vérifie le format.
+fichier_valide=False
+while not fichier_valide:
+    nom_projet=input("Veuillez entrer le nom du fichier du projet à analyser ? : \n")
     try:
-        nom_projet=input("Veuillez entrer le nom du fichier du projet à analyser ? : \n")
-        infos_projet=csv_to_graph(f"Projets\\{nom_projet}")
-        nom_correct=True
+        fichier_projet=from_csv(f"Projets\\{nom_projet}")
     except OSError:
         print("Fichier introuvable.")
-    except Exception:
-        print("Fichier de format invalide. Se référer au manuel d'utilisation.")
+        continue
+    
+    verif=verification_format_fichier(fichier_projet)
+    print(verif[1])
+    if not verif[0]:
+        print("Veuillez vous référer au manuel d'utilisation.")
+    else:
+        fichier_valide=True  
+        
+#Une fois le fichier vérifié, on en extrait les informations.
+infos_projet=csv_to_graph(f"Projets\\{nom_projet}")
 
-
+#On analyse le fichier.
 for cr_exec in infos_projet:
     
     if i==0:
         print(("Analyse Initiale..."))
     else:
-        print(f"Compe Rendu d'éxécution {i}")
+        print(f"Compe Rendu d'éxécution {i}...")
         
     #On crée le graphe de tâches.
     noeuds, arcs_ponderes,duree_finale= cr_exec
@@ -77,7 +87,6 @@ for cr_exec in infos_projet:
     output+="\section{Votre Graphe de tâches}\n"  
       
     #On ajoute la visualisation du graphe à l'analyse.
-    
     cycle=cycle_detector(graphe_taches)
     if cycle:
         #Si le graphe de tâches du projet est cyclique, l'analyse ne peut pas poursuivre.
