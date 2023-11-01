@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.10.4)  17 OCT 2023 13:42
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.10.4)  1 NOV 2023 11:34
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -521,28 +521,163 @@ you left one out. Proceed, with fingers crossed.
 c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:87: Missing $ inserted.
 <inserted text> 
                 $
-l.87 
-     
+l.87 \begin{python}
+                   
 I've inserted a begin-math/end-math symbol since I think
 you left one out. Proceed, with fingers crossed.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:87: Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.87 \begin{python}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:87: Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.87 \begin{python}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:87: Missing \endgroup inserted.
+<inserted text> 
+                \endgroup 
+l.87 \begin{python}
+                   
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
 
 Missing character: There is no à in font cmmi10!
 Missing character: There is no é in font cmmi10!
 Missing character: There is no é in font cmmi10!
 Missing character: There is no é in font cmmi10!
-[2] [3] (csv_to_graph.aux)
- ***********
-LaTeX2e <2023-06-01> patch level 1
-L3 programming layer <2023-08-29>
- ***********
- ) 
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:87: Undefined control sequence.
+\lst@GetLineInterval ...r \lst@GLI \lst@linerange 
+                                                  \@nil 
+l.87 \begin{python}
+                   
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+Runaway argument?
+\@nil \lst@ifsensitive \else \let \lst@KeywordTest \lst@KEYWORDTEST \let \ETC.
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:91: Paragraph ended before \lst@GLI was complete.
+<to be read again> 
+                   \par 
+l.91 
+     
+I suspect you've forgotten a `}', causing me to apply this
+control sequence to too much text. How can we recover?
+My plan is to forget the whole thing and hope for the best.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:93: Missing $ inserted.
+<inserted text> 
+                $
+l.93         duree_
+                   tache (str): la duree temporelle avec les unités (mois/an...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:94: Missing $ inserted.
+<inserted text> 
+                $
+l.94 
+     
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no é in font cmmi10!
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:98: Missing $ inserted.
+<inserted text> 
+                $
+l.98     valeur=float(duree_
+                            tache.split()[0])
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:109: Undefined control sequence.
+\python ->\def \lstenv@name 
+                            {python}\begingroup \lst@setcatcodes \catcode \a...
+l.109 \end{python}
+                  
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:109: Package Listings Error: Extra \endpython.
+
+See the Listings package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.109 \end{python}
+                  
+I'm ignoring this, since I wasn't doing a \def {python}\begingroup \makeatletter \catcode `\==12\relax \catcode \active =\active \python@.
+
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:109: LaTeX Error: \begin{document} ended by \end{python}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.109 \end{python}
+                  
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:109: Missing $ inserted.
+<inserted text> 
+                $
+l.109 \end{python}
+                  
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:109: Extra \endgroup.
+<recently read> \endgroup 
+                          
+l.109 \end{python}
+                  
+Things are pretty mixed up, but I think the worst is over.
+
+c:/Users/Tim/Documents/Programation/Programme/Cours/Majeure/Projet-Graphes/Projet-Graphes/Rapport/CSV to graph/csv_to_graph.tex:146: TeX capacity exceeded, sorry [input stack size=10000].
+\lst@RestoreOrigCatcodes ->\catcode 1=
+                                      15\relax \catcode 2=15\relax \catcode ...
+l.146             pre_noeuds=
+                             ligne[3] #les pré-taches sont contenus dabs la ...
+If you really absolutely need more capacity,
+you can ask a wizard to enlarge me.
+
+ 
 Here is how much of TeX's memory you used:
- 15819 strings out of 410379
- 297193 string characters out of 5788457
- 2370432 words of memory out of 5000000
- 36887 multiletter control sequences out of 15000+600000
+ 15802 strings out of 410379
+ 296991 string characters out of 5788457
+ 2165432 words of memory out of 5000000
+ 36872 multiletter control sequences out of 15000+600000
  590640 words of font info for 81 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 69i,7n,73p,663b,1693s stack positions out of 10000i,1000n,20000p,200000b,200000s
-
-Output written on csv_to_graph.xdv (3 pages, 108304 bytes).
+ 10000i,7n,73p,663b,21532s stack positions out of 10000i,1000n,20000p,200000b,200000s
+Output written on csv_to_graph.xdv (1 page, 30616 bytes).

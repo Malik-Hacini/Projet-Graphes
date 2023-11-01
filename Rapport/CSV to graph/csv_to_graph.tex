@@ -43,7 +43,7 @@ def from_csv(nom_fichier_csv: str)->list:
 \end{python}
 
 \subsection{Traitement des informations}
-\subsection{Première Version}
+\subsubsection{Première Version}
 L'obejectif de ce sous programme est de transformer la liste obtenue en après l'execution de From CSV est de resortir la liste des différents noeuds donc la liste des différentes taches ainsi que les arcs, c'est à dire les branches du graphes donc un ensemble de tupple de 2 éléments qui signifie donc que ces 2 éléments sont reliées. Et enfin la fonction retourne aussi la liste des taches associées à leur durée, c'est à dire une liste de tupples de 2 éléments où le premier est la tache et le second sa durée.
 
 \begin{python}
@@ -83,8 +83,7 @@ L'obejectif de ce sous programme est de transformer la liste obtenue en après l
 \end{python}
 
 \subsubsection{Conversion des unité}
-Dans un fichier CSV lorsqu'on indique la durée d'une tache on écrit un nombre suivi d'une unité. Ainsi l'objectif du sous-programme conversion_unite est de renvoyer le nombre de jours correspondant à la durée donnée en entrée.
-
+    Dans un fichier CSV lorsqu'on indique la durée d'une tache on écrit un nombre suivi d'une unité. Ainsi l'objectif du sous-programme conversion_unite est de renvoyer le nombre de jours correspondant à la durée donnée en entrée.
 \begin{python}
     def conversion_unite(duree_tache):
     """Fonction qui convertie un str d'une duree temporelle et qui le convertir en int qui correspond au nombre de jour 

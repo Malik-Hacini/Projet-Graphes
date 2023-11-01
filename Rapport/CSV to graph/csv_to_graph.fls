@@ -238,9 +238,9 @@ INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmtt10.t
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmtt8.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmtk10.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmtto10.tfm
+INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmbx10.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmr8.tfm
 OUTPUT csv_to_graph.xdv
-INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\lm\ec-lmbx10.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\cmextra\cmex7.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbols\msam10.tfm
@@ -252,4 +252,3 @@ INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\amsfonts\symbo
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tabvar\tabvar.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tabvar\tabvar.tfm
 INPUT C:\Users\Tim\AppData\Local\Programs\MiKTeX\fonts\tfm\public\tabvar\tabvar.tfm
-INPUT csv_to_graph.aux
