@@ -120,5 +120,3 @@ def csv_to_graph(nom_fichier_csv:str):
         arcs_ponderee=ponderation_branches(arcs, poids)
         graphs.append((noeuds,arcs_ponderee, poids_final))
     return graphs
-
-print(from_csv("test"))
