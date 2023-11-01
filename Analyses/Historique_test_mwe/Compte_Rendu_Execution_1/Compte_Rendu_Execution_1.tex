@@ -1,0 +1,60 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{tabvar}
+\usepackage{dot2texi}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+\title{\centering Peer Review and Evaluation Technique : Votre Projet. 
+}
+
+\author{PERT Maker}
+\renewcommand{\contentsname}{Table des Matières}
+\begin{document}
+\maketitle
+\tableofcontents{}
+\section{Votre Graphe de tâches}
+\begin{center}
+\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+\begin{dot2tex}[codeonly]
+
+    digraph G{ 
+   rankdir=LR 
+   D -> 1 [label="1"]; 
+   D -> 2 [label="1" color="red"]; 
+   1 -> 3 [label="10"]; 
+   2 -> 3 [label="1" color="red"]; 
+   3 -> 4 [label="1" color="red"]; 
+   4 -> F [label="1" color="red"]; 
+   } 
+\end{dot2tex}
+\end{tikzpicture}
+\end{center}
+\section{Analyse de votre projet}
+Votre projet possède un temps incompressible de 64 jours.
+    Il s'agit de la durée totale du \textcolor{red}{chemin critique}.
+    Pour terminer le projet dans ces délais, les durées de toutes les tâches parallèles au tâches critiques doivent pouvoir être réduites
+    à la même durée que celle des tâches critiques, et aucune tâche ne doit prendre du retard.\subsection{Dates de référence pour chaque tâche}Commencons par le plus important. Chaque tâche du chemin critique ne doit pas prendre de
+    retard, car cela entrainerait un retard global du projet.
+    Chaque tâche possède trois dates de référence : La date de début au plus tôt,
+    fin au plus tôt, fin au plus tard.
+    Voici le tableau récapitulatif des dates de référence pour votre projet :\newline 
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+        \hline
+        \multicolumn{4}{|c|}{Dates de références} \\
+        \hline 
+        Tâche&Début au plus tôt&Fin au plus tôt&Fin au plus tard \\ 
+        \hline 
+ D&T0+0&T0+1&T0+1 \\ 
+ 1&T0+1&T0+11&T0+11 \\ 
+ 2&T0+1&T0+2&T0+2 \\ 
+ 3&T0+2&T0+3&T0+12 \\ 
+ 4&T0+3&T0+4&T0+13 \\ 
+ F&T0+4&T0+64&T0+73 \\ 
+\hline
+    \end{tabular} 
+\end{document}

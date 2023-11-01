@@ -1,0 +1,7 @@
+"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
+"D","Tache de debut","1 jour",,,,
+"1","Tache 2","10 jour","D",,,
+"2","Tache 3","1 jour","D",,,
+"3","Tache 4","1 jour","1 2",,,
+"4","5","1 jour","3",,,
+"F","Tache de fin","2 mois","4",,,

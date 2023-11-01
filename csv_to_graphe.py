@@ -6,13 +6,14 @@ class UniteError(Exception):
     pass
 
 def from_csv(nom_fichier_csv: str)->list:
-    """Programme qui ouvre un fichier csv et qui le tranforme en liste de liste de mot
+    """Ouvre un fichier csv et le traduit en liste imbriquée.
+    Le fichier est découpé en lignes, et chaque ligne est une liste, contenants ses mots."
 
     Args:
-        nom_fichier_csv (str): Nom du fichier à utiliser
+        nom_fichier_csv (str): nom du fichier à utiliser
 
     Returns:
-        list: Liste ou chaque terme est une liste qui correspond à une ligne et chaque terme de cette liste est un mot de la ligne
+        list
     """
     with open(nom_fichier_csv + ".csv" , 'r', encoding="utf−8" ) as fichier_csv:
         lecture_fichier_csv =csv.reader(fichier_csv, delimiter= "," ,quoting=csv.QUOTE_ALL)
@@ -22,12 +23,10 @@ def from_csv(nom_fichier_csv: str)->list:
         return l
 
 def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,list]:
-    """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe 
-    et ses différentes arrêtes ainsi que leur pondéraation
+    """Traite l'information d'une liste (output de from_csv). Renvoie les noeuds,arcs et poids des noeuds
 
     Args:
-        liste_informations (list): la liste des lignes d'un fichier
-        n_suivi: (int or None): Le numéro du suivi auquels on s'interresse. (None si on s'interesse qu'a la duree initiale)
+        liste_informations (list): la liste des lignes d'un fichier csv
 
     Returns:
         tuple: 
@@ -61,14 +60,13 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
     return noeuds, arcs, poids, poids_final
 
 def conversion_unite(duree_tache):
-    """Fonction qui convertie un str d'une duree temporelle et qui le convertir en int qui correspond au nombre de jour 
-    que représente cette duree
-    La fonction peut raise une UniteError si l'unite de la duree n'est pas connue
+    """Convertit toutes les unités de temps en jours. On suppose 1 mois=30 jours.
+
     Args:
-        duree_tache (str): la duree temporelle avec les unités (mois/annee/semaine)
+        duree_tache (str): la duree avec les unités (jours/mois/annee/semaine)
 
     Returns:
-        int: le nombre de jour qui correspond a la duree
+        int: la durée en jours.
     """
     valeur=float(duree_tache.split()[0]) #La valeur est le premier terme de la duree 
     unite=duree_tache.split()[1] #L'unité est le second terme de la duree 
@@ -86,17 +84,15 @@ def conversion_unite(duree_tache):
 
 
 def ponderation_branches(arcs, poids)->set:
-    """Fonction qui associe les branches et les poids de ces branches
+    """Pour réaliser un graphe à partir de l'output de traitement_information, associe chaque
+    voisin d'un noeud donné par un arc du poids du noeud donné. 
 
     Args:
         arcs (set): l'ensemble des branches
-        poids (list): la liste des poids
-            tuples:
-                str: Le nom du noeud
-                int: Le poid du noeud
+        poids (_type_): l'ensemble des poids
     
     Returns:
-        set: l'ensemble des arcs ponderees
+        set: l'ensemble des arcs ponderés
     """
     arcs_ponderes=set() #L'ensemble des arcs ponderees
     for arc in arcs: #Pour chaque arcs
@@ -104,27 +100,28 @@ def ponderation_branches(arcs, poids)->set:
         for p in poids: #Pour chaque poids
             if pre_noeud==p[0]: #Si le noeud initial de l'arc est le meme que ce noeud ponderee
                 poids_arc=p[1] #Alors le poids de de cet arc est egal au poids du noeud initial
-        arcs_ponderes.add((arc[0], arc[1], poids_arc)) #On rajoute au set des arcs ponderres l'arc avec son poids 
+        arcs_ponderes.add((arc[0], arc[1], poids_arc)) #On rajoute au set des arcs ponderés l'arc avec son poids 
     return arcs_ponderes
 
 def csv_to_graph(nom_fichier_csv:str):
-    """Fonction qui convertie un fichier CSV en graphe pondérée
+    """A partir d'un nom de fichier csv, renvoie les ensembles de définitions des graphes de tâches
+    associés à l'analyse initiale, et chaque compte rendu d'éxécution du fichier.
 
     Args:
-        nom_fichier_csv (str): Nom du fichier à convertir
+        nom_fichier_csv (str): Nom du fichier csv à convertir
 
     Returns:
-        list: les graphes pour chaque suivi
+        list: Liste imbriquées des ensembles de définitions des graphes de chaque compte rendu d'éxécution du fichier.
             tuple:
                 list: la liste des noeuds
-                set: l'ensemble des arcs ponderres
-                int: le poids final de la tache qui n'est donc sur aucun arc
+                set: l'ensemble des arcs pondérés
+                int: le poids final de la tâche qui n'est donc sur aucun arc
     """
     graphs=[] #La liste des graphes
-    for n_suivi in [None,0,1,2]: #Pour chaque suivi
-        liste_csv=from_csv(nom_fichier_csv) #On converit le fichier en liste
-        liste_csv.pop(0) #On en lève le premier terme de la liste qui correspond au indication sur le fichier
-        noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On reccupère les différentes information
-        arcs_ponderee=ponderation_branches(arcs, poids) #On créer les arcs ponderes à partir des arcs et des poids
-        graphs.append((noeuds,arcs_ponderee, poids_final))  #On créer un tuple aves toutes les informations necessaires à créer un graphes ponderee 
+    for n_suivi in [None,0,1,2]: #Pour chaque cr d'éxécution
+        liste_csv=from_csv(nom_fichier_csv) #On convertit le fichier en liste
+        liste_csv.pop(0) #On enlève le premier terme de la liste qui correspond au indication sur le fichier
+        noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On récupère les différentes information
+        arcs_ponderee=ponderation_branches(arcs, poids) #On crée les arcs ponderes à partir des arcs et des poids
+        graphs.append((noeuds,arcs_ponderee, poids_final))  #On crée un tuple aves toutes les informations necessaires à créer un graphe ponderé. 
     return graphs
