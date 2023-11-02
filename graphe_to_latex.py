@@ -1,7 +1,7 @@
 from Graphes import*
 
 #Traduction d'un graphe en LaTeX
-def graphe_to_tex(g: DiGraphe,chemin_critique: list=[])->str:
+def graphe_to_latex(g: DiGraphe,chemin_critique: list=[])->str:
     """Donne l'écriture en langage dot d'un graphe de tâches de la classe DiGraphe.
     Colore aussi en rouge les chemins critiques donnés.
 

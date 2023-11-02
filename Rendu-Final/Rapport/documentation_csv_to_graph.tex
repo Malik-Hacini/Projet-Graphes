@@ -1,0 +1,432 @@
+\documentclass{article}
+\usepackage{graphicx} % Required for inserting images
+\usepackage{pythonhighlight}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+\usepackage{tabvar}
+\geometry{hmargin=2.2cm,vmargin=1.5cm}
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{dot2texi}
+
+\title{Ratio}
+\author{Timothe Boyer}
+\date{November 2023}
+
+\begin{document}
+
+\maketitle
+
+\section{CSV to graphs}
+Le but de ce sous programme est de transformer un fichier csv en donnees exploitable pour former un graphe ponderre, c'est à dire en liste de noeud de un ensemble de branches que l'on va ponderer avec la duree de chaque tache.
+
+\subsection{From CSV}
+Le but de ce programme est de lire un fichier CSV donner en entree est de le transformer en liste de Liste ou chaque terme est une liste qui correspond à une ligne et chaque terme de cette liste est un mot de la ligne.
+\\
+Ce programme nous a ete donner dans le sujet et on apporte aucune modification à celui-ci.
+\begin{python}
+def from_csv(nom_fichier_csv: str)->list:
+    """Programme qui ouvre un fichier csv et qui le tranforme en liste de liste de mot
+
+    Args:
+        nom_fichier_csv (str): Nom du fichier a utiliser
+
+    Returns:
+        list: Liste ou chaque terme est une liste qui correspond a une ligne et chaque terme de cette liste est un mot de la ligne
+    """
+    with open(nom_fichier_csv + ".csv" , 'r', encoding="utf-8" ) as fichier_csv:
+        lecture_fichier_csv =csv.reader(fichier_csv, delimiter= "," ,quoting=csv.QUOTE_ALL)
+        l=[]
+        for r in lecture_fichier_csv:
+            l.append(r)
+        return l
+\end{python}
+
+
+\subsection{Traitement des informations}
+L'objectif de ce sous-programme est de sortir les informations necessaire à faire un graphe pondere de la liste obtenue apres l'execution du sous programme from CSV.
+\\
+Ainsi les informations que l'on veut extraire sont:
+\begin{itemize}
+    \item La liste des differents noeuds, c'est à dire la liste des differentes taches
+    \item L'ensemble des arcs, c'est à dire un ensemble de tuple de 2 elements (taches) ou la secondes a comme prerequis la premiere.
+    \item la liste des taches associees à leur duree, c'est à dire une liste de tupples de 2 elements où le premier est la tache et le second sa duree.
+\end{itemize}
+
+\subsubsection{Conversion des unites}
+On remarque que lorsque l'on associe une tache à sa duree on a un probleme. En effet dans un fichier CSV lorsqu'on indique la duree d'une tache on ecrit un nombre suivi d'une unite.
+\\
+Ainsi l'objectif du sous-programme conversion unite est de renvoyer le nombre de jours correspondant à la duree donnee en entree. De plus le programme leve une exeption (UniteError) si l'unite ne correspond à aucune que l'on à implemente c'est à dire si ce n'est pas en jours, semaines, mois ou annees.
+
+\begin{python}
+class UniteError(Exception):
+    pass
+
+    
+def conversion_unite(duree_tache):
+    """Fonction qui convertie un str d'une duree temporelle et qui le convertir en int qui correspond au nombre de jour que represente cette duree
+    La fonction peut raise une UniteError si l'unite de la duree n'est pas connue
+    Args:
+        duree_tache (str): la duree temporelle avec les unites (mois/annee/semaine)
+
+    Returns:
+        int: le nombre de jour qui correspond a la duree
+    """
+    valeur=float(duree_tache.split()[0]) #La valeur est le premier terme de la duree 
+    unite=duree_tache.split()[1] #L'unite est le second terme de la duree 
+    if unite=='mois': #Si l'unite est en mois
+        valeur*=30 #Alors on multiplie par 30 la valeur car il y a 30 jour dans un mois 
+    elif unite=='annees' or unite=='annee':  #Si l'unite est en annee
+        valeur*=365 #Alors on multiplie par 365 la valeur car il y a 365 jours dans un mois 
+    elif unite=='semaines' or unite=='semaine': #Si l'unite est en semaine
+        valeur*=7  #Alors on multiplie par 7 la valeur car il y a 7 jours dans un mois 
+    elif unite=='jours' or unite=='jour': #Si l'unite est en jour
+        valeur=valeur #Alors on ne change rien
+    else: #Sinon 
+        raise UniteError #On souleve une erreur d'unite
+    return valeur
+\end{python}
+
+\subsubsection{1er Version du traitement des informations}
+Maintenant que l'on a implemente la convertion des unites on peut implementer le sous programme de traitement d'informations dont le but à ete explicite plus tôt.
+
+\begin{python}
+def traitement_information(liste_informations)->tuple[list,set,list]:
+    """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe et ses differentes arretes ainsi que leur ponderation
+
+    Args:
+        liste_informations (list): la liste des lignes d'un fichier
+
+    Returns:
+        tuple: 
+            list: la liste des differents noeuds du graphes 
+            set: l'ensemble des arcs du graphe
+            list: la liste des poids de chaque noeud
+                tuple: 
+                    str: le nom du noeud
+                    int: son poids
+    """
+    #On creer les differentes variable que l'on retournera
+    noeuds=[]
+    arcs=set()
+    poids=[]
+    for ligne in liste_informations: #pour chaque ligne du fichier
+        noeud=ligne[0] #le noeud (tache) est la premiere case de la ligne
+        noeuds.append(noeud) #la liste de noeuds prend le noeud
+        duree_tache=ligne[2] #la duree de cette tache est la troisieme case de la ligne
+        for i in range(4,7): #pour chaque colonne de suivi
+            if ligne[i]!='': #si il y a un suivi
+                duree_tache=ligne[i] #la duree de la tache est la duree dans la derniere colonne de suivi
+        duree_tache=conversion_unite(duree_tache) #on convertit la duree qui est une valeur suivi d'une unite en jours
+        poids.append((noeud,duree_tache)) 
+        if ligne[3]!='': #Si la tache a une tache precedentes 
+            pre_noeuds=ligne[3] #les pre-taches sont contenus dabs la 4 case de la ligne
+            for pre_noeud in pre_noeuds.split(): #pour chaque pre-taches
+                arcs.add((pre_noeud, noeud)) #la pre-tache est reliee a la tache
+    return noeuds, arcs, poids
+\end{python}
+
+
+\subsubsection{2e Version}
+Par la suite de notre projet on a été obligé de modifier celui-ci. 
+\begin{itemize}
+    \item Tout d'abord comme nous avons choisi de ponderer les arcs du graphes et non les noeuds, le poids de la tache finale ne se trouvait pas sur le graphe. Nous avons donc décidé d'adopter une notation particuliere pour la tache finale ('F') et de créer une variable poids de la tache finale (poids final) et de le mettre à part. Ainsi la nouvelle version du programme Traitement des inforrmation comprend cet implémentation.
+
+    \item De plus nous avons décidé de faire 3 graphes différents, un pour chaque suivi. Ainsi il à falu modifier le programme pour qu'il puisse se limiter à un suivi choisi parmis Duree, S0, S1 ou S2. Ainsi la fonction prend maintenant en paramètre le numéro du suivi au quel on s'interesse (n suivi).
+\end{itemize}
+
+\begin{python}
+def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,list]:
+    """Fonction qui prend la listes des lignes du fichier csv et qui ressort la liste des noeuds du graphe 
+    et ses differentes arretes ainsi que leur ponderation
+
+    Args:
+        liste_informations (list): la liste des lignes d'un fichier
+        n_suivi: (int or None): Le numero du suivi auquels on s'interresse. (None si on s'interesse qu'a la duree initiale)
+
+    Returns:
+        tuple: 
+            list: la liste des differents noeuds du graphes 
+            set: l'ensemble des arcs du graphe
+            list: la liste des poids de chaque noeud
+                tuple: 
+                    str: le nom du noeud
+                    int: son poids
+            int: le poids final
+    """
+    noeuds=[] #La liste des noeuds
+    arcs=set() #L'ensemble des arcs
+    poids=[] #La liste des poids
+    for ligne in liste_informations: #Pour chaque ligne, donc chaque noeud
+        noeud=ligne[0] #On rajoute le noeud a la liste
+        noeuds.append(noeud)
+        duree_tache=ligne[2] #La duree de la tache est initialement la colonne duree
+        if n_suivi!=None: #Si on s'interesse a un suivi
+            for i in range(4,5+n_suivi): #Pour chaque colonne de suivi auxquelles on s'interresse
+                if ligne[i]!='': #Si le suivi existe
+                    duree_tache=ligne[i] #La duree de la tache est celle du suivi
+        duree_tache=conversion_unite(duree_tache) #On convertit la duree qui etait une valeur suivi d'une unite temporelle en nombre de jour
+        poids.append((noeud,duree_tache)) #On associe le noeud a son poids et on le rajoute dans la liste des poids
+        if ligne[3]!='': #Si la tache a un prerequis
+            pre_noeuds=ligne[3] #La liste des prerequis
+            for pre_noeud in pre_noeuds.split(): #Pour chaque prerequis
+                arcs.add((pre_noeud, noeud)) #On ajoute l'arc prerequis -> noeud
+        if noeud=='F': #Si la tache est la tache finale
+            poids_final=duree_tache #Alors on met en evidence le poids final
+        
+    return noeuds, arcs, poids, poids_final
+\end{python}
+
+\subsection{Pondération des Arcs}
+Après avoir traité les infomation du fichier CSV grâce au programme precedent on se retrouve avec les arcs et les poids à part. Or notre but est de ponderer les arcs. Ainsi il nous faut un sous programme dont le but est d'associer à chaque arc le son poids. C'est à dire la duree de la tache prerequise dans l'arc.
+\\
+Ainsi notre programme prendra en entree:
+\begin{itemize}
+    \item L'ensemble d'arcs réccupérer après le traitements des informations
+    
+    \item La liste des poids, donc de tuples dont le premier terme est la tache et le second la durée de la tache
+\end{itemize}
+\\
+\begin{python}
+def ponderation_branches(arcs, poids)->set:
+    """Fonction qui associe les branches et les poids de ces branches
+
+    Args:
+        arcs (set): l'ensemble des branches
+        poids (list): la liste des poids
+            tuples:
+                str: Le nom du noeud
+                int: Le poid du noeud
+    
+    Returns:
+        set: l'ensemble des arcs ponderees
+    """
+    arcs_ponderes=set() #L'ensemble des arcs ponderees
+    for arc in arcs: #Pour chaque arcs
+        pre_noeud=arc[0] #Le noeud iitial de l'arc
+        for p in poids: #Pour chaque poids
+            if pre_noeud==p[0]: #Si le noeud initial de l'arc est le meme que ce noeud ponderee
+                poids_arc=p[1] #Alors le poids de de cet arc est egal au poids du noeud initial
+        arcs_ponderes.add((arc[0], arc[1], poids_arc)) #On rajoute au set des arcs ponderres l'arc avec son poids 
+    return arcs_ponderes
+\end{python}
+
+\subsection{Programme Final}
+Maintenant qu'on dispose de tous les sous programmes necessaire. On peut creer un sous programme qui en utilisant les fonctions precedaments creer converti un fichier CVS en donnees suiffisante pour creer un graphe pondere. C'est à dire une liste de noeuds, l'ensemble des arcs ponderres et la duree de la tache finale. 
+\\
+\subsubsection{1er Version}
+Cette premiere version du programme utilisait la premiere version du traitement des informations et ainsi ne renvoyait qu'une unique fois les informations permettant de faire un graphe en prenant en compte le suivi final.
+\\
+Ce programme ne prend pas en compte non plus le poids de la tache finale
+\begin{python}
+def csv_to_graph(nom_fichier_csv:str):
+    """Fonction qui convertie un fichier CSV en graphe ponderee
+
+    Args:
+        nom_fichier_csv (str): Nom du fichier a convertir
+
+    Returns:
+        list: les graphes pour chaque suivi
+            tuple:
+                list: la liste des noeuds
+                set: l'ensemble des arcs ponderres
+                int: le poids final de la tache qui n'est donc sur aucun arc
+    """
+    liste_csv=from_csv(nom_fichier_csv) #On converit le fichier en liste
+    liste_csv.pop(0) #On en leve le premier terme de la liste qui correspond au indication sur le fichier
+    noeuds, arcs, poids= traitement_information(liste_csv) #On reccupere les differentes information
+    arcs_ponderes=ponderation_branches(arcs, poids) #On creer les arcs ponderes a partir des arcs et des poids
+    return noeuds, arcs_ponderes
+\end{python}
+
+\subsubsection{2e Version}
+
+Cette version du programme va donc renvoyer une liste de tuples contenant les informations pour faire les graphes ponderes pour chaque suivi en incluant aussi le poids de la tache finale.
+
+\begin{python}
+def csv_to_graph(nom_fichier_csv:str):
+    """Fonction qui convertie un fichier CSV en graphe ponderee
+
+    Args:
+        nom_fichier_csv (str): Nom du fichier a convertir
+
+    Returns:
+        list: les graphes pour chaque suivi
+            tuple:
+                list: la liste des noeuds
+                set: l'ensemble des arcs ponderres
+                int: le poids final de la tache qui n'est donc sur aucun arc
+    """
+    graphs=[] #La liste des graphes
+    for n_suivi in [None,0,1,2]: #Pour chaque suivi
+        liste_csv=from_csv(nom_fichier_csv) #On convertit le fichier en liste
+        liste_csv.pop(0) #On en leve le premier terme de la liste qui correspond aux indications sur le fichier
+        noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On reccupere les differentes information
+        arcs_ponderee=ponderation_branches(arcs, poids) #On creer les arcs ponderes a partir des arcs et des poids
+        graphs.append((noeuds,arcs_ponderee, poids_final))  #On creer un tuple aves toutes les informations necessaires a creer un graphes ponderee 
+    return graphs
+
+\end{python}
+
+
+\subsection{Test}
+Nous avons realise quelques tests sur les differents programme qui constituent cette partie. Nous avons considerer qu'il nn'etait pas necessaire de realiser des test sur la fonction from csv etant donner qu'elle nous a ete donnee.
+
+\subsubsection{Tests Conversion Unite}
+On teste d'abord le sous programme de convertion des unité.
+\begin{itemize}
+    \item Dans un premier temps on va tester les differentes unites implementes.
+    \item  Ensuite nous allons tester si le raise de l'exeption UniteError marche bien
+\end{itemize}
+\begin{python}
+def test_conversion_unite():
+    #On teste d'abord les differentes unite possible
+    assert conversion_unite('3 jours')==3
+    assert conversion_unite('1 jour')==1
+    assert conversion_unite('3 semaines')==21
+    assert conversion_unite('2 mois')==60
+    assert conversion_unite('1 annee')==365
+    #Puis
+    try: #On essaie 
+        valeur=conversion_unite("1 banane") #de convertir une unite non implementer
+    except UniteError: #Si l'erreur est leve
+        assert 0==0 #On teste quelque chose de vraie
+    else: #Sinon 
+        assert 1==0 #On teste quelque chose de faux
+\end{python}
+
+\subsubsection{Tests Pondération des branches}
+Pour ce tests nous avons d'abord tester de ponderer un unique arc puis nous avons realiser le test sur le graphe très simple suivant:
+
+\\
+\begin{center}
+\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+\begin{dot2tex}[codeonly]
+
+    digraph G{ 
+    rankdir=LR
+   0 -> 1 [label="2"];
+   0 -> 2 [label="2"];
+   2 -> 3 [label="5"];
+   } 
+\end{dot2tex}
+\end{tikzpicture}
+\end{center}
+
+
+\begin{python}
+def test_ponderation_branche():
+    #On teste de ponderer un unique arcs
+    assert ponderation_branches({(0,1)},[(0,30)])=={(0,1,30)}
+    #On teste de ponderer plusieurs arcs, un graphe complet
+    assert ponderation_branches({(0,1),(0,2),(2,3)},[(0,2),(1,3),(2,5),(3,1)])=={(0,1,2),(0,2,2),(2,3,5)}
+\end{python}
+
+\subsubsection{Test Traitement des informations}
+Nous allons maintenant tester le sous programme. Celui-ci fait appel a la convertion des unites c'est pourquoi on à tester cette fonction avant le traitement des informations.
+\\
+On testera dirrectement la seconde verson du programme sans se soucier de la premiere. Pour tester cette fonction on crera des CSV que l'on onvertira à l'aide du from csv.
+\\
+Pour ce test on testera d'abord plus en détail si la fonction utilise bien le suivi de la manière dont on l'a defini plus tôt. Pour cela on va completer toutes les colonnes de chaque suivis de manière à avoir le tableau suivant. On realisera le test de la fonction pour tous les suivis possible.
+
+\\
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        "Identificateur" & "Description" & "Duree" & "Precedente(s)" & "S0" & "S1" & "S2" \\ \hline
+        D & 1er tache & 2 mois & ~ & 1 mois & 2 semaines & 1 semaine \\ \hline
+        F & tache finale & 1 mois & D & 3 semaines & 2 semaines & 1 semaines \\ \hline
+    \end{tabular}
+\end{table}
+\\
+Ensuite on realise le test sur un tableau plus complexe mais sans s'interreser aux suivis
+\\
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        "Identificateur" & "Description" & "Duree" & "Precedente(s)" & "S0" & "S1" & "S2" \\ \hline
+        D & Tache de debut & 2 mois & ~ & ~ & ~ & ~ \\ \hline
+        I1 & Tache intermediaire 1 & 1 mois & D & ~ & ~ & ~ \\ \hline
+        I2 & Tache intermediaire 2 & 3 mois & D & ~ & ~ & ~ \\ \hline
+        I3 & Tache intermediaire 3 & 2 mois & D & ~ & ~ & ~ \\ \hline
+        F & Tache de fin' & 2 mois & I1 I2 I3 & ~ & ~ & ~ \\ \hline
+    \end{tabular}
+\end{table}
+\\
+Ainsi si le test des suivi marche et que le test du tableau plus complexe marche. On en déduira que les suivi marche peut importe la complexité du tableau.
+
+\\
+\begin{python}
+def test_traitement_information():
+    #Test sur un tableau simple en utilisant tous les sivis
+    l=[['D','1er tache','2 mois','','1 mois','2 semaines','1 semaine'],['F','tache finale','1 mois','D','3 semaines','2 semaines','1 semaines']]
+    assert traitement_information(l)==(['D','F'],{('D','F')},[('D',60),('F',30)],30)
+    assert traitement_information(l,0)==(['D','F'],{('D','F')},[('D',30),('F',21)],21)
+    assert traitement_information(l,1)==(['D','F'],{('D','F')},[('D',14),('F',14)],14)
+    assert traitement_information(l,2)==(['D','F'],{('D','F')},[('D',7),('F',7)],7)
+
+    #Test sur une organisation plus complexe mais sans suivi
+    l=[['D', 'Tache de debut', '2 mois', '', '', '', ''], ['I1', 'Tache intermediaire 1', '1 mois', 'D', '', '', ''], ['I2', 'Tache intermediaire 2', '3 mois', 'D', '', '', ''], ['I3', 'Tache intermediaire 3', '2 mois', 'D', '', '', ''], ['F', 'Tache de fin', '2 mois', 'I1 I2 I3', '', '', '']]
+    assert traitement_information(l)==(['D','I1','I2','I3','F'],{('D','I1'),('D','I2'),('D','I3'),('I1','F'),('I2','F'),('I3','F')},[('D',60),('I1',30),('I2',90),('I3',60),('F',60)],60)
+\end{python}
+
+\subsection{Test CSV to graph}
+Enfin on realise un test sur le programme CSV to Graph. Comme ce sous programme réutilise tous les sous programme precedament teste on ne realise qu'un unique test qui assez complexe.
+\\
+Pour cela on creer d'abord un fichier test\_csv\_to\_graph.csv. Il se présente de la manière suivante:
+
+\\
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|}
+    \hline
+        Identificateur & Description & Duree & Precedente(s) & S0 & S1 & S2 \\ \hline
+        D & Départ & 1 mois & ~ & 2 mois & 3 mois & ~ \\ \hline
+        I1 & Inter1 & 2 semaines & D & 3 semaines & ~ & 5 semaines \\ \hline
+        I2 & Inter2 & 1 jour & D & 2 jours & 3 jours & ~ \\ \hline
+        F & Final & 1 jour & I1 I2 & ~ & 3 jours & 4 jours \\ \hline
+    \end{tabular}
+\end{table}
+
+\\
+Enfin il nous reste plus qu'a tester le programme
+\\
+\begin{python}
+def test_csv_to_graph():
+    nom_test="test_csv_to_graph"
+    output=[(['D', 'I1', 'I2', 'F'], {('D', 'I1', 30.0), ('D', 'I2', 30.0), ('I1', 'F', 14.0), ('I2', 'F', 1.0)}, 1.0),#Sans suivi
+(['D', 'I1', 'I2', 'F'], {('D', 'I1', 60.0), ('D', 'I2', 60.0), ('I1', 'F', 21.0), ('I2', 'F', 2.0)}, 1.0),#S0
+(['D', 'I1', 'I2', 'F'], {('D', 'I1', 90.0), ('D', 'I2', 90.0), ('I1', 'F', 21.0), ('I2', 'F', 3.0)}, 3.0),#S1
+(['D', 'I1', 'I2', 'F'], {('D', 'I1', 90.0), ('D', 'I2', 90.0), ('I1', 'F', 35.0), ('I2', 'F', 3.0)}, 4.0)]#S2
+    assert csv_to_graph(f"Projets\\{nom_test}")==output
+\end{python}
+
+\subsubsection{Test Global et resulat}
+Ainsi au final notre programme de test reuni les testsecrit precedents on pense avant à imorter pytest, coverage et csv\_to\_graph
+\\
+\begin{python}
+import pytest
+import coverage
+from csv_to_graphe import*
+\end{python}
+\\
+Les resultats de pytest sont:
+\\
+\begin{center}
+\includegraphics{pytest_csv_to_graph.png}
+\end{center}
+
+
+\\
+Les resultats de coverage sont:
+\\
+\begin{center}
+\includegraphics{coverage_csv_to_graph.png}
+\end{center}
+
+Ainsi les test sont concluants. Et donc la partie CSV to Graph fonctionne correctement.
+\end{document}

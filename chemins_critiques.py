@@ -1,6 +1,5 @@
 from Graphes import*
 import copy
-import os
 """
 def noeud_distance_mini(distances: dict,traites: list)->int:
     Renvoie un noeud non traité dont la valeur dans

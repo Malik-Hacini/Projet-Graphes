@@ -1,5 +1,6 @@
 import sys
 import time
+import os
 from Graphes import*
 from csv_to_graphe import*
 from csv_verifier import*
@@ -90,7 +91,7 @@ for cr_exec in infos_projet:
     cycle=cycle_detector(graphe_taches)
     if cycle:
         #Si le graphe de tâches du projet est cyclique, l'analyse ne peut pas poursuivre.
-        output+=graphe_to_tex(graphe_taches)
+        output+=graphe_to_latex(graphe_taches)
         output+="\section{Analyse de votre projet}\n"
         output+="Votre projet est infaisable, l'ordonnancement des taches contient une boucle.\n"
         print("Analyse du graphe terminée.")
@@ -100,7 +101,7 @@ for cr_exec in infos_projet:
         dates=dates_tot_tard(graphe_taches,duree_finale)
         print("Analyse du graphe terminée.")
         
-        output+=graphe_to_tex(graphe_taches,chemin)
+        output+=graphe_to_latex(graphe_taches,chemin)
         output+="\section{Analyse de votre projet}\n"
         
     
