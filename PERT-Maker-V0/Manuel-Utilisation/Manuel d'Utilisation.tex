@@ -1,1 +1,121 @@
-#A REDIGER
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage{geometry}
+\usepackage{tabvar}
+\usepackage{fontspec}
+\usepackage{dot2texi}
+\usepackage{hyperref}
+\usepackage{minted}
+
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+
+\title{\centering PERT Maker: Manuel d'utilisation}
+
+\author{BOYER Timothé, GRASSET Emilien, HACINI Malik}
+\date{9 Novembre 2023}
+\renewcommand{\contentsname}{Table des Matières}
+
+\renewcommand{\theFancyVerbLine}{
+    \sffamily\textcolor[rgb]{0.5,0.5,0.5}{\scriptsize\arabic{FancyVerbLine}}}
+    
+    
+\begin{document}
+    
+    
+\csundef{listing}\csundef{endlisting}
+\csundef{listing*}\csundef{endlisting*}\maketitle
+\tableofcontents{}
+\newpage
+
+\section{Introduction au PERT-MAKER}
+\subsection{La méthode PERT}
+PERT Maker est une solution logicielle d'utilisation de la méthode PERT de gestion de projet.
+La méthode PERT fournit une méthode et des moyens pratiques pour décrire,
+représenter, analyser et suivre de manière logique les tâches et le réseau des tâches à réaliser dans le cadre d'une 
+action à entreprendre ou à suivre.
+Un graphe de dépendances est utilisé. 
+
+Pour chaque tâche, sont indiquées une date de début et de fin au plus tôt et au plus tard. 
+Le graphe permet aussi de déterminer le chemin critique qui conditionne la durée minimale du projet.
+Le but est de trouver la meilleure organisation possible pour qu'un projet soit terminé dans les délais, et d'identifier les tâches critiques, 
+c'est-à-dire les tâches qui ne doivent souffrir d'aucun retard sous peine de retarder l'ensemble du projet.
+(\href{https://fr.wikipedia.org/wiki/PERT}{Plus d'informations sur la méthode PERT})
+
+Cependant, tout ceci est fastidieux à faire à la main !
+
+
+\subsection{Objectif du PERT-MAKER}
+Heureusement, PERT Maker est là pour vous !
+PERT Maker réalise toutes ces étapes pour vous.
+
+
+L'application PERT-MAKER a pour objectif de faciliter la gestion de projet. En effet l'application améliore la compréhenson d'un fichier CSV en traitant les informations concernant votre projet contenut dans celui-ci.
+\\
+L'application exploite les informations sous plusieurs manières:
+\begin{itemize}
+    \item Création d'un graphe pour visualiser la dépendance des taches
+    \item Analyse de la faisabilité du projet
+    \item Visualisation des chemin(s) critique(s), c'est à dire des taches qui doivent être faite dans le temps indiqué sous peine de retarer tout le projet.
+    \item Visualiser l'historique du projet en analysant chaque suvis.
+\end{itemize}
+
+
+Vous devez donc suivre correctement ce manuel pour tirer le plein potentiel de PERT Maker !
+
+\section{Format du fichier}
+Le fichier de votre projet doit suivre plusieurs règles strictes pour être correctement analysé par PERT Maker.
+
+\subsection{Le format CSV}
+Votre fichier doit être au format CSV (Comma Separated Values)
+Il s'agit d'un format de fichier texte, ou les données sont séparées par des virgules.
+Il peut ensuite être vu sous forme tabulaire.
+Pour générer un fichier CSV, vous pouvez utiliser votre logiciel de tableur préféré :
+Microsoft Excel, Google Sheets,LibreOffice, OpenOffice Calc, tous sont capables d'importer
+et exporter des fichiers CSV.
+Il vous suffit de choisir l'option CSV lors de l'exportation (ou enregistrement) de votre fichier.
+
+
+\subsection{Caracteristique du fichier CSV pour PERT Maker}
+Pour être sur que l'application ne présente aucun problème lors de du traitement du fichier CSV il est important de vérifier que le fichier en question réponde présente ces caractéristique.
+\begin{itemize}
+    \item Les nformations sur une tache doivent être ecrite en ligne avec chaque informaions dans une case.
+    \item Le fichier doit comporter dans sa première lignes les informations à propos des colonnes. (les informations traités doivent se trouver sur les lignes dessous).
+    \item La première colonne correspond à l'abréviaion de la tache. C'est ce qui designera la tache dans le graphe. Il est donc important que plusieurs taches n'aient pas la même abréviaton.
+    \item La collone suivante correspond à la description de la tache, cela vous aidera à identifier à quoi correspond chaque abréviation sur le graphe si vous avez votre fichier CSV sous les yeux.
+    \item La troisième colonne doit elle contenir la duree initialement prévue pour la tache. Il est important de noter qu'une duree comporte une valeur numérique ainsi qu'une unité, les unités vaides pour notre applications étant jour, semaine, mois ou année.
+    \item La colonne suivante (4ème) contient les abréviations des taches qui précèdent la tache en question.
+    \item Enfin les colonnes suivantes seront les différents de votre projet (S0, S1, S2, ..., Sn). Il faut quand même que votre fichier CSV en contiennent au moins 3.
+    \item Il est nécéssaire que votre projet comporte une tache finale dont l'abréviation sera F
+\end{itemize}
+Une fois votre fichier créer au bon format avec les bonnes caractéristiques il est prêt à être exploité, mais il faut d'abord le placer au bon endroit.
+
+\subsection{Répertoire des fichiers}
+Pour que votre dichier puisse être exploité par l'application PERT Maker il doit être placer dans le sous-dossier Projets du dossier de l'application.
+
+
+Une fois votre fichier dans ce dossier vous êtes prêt à lancer l'applications !
+
+\section{Utilisaion de PERT Maker}
+\subsection{Lancement de l'application}
+Pour lancer l'application il suffit de lancer l'exécutable PERT-Maker-V1 présent dans le dossier de l'application. 
+\subsection{Générer le latex}
+Une fois l'application lancée ne fenêtre s'ouvre, il y est écrit la liste des ficher CSV qu'il est possible d'analyser.
+Si vous ne voyez pas votre fichier, assurez vous qu'il est bien au format CSV, et situé dans le dossier Projets.
+Il vous suffit ensuite d'écire le nom de votre fichier et de valider avec la touche entrée.
+
+Si vous fichier répond aux caractéristiques présentées et que votre projet est faisable, si il ne comportent pas des interdépendances ou des boucles de taches, alors plusieurs fichier latex seront crées correspondant à l'analyse du projet pour chacun des suivis, vous permettant ainsi de conserver l'historique du projet.
+
+
+Si le fichier ne répond pas aux caractéristiques alors vous resevrez un message d'erreur vous indiquant ce qui ne va pas et comment le corriger. De plus il faut noter que si votre projet est infasable alors cela vous sera indiqué par un message dans l'application.
+
+\section{Les fichier d'analyse}
+\subsection{Reccupérer les fichier d'analyse}
+Bon j'ai fait un programme qui convertit automatiquement le latex, supprime les fichiers chiants et ouvre automatiquement le pdf à toi de voir si on l'implémente au global. Du coup cette partie changera en foncion de si on l'implemente. 
+
+\subsection{}
+
+
+\end{document}

@@ -118,9 +118,10 @@ def csv_to_graph(nom_fichier_csv:str):
                 int: le poids final de la tâche qui n'est donc sur aucun arc
     """
     graphs=[] #La liste des graphes
-    for n_suivi in [None,0,1,2]: #Pour chaque cr d'éxécution
-        liste_csv=from_csv(nom_fichier_csv) #On convertit le fichier en liste
-        liste_csv.pop(0) #On enlève le premier terme de la liste qui correspond au indication sur le fichier
+    liste_csv=from_csv(nom_fichier_csv) #On convertit le fichier en liste
+    liste_csv.pop(0) #On enlève le premier terme de la liste qui correspond au indication sur le fichier
+    n_suivi_max=len(liste_csv[0])-4 #On calcule le nombre de suivi présnt dans le tableau
+    for n_suivi in [None]+list(range(0,n_suivi_max)): #Pour chaque cr d'éxécution
         noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On récupère les différentes information
         arcs_ponderee=ponderation_branches(arcs, poids) #On crée les arcs ponderes à partir des arcs et des poids
         graphs.append((noeuds,arcs_ponderee, poids_final))  #On crée un tuple aves toutes les informations necessaires à créer un graphe ponderé. 
