@@ -1,6 +1,6 @@
 import subprocess
 
-def latex_to_pdf(fichier_latex, systeme):
+def latex_to_pdf(latex_file, systeme):
     """fonction qui convertit un latex en pdf qui supprime les fichiers qu l'oon utiise pas qui ont été crée lors de 
     l'execution du latex et quiu ouvre le PDF  
 
@@ -30,4 +30,4 @@ def latex_to_pdf(fichier_latex, systeme):
         commande=="open"
         
     # Ouvrir le PDF avec le lecteur de PDF par défaut du système (Windows)
-    subprocess.call([commannde, pdf_file], shell=True) 
+    subprocess.call([commande, pdf_file], shell=True) 
