@@ -24,26 +24,14 @@
 
     digraph G{ 
    rankdir=LR 
-   D -> 1 [label="30" color="red"]; 
-   D -> 2 [label="30"]; 
-   1 -> 3 [label="7" color="red"]; 
-   1 -> 4 [label="7"]; 
-   2 -> 6 [label="1"]; 
-   3 -> 5 [label="1"]; 
-   3 -> 7 [label="1" color="red"]; 
-   3 -> 4 [label="1"]; 
-   4 -> 8 [label="50"]; 
-   5 -> F [label="60"]; 
-   6 -> 7 [label="14"]; 
-   7 -> 8 [label="7" color="red"]; 
-   8 -> 9 [label="10" color="red"]; 
-   9 -> F [label="5" color="red"]; 
+   D -> M [label="0" color="red"]; 
+   M -> F [label="5" color="red"]; 
    } 
 \end{dot2tex}
 \end{tikzpicture}
 \end{center}
 \section{Analyse de votre projet}
-Votre projet possède un temps incompressible de 120 jours.
+Votre projet possède un temps incompressible de 12 jours.
     Il s'agit de la durée totale du \textcolor{red}{chemin critique}.
     Pour terminer le projet dans ces délais, les durées de toutes les tâches parallèles au tâches critiques doivent pouvoir être réduites
     à la même durée que celle des tâches critiques, et aucune tâche ne doit prendre du retard.\subsection{Dates de référence pour chaque tâche}Commencons par le plus important. Chaque tâche du chemin critique ne doit pas prendre de
@@ -57,17 +45,9 @@ Votre projet possède un temps incompressible de 120 jours.
         \hline 
         Tâche&Début au plus tôt&Fin au plus tôt&Fin au plus tard \\ 
         \hline 
- D&T0+0&T0+30&T0+30 \\ 
- 1&T0+30&T0+37&T0+37 \\ 
- 2&T0+30&T0+31&T0+31 \\ 
- 3&T0+37&T0+38&T0+38 \\ 
- 4&T0+37&T0+87&T0+88 \\ 
- 5&T0+38&T0+98&T0+98 \\ 
- 6&T0+31&T0+45&T0+45 \\ 
- 7&T0+38&T0+45&T0+52 \\ 
- 8&T0+45&T0+55&T0+98 \\ 
- 9&T0+55&T0+60&T0+103 \\ 
- F&T0+60&T0+120&T0+163 \\ 
+ D&T0+0&T0+0&T0+0 \\ 
+ M&T0+0&T0+5&T0+5 \\ 
+ F&T0+5&T0+12&T0+12 \\ 
 \hline
     \end{tabular} 
 \end{document}

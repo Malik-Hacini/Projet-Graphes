@@ -33,7 +33,6 @@ start_document="""\\PassOptionsToPackage{dvipsnames}{xcolor}
 \\maketitle
 \\tableofcontents{}\n"""
 
-i=0
 
 #On extrait et affiche les fichiers projets disponibles
 liste_fichiers=[fichier for fichier in os.listdir("./Projets") if os.path.splitext(fichier)[-1].lower()==".csv"]
@@ -52,7 +51,7 @@ print("Si vous ne voyez pas votre fichier, veuillez vérifier qu'il est bien au 
 #On demande le nom du projet à l'utilisateur et on vérifie le format.
 fichier_valide=False
 while not fichier_valide:
-    nom_projet=input("Veuillez entrer le nom du fichier du projet à analyser ? : \n")
+    nom_projet=input("Veuillez entrer le nom du fichier du projet à analyser : \n")
     try:
         fichier_projet=from_csv(f"Projets\\{nom_projet}")
     except OSError:
@@ -68,14 +67,54 @@ while not fichier_valide:
         
 #Une fois le fichier vérifié, on en extrait les informations.
 infos_projet=csv_to_graph(f"Projets\\{nom_projet}")
+nombre_analyses=len(infos_projet)
+if nombre_analyses!=1:#Si des suivis sont remplis, on demande à l'utilisateur quoi analyser
+    print("Voici les analyses possibles:")
+    for i in range(nombre_analyses): #On affiche les analyses possibles du projet à l'utilisateur
+        if i==0:
+            print("0 - Analyse Initiale")
+        else:
+            print(f"{i} - Compte Rendu {i}")
 
-#On analyse le fichier.
-for cr_exec in infos_projet:
+    choix_correct=False
+    while not choix_correct: #On vérifie le choix, et on renvoie l'erreur adaptée si besoin.
+        choix_correct=True
+        
+        choix=input("Que séléctionnez vous d'analyser ? Entrez tout les choix séparés d'un espace (ex: 0 1)\n").split()
+        if choix==[]:
+            print("Séléction vide.")
+            choix_correct=False
+            continue
+        elif len(choix)>nombre_analyses:
+            print("Séléction trop grande.")
+            choix_correct=False
+            continue
+        for i in choix:
+            try:
+                assert len(i)==1 #Pour rendre "000" invalide, car int(000)=0
+                i=int(i)
+            except:
+                print(f"{i} n'est pas un entier valide.")
+                choix_correct=False
+                continue
+            if i not in list(range(nombre_analyses)):
+                print(f"{i} n'est pas valide.")
+                choix_correct=False
+                
+    infos_a_analyser=[infos_projet[int(i)] for i in choix] 
+       
+else:#Sinon, on effectue simplement l'analyse initiale.
+    infos_a_analyser=infos_projet
     
-    if i==0:
-        print(("Analyse Initiale..."))
+#On analyse le fichier.
+for cr_exec in infos_a_analyser:
+    num_analyse=infos_projet.index(cr_exec)
+    
+    if num_analyse==0:
+        
+        print(("\nAnalyse Initiale..."))
     else:
-        print(f"Compe Rendu d'éxécution {i}...")
+        print(f"\nCompe Rendu d'éxécution {i}...")
         
     #On crée le graphe de tâches.
     noeuds, arcs_ponderes,duree_finale= cr_exec
@@ -144,13 +183,15 @@ for cr_exec in infos_projet:
    
     print("Ecriture des résultats...")
    #Si nécéssaire, on crée les dossiers manquants grace au module os.
-    if i==0:
+    if num_analyse==infos_projet.index(infos_a_analyser[0]): #Si c'est la première analyse dans l'éxécution en cours, on crée le dossier Historique
         dir=f"Historique_{nom_projet}"
         if not(os.path.exists(f"./Analyses/{dir}") and os.path.isdir(f"./Analyses/{dir}")):
             os.makedirs(f"./Analyses/{dir}")
+    #On définit le nom de l'analyse
+    if num_analyse==0:
         nom_analyse="Analyse_Initiale"
     else:
-        nom_analyse=f"Compte_Rendu_Execution_{i}"
+        nom_analyse=f"Compte_Rendu_Execution_{num_analyse}"
     
     
     if not(os.path.exists(f"./Analyses/{dir}/{nom_analyse}") and os.path.isdir(f"./Analyses/{dir}/{nom_analyse}")):
@@ -159,11 +200,10 @@ for cr_exec in infos_projet:
     #On écrit dans le fichier de sortie.
     with open(f"Analyses\\{dir}\\{nom_analyse}\\{nom_analyse}.tex","w", encoding="utf-8") as fichier_sortie:
         fichier_sortie.write(output) 
-        "Ecriture terminée."
-    i+=1
+        print("Ecriture terminée.")
 
 #Fin
-exit=input("""Analyse correctement effectuée.\n
+exit=input("""Analyses correctement effectuées.\n
 Appuyez sur Entrée pour quitter.""")
 print("Merci d'avoir utilisé PERT-Maker !")
 time.sleep(1)
