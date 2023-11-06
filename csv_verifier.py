@@ -12,7 +12,8 @@ def verification_format_fichier(fichier):
     """
     nombre_tache_finale=0 #Compteur de tâches finales
     taches=[] #Listes des tâches
-    
+    if fichier==[]:
+        return False, "Le fichier est vide"
     fichier.pop(0) #On enlève le premier terme de la liste qui correspond aux informations
     if len(fichier[0])!=7:
         return False, "Le fichier ne comporte pas les colonnes nécéssaires"
@@ -31,12 +32,19 @@ def verification_format_fichier(fichier):
             colonne_erreur="Duree" #L'erreur si elle à lieu est sur la colonne de la durée
             conversion_unite(ligne[2]) 
             for i in range(4,7): #Pour chaque compte rendu d'éxécution
-                if ligne[i]!='':  #Si il y a des informations pour le cr_exec
-                    colonne_erreur="S"+str(i-4) #L'erreur si elle à lieu est sur la colonne du cr_exec
-                    conversion_unite(ligne[i]) #Conversion de l'unite du cr_exec
+                if ligne[i]!='':  #Si il y a des informations pour le compte rendu d'éxécution
+                    colonne_erreur="S"+str(i-4) #L'erreur si elle à lieu est sur la colonne du compte rendu d'éxécution
+                    conversion_unite(ligne[i]) #Conversion de l'unite du compte rendu d'éxécutionS
         except UniteError: #Si il y a une erreur d'unite dans une des colonne essaye
             return False, "Unité erronée à la ligne "+str(fichier.index(ligne)+2)+" dans la colonne "+ colonne_erreur 
     if nombre_tache_finale==0: #Si il n'y à pas de tâche finale
         return False, "Cette organisation ne prévoit pas de tache finale"
     
     return True,"Fichier valide"
+
+
+def test(nom_fichier):
+    fichier=from_csv(nom_fichier)
+    return verification_format_fichier(fichier)
+
+print(test())

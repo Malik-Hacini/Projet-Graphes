@@ -1,0 +1,7 @@
+
+    digraph G{
+    rankdir=LR
+   0 -> 1 [label="2"];
+   0 -> 2 [label="2"];
+   2 -> 3 [label="5"];
+   }
