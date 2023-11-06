@@ -2,6 +2,7 @@ import pytest
 import coverage
 from csv_to_graphe import*
 
+#Ce test est validé.
 def test_conversion_unite():
     
     assert conversion_unite('3 jours')==3
