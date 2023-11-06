@@ -23,7 +23,7 @@ def verification_format_fichier(fichier):
         else: #Sinon
             taches.append(ligne[0]) #On rajoute la tâche a la liste
         if ligne[2]=='': #Si la tâche n'a pas de durée
-            return False, "La tâche "+str(ligne[0]) + str(ligne[1]) + " n'a pas de durée indiquée à la ligne " +str(fichier.index(ligne)+2)
+            return False, "La tâche "+str(ligne[0]) + " " + str(ligne[1]) + " n'a pas de durée indiquée à la ligne " +str(fichier.index(ligne)+2)
         if ligne[0]=='F': #Si la tâche est finale
             nombre_tache_finale+=1 #On rajoute un au compteur de tâche finale
             if nombre_tache_finale>1: #Si il y a plus d'une tâche finale
@@ -46,5 +46,3 @@ def verification_format_fichier(fichier):
 def test(nom_fichier):
     fichier=from_csv(nom_fichier)
     return verification_format_fichier(fichier)
-
-print(test())
