@@ -16,7 +16,7 @@ def graphe_to_latex(g: DiGraphe,chemin_critique: list=[])->str:
     if chemin_critique==[]:
         arcs_chemin_critique=[]
     else:
-        arcs_chemin_critique=[(chemin_critique[i],chemin_critique[i+1]) for i in range(len(chemin_critique)-1)]
+        arcs_chemin_critique=[(chemin_critique[i],chemin_critique[i+1]) for i in range(len(chemin_critique)-1) if g.mat_adj[chemin_critique[i],chemin_critique[i+1]]!=0]
     adj=g.dict_adj
     dot="""\\begin{center}
 \\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
