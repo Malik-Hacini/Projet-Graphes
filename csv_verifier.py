@@ -15,8 +15,8 @@ def verification_format_fichier(fichier):
     if fichier==[]:
         return False, "Le fichier est vide"
     fichier.pop(0) #On enlève le premier terme de la liste qui correspond aux informations
-    if len(fichier[0])!=7:
-        return False, "Le fichier ne comporte pas les colonnes nécéssaires"
+    if len(fichier[0])<4:
+        return False, "Le fichier ne comporte pas assez de colonnes (minimum 4)"
     for ligne in fichier: #Pour chaque ligne
         if ligne[0] in taches: #Si la tâche de la ligne est déjà dans la liste des tâches
             return False, 'Il y a 2 fois la même tâche '+ligne[0]+ ' aux lignes ' + str(taches.index(ligne[0])+2) + ' et ' +str(fichier.index(ligne)+2)

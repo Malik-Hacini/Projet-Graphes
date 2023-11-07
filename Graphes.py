@@ -37,4 +37,3 @@ class DiGraphe:
         self.dict_adj={key: [keys[vals.index(a[1])] for a in arcs_ponderes if a[0]==value] for key,value in noeuds_dict.items()}
         self.noeuds=noeuds_dict
         self.mat_adj=mat_adj
-        

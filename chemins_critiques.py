@@ -76,7 +76,7 @@ def bellmanFord(g: DiGraphe, source:int)->tuple[dict,dict]:
     return distances, predecesseurs
           
 def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
-    """Renvoie un des chemins critiques (le plus court) d'un DiGraphe d'une source à une arrivée,
+    """Renvoie un des chemins critiques (le plus long) d'un DiGraphe d'une source à une arrivée,
     ainsi que sa durée. S'appuie sur la fonction bellmanFord
     
 

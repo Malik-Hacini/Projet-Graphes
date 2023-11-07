@@ -1,0 +1,7 @@
+"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
+"D","Départ","1 jours","",,,
+"I1",,"1 jours","D"
+"I2",,"3 jours","D"
+"I3",,"10 jours","I1"
+"I4",,"1 jours","I2"
+"F",,"1 jours","I3 I4"
