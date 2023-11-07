@@ -39,4 +39,4 @@ def verification_format_fichier(fichier):
     if nombre_tache_finale==0: #Si il n'y à pas de tâche finale
         return False, "Cette organisation ne prévoit pas de tache finale"
     
-    return True,"Fichier valide"
+    return True,"Fichier valide."

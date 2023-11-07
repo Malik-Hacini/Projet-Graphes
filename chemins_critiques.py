@@ -102,7 +102,7 @@ def chemin_critique(g: DiGraphe,    source: int, arrivee: int)->tuple[list,float
         chemin.append((pred_actuel,etape_chemin))
         etape_chemin=pred_actuel
     
-    return chemin,distances[arrivee]
+    return chemin, -distances[arrivee]
 
 
 def dates_tot_tard(g: DiGraphe,duree_finale:int)->dict[tuple[float,float,float]]:
