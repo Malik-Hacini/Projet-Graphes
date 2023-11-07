@@ -72,11 +72,12 @@ def bellmanFord(g: DiGraphe, source:int)->tuple[dict,dict]:
                 if distances[k] > distances[j] + g.mat_adj[j,k]:
                     distances[k]  = distances[j] + g.mat_adj[j,k]
                     predecesseurs[k] = j
-
     return distances, predecesseurs
-          
-def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
-    """Renvoie un des chemins critiques (le plus court) d'un DiGraphe d'une source à une arrivée,
+
+
+
+def chemin_critique(g: DiGraphe,    source: int, arrivee: int)->tuple[list,float]:
+    """Renvoie les arcs d'un des chemins critiques (le plus long) d'un DiGraphe d'une source à une arrivée,
     ainsi que sa durée. S'appuie sur la fonction bellmanFord
     
 
@@ -86,15 +87,20 @@ def chemin_critique(g: DiGraphe, source: int, arrivee: int)->tuple[list,float]:
         arrivee (int): noeud d'arrivée
 
     Returns:
-        tuple[list,float]: Le chemin, et sa durée (distance)
+        tuple[list,float]: Les arcs du chemin, et sa durée (distance)
     """
     etape_chemin=arrivee
-    distances,pred=bellmanFord(g, source)
-    chemin=[etape_chemin]
+    #On crée un graphe dont les poids sont les opposés des poids du graphe d'origine.
+    #De cette manière, la recherche dU chemin le plus long (chemin critique) dans le graphe d'origine 
+    #revient à la recherche du chemin le plus court dans ce nouveau graphe.
+    g_oppose=copy.deepcopy(g)
+    g_oppose.mat_adj=-g_oppose.mat_adj
+    distances,pred=bellmanFord(g_oppose, source)
+    chemin=[]
     while etape_chemin!=source: 
-        etape_chemin=pred[etape_chemin] #On remonte le chemin à l'envers (à partir des prédécésseurs)
-        chemin.append(etape_chemin)
-    chemin=chemin[::-1] #On remet le chemin dans le bon sens
+        pred_actuel=pred[etape_chemin] #On remonte le chemin à l'envers (à partir des prédécésseurs)
+        chemin.append((pred_actuel,etape_chemin))
+        etape_chemin=pred_actuel
     
     return chemin,distances[arrivee]
 
