@@ -1,2 +1,0 @@
-\contentsline {section}{\numberline {1}Votre Graphe de tâches}{1}{}%
-\contentsline {section}{\numberline {2}Analyse de votre projet}{1}{}%
