@@ -1,0 +1,9 @@
+"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
+"S","Ecrire le script","2 mois",,,,
+"A","Trouver des acteurs","3 semaines","S",,,
+"M","Acheter du matériel","5 jours","S",,,
+"D","Fabriquer les décors","2 jours","M",,,
+"B","Tourner les scènes","4 mois","A D S","2 mois",,
+"MO","Faire le montage","1 mois","B","1 mois",,
+"P","Promotion du film","2 semaines","B","2 semaines",,
+"F","Avant premières","3 jours","P MO","3 jours",,

@@ -1,0 +1,11 @@
+
+    digraph G{
+   rankdir=LR
+   A -> FO [label="1" color="red"];
+   FO -> BR [label="7"];
+   FO -> B [label="7" color="red"];
+   B -> BR [label="2" color="red"];
+   BR -> J [label="14" color="red"];
+   J -> S [label="3" color="red"];
+   S -> F [label="30" color="red"];
+   }

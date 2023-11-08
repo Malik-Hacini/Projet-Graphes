@@ -152,8 +152,10 @@ def dates_tot_tard(g: DiGraphe,duree_finale:int,noeuds_critiques)->dict[tuple[fl
         #n'est pas dans le chemin critique, il s'agit d'une tâche parallèle.
         #On doit donc trouver son lien avec le chemin critique.
         fils_min=noeuds_critiques[0]
-   
-        if i not in noeuds_critiques: #Pour les noeuds n'appartenant pas au chemin critique
+         
+        if i==len(g.noeuds)-1: #La tâche finale est particulière. Elle est dans le chemin critique, mais n'a pas de fils.
+            date_fin_tard=-distances_plus_longues[i]+duree
+        elif i not in noeuds_critiques: #Pour les noeuds n'appartenant pas au chemin critique
             fils_critiques=[fils for fils in g.dict_adj[i] if fils in noeuds_critiques] #On trouve les liens du noeud au chemin critique
             for fils_actuel in fils_critiques: 
                 if noeuds_critiques.index(fils_actuel)>=noeuds_critiques.index(fils_min): #On choisit le noeud le plus tôt dans le chemin critique

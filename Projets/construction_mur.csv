@@ -1,0 +1,8 @@
+"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
+"A","Acheter le ciment et les briques","1 jour",,,,
+"FO","Faire les fondations","1 semaine","A",,,
+"B","Préparer le béton","2 jours","FO",,,
+"BR","Poser les briques","2 semaines","FO B","5 jours",,
+"J","Faire les jointure","3 jours","BR","2 jours",,
+"S","Laisser sécher","1 mois","J","1 mois",,
+"F","Décorer le mur","2 jours","S","2 jours",,

@@ -1,0 +1,65 @@
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{amsmath,amssymb,enumerate,graphicx,pgf,tikz,fancyhdr}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{geometry}
+\usepackage{tabvar}
+\usepackage{dot2texi}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta}
+\usetikzlibrary{shapes.geometric}
+\title{\centering Peer Review and Evaluation Technique : Construction mur
+}
+
+\author{PERT Maker}
+\renewcommand{\contentsname}{Table des Matières}
+\begin{document}
+\maketitle
+\tableofcontents{}
+\section{Votre Graphe de tâches}
+\begin{center}
+\begin{tikzpicture}[scale=0.6, every node/.style={scale=0.6}]
+\begin{dot2tex}[codeonly]
+
+    digraph G{ 
+   rankdir=LR 
+   A -> FO [label="1" color="red"]; 
+   FO -> BR [label="7"]; 
+   FO -> B [label="7" color="red"]; 
+   B -> BR [label="2" color="red"]; 
+   BR -> J [label="14" color="red"]; 
+   J -> S [label="3" color="red"]; 
+   S -> F [label="30" color="red"]; 
+   } 
+\end{dot2tex}
+\end{tikzpicture}
+\end{center}
+\section{Analyse de votre projet}
+Votre projet possède un temps incompressible de 59 jours.
+    Il s'agit de la durée totale du \textcolor{red}{chemin critique}.
+    Pour terminer le projet dans ces délais, les \textcolor{red}{tâches critiques} ne doivent prendre aucun retard.\subsection{Dates de référence pour chaque tâche}Chaque tâche du chemin critique ne doit pas prendre de
+    retard, car cela entrainerait un retard global du projet. 
+    Chaque tâche possède trois dates de référence : La date de début au plus tôt,
+    fin au plus tôt, fin au plus tard.
+    Attention, chaque tâche du chemin critique ne doit pas prendre de
+    retard, car cela entrainerait un retard global du projet.
+    Leurs dates de début au plus tôt seront donc marquées en rouge,
+    car indispensables à respecter. La tâche de départ n'est pas incluse. \newpage
+    Voici le tableau récapitulatif des dates de référence pour votre projet :\newline 
+\begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
+        \hline
+        \multicolumn{4}{|c|}{Dates de références} \\
+        \hline 
+        Tâche&Début au plus tôt&Fin au plus tôt&Fin au plus tard \\ 
+        \hline 
+A&T0&T0+1&T0+1 \\ 
+\textcolor{red}{FO}&T0+\textcolor{red}{1}&T0+8&T0+8 \\ 
+\textcolor{red}{B}&T0+\textcolor{red}{8}&T0+10&T0+10 \\ 
+\textcolor{red}{BR}&T0+\textcolor{red}{10}&T0+24&T0+24 \\ 
+\textcolor{red}{J}&T0+\textcolor{red}{24}&T0+27&T0+27 \\ 
+\textcolor{red}{S}&T0+\textcolor{red}{27}&T0+57&T0+57 \\ 
+F&T0+57&T0+59&T0+57 \\ 
+\hline
+    \end{tabular} 
+\end{document}
