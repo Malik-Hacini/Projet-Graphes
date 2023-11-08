@@ -101,7 +101,7 @@ def chemin_critique(g: DiGraphe,    source: int, arrivee: int)->tuple[list,float
         pred_actuel=pred[etape_chemin] #On remonte le chemin à l'envers (à partir des prédécésseurs)
         chemin.append((pred_actuel,etape_chemin))
         etape_chemin=pred_actuel
-    
+    chemin=chemin[::-1]
     return chemin, -distances[arrivee]
 
 
