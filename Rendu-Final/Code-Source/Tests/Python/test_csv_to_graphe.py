@@ -37,6 +37,3 @@ def test_csv_to_graph():
 (['D', 'I1', 'I2', 'F'], {('D', 'I1', 90.0), ('D', 'I2', 90.0), ('I1', 'F', 0), ('I2', 'F', 3.0)}, 3.0),#S1
 (['D', 'I1', 'I2', 'F'], {('D', 'I1', 0), ('D', 'I2', 0), ('I1', 'F', 35.0), ('I2', 'F', 0)}, 4.0)]#S2
     assert csv_to_graph(f"Projets\\{nom_test}")==output
-
-nom_test="test_csv_to_graph"   
-print(csv_to_graph(f"Projets\\{nom_test}"))
