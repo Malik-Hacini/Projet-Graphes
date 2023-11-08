@@ -45,7 +45,7 @@ def conversion_unite(duree_tache):
         raise UniteError #On soulève une erreur d'unite
     return valeur
 
-def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,list]:
+def traitement_information(liste_informations, n_suivi)->tuple[list,set,list]:
     """Traite l'information d'une liste (output de from_csv). Renvoie les noeuds,arcs et poids des noeuds
 
     Args:
@@ -64,10 +64,10 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
     poids=[] #La liste des poids
     arcs=set() #L'ensemble des arcs
     #Vérifions tout d'abord si le suivi est vide.
-    if len([1 for ligne in liste_informations if ligne[4+n_suivi]!=''])==0:
+    if len([1 for ligne in liste_informations if ligne[3+n_suivi]!=''])==0:
         #Si tel est le cas, on renvoie None pour touts les éléments du graphe (on ne traite pas le suivi)
         return None, None, None, None
-    
+    print(n_suivi)
     for ligne in liste_informations: #Pour chaque ligne, donc chaque tâche, donc chaque noeud
         noeud=ligne[0] #On rajoute le noeud à la liste
         noeuds.append(noeud)
@@ -130,8 +130,9 @@ def csv_to_graph(nom_fichier_csv:str):
     liste_csv.pop(0) #On enlève le premier terme de la liste qui correspond au indication sur le fichier
     
     #Les colonnes suivis sont les colonnes 3, puis 5,6,...
-    indices_colonnes_suivis=list(range(len(liste_csv[0])-4))
+    indices_colonnes_suivis=list(range(len(liste_csv[0])-3))
     indices_colonnes_suivis[0]=-1
+    print(indices_colonnes_suivis)
     
     for n_suivi in indices_colonnes_suivis: #On extrait les informations de tout les suivis disponibles.
         noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On récupère les différentes informations
