@@ -10,7 +10,6 @@ def verification_format_fichier(fichier):
         bool: True <=> le fichier est valide
         str: Message d'erreur ou de validation
     """
-    nombre_tache_finale=0 #Compteur de tâches finales
     taches=[] #Listes des tâches
     
     fichier.pop(0) #On enlève le premier terme de la liste qui correspond aux informations
@@ -23,10 +22,7 @@ def verification_format_fichier(fichier):
             taches.append(ligne[0]) #On rajoute la tâche a la liste
         if ligne[2]=='': #Si la tâche n'a pas de durée
             return False, "La tâche "+str(ligne[0]) + str(ligne[1]) + " n'a pas de durée indiquée à la ligne " +str(fichier.index(ligne)+2)
-        if ligne[0]=='F': #Si la tâche est finale
-            nombre_tache_finale+=1 #On rajoute un au compteur de tâche finale
-            if nombre_tache_finale>1: #Si il y a plus d'une tâche finale
-                return False, "Cette organisation prévoit plusieurs tâches finales"
+
         try: #On essaie 
             colonne_erreur="Duree" #L'erreur si elle à lieu est sur la colonne de la durée
             conversion_unite(ligne[2]) 
@@ -36,7 +32,5 @@ def verification_format_fichier(fichier):
                     conversion_unite(ligne[i]) #Conversion de l'unite du cr_exec
         except UniteError: #Si il y a une erreur d'unite dans une des colonne essaye
             return False, "Unité erronée à la ligne "+str(fichier.index(ligne)+2)+" dans la colonne "+ colonne_erreur 
-    if nombre_tache_finale==0: #Si il n'y à pas de tâche finale
-        return False, "Cette organisation ne prévoit pas de tache finale"
     
     return True,"Fichier valide."

@@ -83,8 +83,7 @@ def traitement_information(liste_informations, n_suivi)->tuple[list,set,list]:
             pre_noeuds=ligne[3] #La liste des prerequis
             for pre_noeud in pre_noeuds.split(): #Pour chaque prérequis
                 arcs.add((pre_noeud, noeud)) #On ajoute l'arc prerequis -> noeud
-        if noeud=='F': #Si la tache est la tache finale
-            poids_final=duree_tache #Alors on met en évidence le poids final
+    poids_final=poids[-1][1]
         
     return noeuds, arcs, poids, poids_final
 

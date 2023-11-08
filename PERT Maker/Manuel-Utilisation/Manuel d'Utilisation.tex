@@ -15,7 +15,6 @@
 \graphicspath{ {./images/} }
 \title{\centering PERT Maker: Manuel d'utilisation}
 
-\author{BOYER Timothé, GRASSET Emilien, HACINI Malik}
 \date{9 Novembre 2023}
 \renewcommand{\contentsname}{Table des Matières}
 
@@ -31,32 +30,31 @@
 \tableofcontents{}
 \newpage
 
-\section{Introduction au PERT-MAKER}
+\section{Présentation de PERT Maker}
 \subsection{La méthode PERT}
-PERT Maker est une solution logicielle d'utilisation de la méthode PERT de gestion de projet.
+PERT Maker est une solution logicielle d'utilisation de la méthode PERT de gestion de projet. \\
 La méthode PERT fournit une méthode et des moyens pratiques pour décrire,
 représenter, analyser et suivre de manière logique les tâches et le réseau des tâches à réaliser dans le cadre d'une 
-action à entreprendre ou à suivre.
-Un graphe de dépendances est utilisé. 
-
-Pour chaque tâche, sont indiquées une date de début et de fin au plus tôt et au plus tard. 
+action à entreprendre ou à suivre. \\
+Un graphe de dépendances dépendances des tâches est notamment utilisé. \\
+Pour chaque tâche sont indiquées une date de début au plus tôt, fin au plus tôt et fin au plus tard.  \\
 Le graphe permet aussi de déterminer le chemin critique qui conditionne la durée minimale du projet.
 Le but est de trouver la meilleure organisation possible pour qu'un projet soit terminé dans les délais, et d'identifier les tâches critiques, 
-c'est-à-dire les tâches qui ne doivent souffrir d'aucun retard sous peine de retarder l'ensemble du projet.
+c'est-à-dire les tâches qui ne doivent souffrir \textbf{d'aucun retard} sous peine de retarder l'ensemble du projet.
 (\textcolor{blue}{\href{https://fr.wikipedia.org/wiki/PERT}{Plus d'informations sur la méthode PERT}})
 
 
 \subsection{Objectif de PERT Maker}
 
 L'application PERT Maker a pour objectif de faciliter la gestion de projet. PERT Maker réalise un traitement intelligent de l'organisation de votre projet, suivant 
-la méthode PERT, et vous en fournit un rapport complet, comprenant :
+la méthode PERT, et vous en fournit un rapport complet, comprenant:
 \begin{itemize}
     \item Un graphe permettant de visualiser la dépendance des taches
     \item Analyse de la faisabilité du projet
-    \item Visualiser les chemin(s) critique(s), c'est à dire des tâches qui doivent être faite dans le temps indiqué sous peine de retarder tout le projet.
+    \item Visualiser le chemin critique, c'est à dire le chemin des tâches qui doivent être faite dans le temps indiqué sous peine de retarder tout le projet.
     \item Visualiser l'historique du projet via 3 comptes rendus d'éxécution possibles.
 \end{itemize} 
-Vous devez donc suivre correctement ce manuel pour tirer le plein potentiel de PERT Maker !
+Vous devez donc suivre correctement ce manuel pour tirer le plein potentiel de PERT Maker!
 
 \section{Conception de fichiers pour PERT Maker}
 Le fichier de votre projet doit suivre plusieurs règles strictes pour être correctement analysé par PERT Maker.
@@ -65,24 +63,25 @@ Le fichier de votre projet doit suivre plusieurs règles strictes pour être cor
 Votre fichier doit être au format CSV (Comma Separated Values)
 Il s'agit d'un format de fichier texte, ou les données sont séparées par des virgules.
 Il peut aussi être vu sous forme tabulaire.
-Pour générer un fichier CSV, vous pouvez utiliser votre logiciel de tableur préféré :
+Pour générer un fichier CSV, vous pouvez utiliser votre logiciel de tableur préféré:
 Microsoft Excel, Google Sheets,LibreOffice, OpenOffice Calc, tous sont capables d'importer
 et exporter des fichiers CSV.
 Il vous suffit de choisir l'option CSV lors de l'exportation (ou enregistrement) de votre fichier.
 
-
+\newpage
 \subsection{Comment formater vos fichiers CSV?}
 Pour assurer le bon déroulement de l'analyse de votre projet, votre fichier CSV doit impérativement suivre des règles précises.\\ \\
 Pour vous accompagner dans l'utilisation de PERT Maker, vous avez à disposition dans le dossier de ce manuel un fichier \textbf{template.csv}. Nous vous conseillons de concevoir votre fichier de projet
 à partir de la template et de ce manuel. 
 \\ 
-Voici un exemple de fichier au bon format (projet fictif de construction de maison) :
+Voici un exemple de fichier au bon format (projet fictif de production de film):
 \\
 \includegraphics[scale=0.5]{csv_exemple}
 \\
-Tout d'abord, votre fichier doit contenir \textbf{exactement 7 colonnes, dont les noms sont standardisés}.\\
+Tout d'abord, votre fichier doit contenir \textbf{au moins 4 colonnes, dont les noms sont standardisés}.\\
 Les 4 premières sont réservées aux informations initiales du projet,
-et les 3 dernières seront utilisées pour les 3 comptes rendus d'éxécution. \\
+Toutes les suivantes vous permettent d'établir des comptes rendus d'éxécution, afin
+de tenir compte de l'avancement du projet. \\
 Chaque ligne correspond à une tâche. \\
 Voici l'intêret et les règles de rédaction de chaque colonne : \\
 \begin{itemize}
@@ -90,10 +89,13 @@ Voici l'intêret et les règles de rédaction de chaque colonne : \\
     \item Colonne 2 : Description.  La description précise de la tâche.
     \item Colonne 3 : Durée. La durée de la tâche. Les unités possibles sont jour(s), semaine(s), moi(s). \textbf{Attention à l'orthographe.}
     \item Colonne 4 : Précédente(s). Les abréviations de toutes les tâches nécéssaires au début de la tâche, \textbf{séparées d'un espace.}
-    \item Colonne 5 à 7 : Les différents suivis (comptes rendus d'éxécution). Continent la \textbf{durée restante de la tâche}, au même format que la colonne 4. \textbf{Si la tâche est terminée, laissez la case vide.}
+    \item Colonne 5 et plus : Les différents suivis (comptes rendus d'éxécution). Contient la \textbf{durée restante de la tâche}, au même format que la colonne 4. \textbf{Si la tâche est terminée, laissez la case vide.}
 \end{itemize}
 
-
+\textbf{\textcolor{red}{Attention: Votre projet doit impérativement comporter une unique tâche finale. Elle doit représenter la fin du projet.
+Si le projet se termine par plusieurs tâches parallèles, ajoutez une tâche finale qui admet toutes les dernières tâches dans la colonne
+4 (Précédentes), avec une durée nulle.}}
+\newpage
 \subsubsection{Comment nommer vos fichiers projets?}
 Il est préférable de ne pas utiliser d'espaces dans le noms de vos fichiers projets.\\
 
