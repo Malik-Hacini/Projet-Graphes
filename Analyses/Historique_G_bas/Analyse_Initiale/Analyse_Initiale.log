@@ -1,10 +1,10 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  8 NOV 2023 18:32
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  8 NOV 2023 18:39
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**"c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_template/Compte_Rendu_Execution_1/Compte_Rendu_Execution_1.tex"
-(c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_template/Compte_Rendu_Execution_1/Compte_Rendu_Execution_1.tex
+**"c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_G_bas/Analyse_Initiale/Analyse_Initiale.tex"
+(c:/Users/juioi/Desktop/Majeure Info/Graphes et Arbres/Projet-Graphes/Analyses/Historique_G_bas/Analyse_Initiale/Analyse_Initiale.tex
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
 (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -410,10 +410,10 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \verbatim@out=\write4
-runsystem(echo 'write18-test-20231181112'>"Compte_Rendu_Execution_1.w18")...executed.
+runsystem(echo 'write18-test-20231181119'>"Analyse_Initiale.w18")...executed.
 
 \instream=\read4
-runsystem(del "Compte_Rendu_Execution_1.w18")...executed.
+runsystem(del "Analyse_Initiale.w18")...executed.
 
 Package dot2texi Info: Automatically converting dot/neato files on input line 148.
 \c@dtt@fignum=\count300
@@ -438,8 +438,8 @@ File: l3backend-xetex.def 2023-04-19 L3 backend support: XeTeX
 \g__pdf_backend_object_int=\count302
 \g__pdf_backend_annotation_int=\count303
 \g__pdf_backend_link_int=\count304
-) (Compte_Rendu_Execution_1.aux)
-\openout1 = `Compte_Rendu_Execution_1.aux'.
+) (Analyse_Initiale.aux)
+\openout1 = `Analyse_Initiale.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 17.
 LaTeX Font Info:    ... okay on input line 17.
@@ -504,33 +504,33 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 18.
  (C:\Users\juioi\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) (Compte_Rendu_Execution_1.toc)
+) (Analyse_Initiale.toc)
 \tf@toc=\write5
-\openout5 = `Compte_Rendu_Execution_1.toc'.
+\openout5 = `Analyse_Initiale.toc'.
 
-\openout4 = `Compte_Rendu_Execution_1-dot2tex-fig1.dot'.
+\openout4 = `Analyse_Initiale-dot2tex-fig1.dot'.
 
- Opening dot2tex stream Compte_Rendu_Execution_1-dot2tex-fig1.dot
-runsystem(dot2tex --codeonly -ftikz         -o Compte_Rendu_Execution_1-dot2tex-fig1.tex  Compte_Rendu_Execution_1-dot2tex-fig1.dot)...executed.
+ Opening dot2tex stream Analyse_Initiale-dot2tex-fig1.dot
+runsystem(dot2tex --codeonly -ftikz         -o Analyse_Initiale-dot2tex-fig1.tex  Analyse_Initiale-dot2tex-fig1.dot)...executed.
 
-Package dot2texo Info: Compte_Rendu_Execution_1-dot2tex-fig1.dot converted on input line 30.
- (Compte_Rendu_Execution_1-dot2tex-fig1.tex
+Package dot2texo Info: Analyse_Initiale-dot2tex-fig1.dot converted on input line 39.
+ (Analyse_Initiale-dot2tex-fig1.tex
 Missing character: There is no ; in font nullfont!
 ) [1
 
-] (Compte_Rendu_Execution_1.aux)
+] [2] (Analyse_Initiale.aux)
  ***********
 LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 15356 strings out of 410379
- 305367 string characters out of 5788051
- 1922432 words of memory out of 5000000
- 36410 multiletter control sequences out of 15000+600000
+ 15413 strings out of 410379
+ 305917 string characters out of 5788051
+ 1928432 words of memory out of 5000000
+ 36467 multiletter control sequences out of 15000+600000
  565423 words of font info for 75 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
- 69i,9n,75p,569b,843s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 69i,9n,75p,550b,858s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Compte_Rendu_Execution_1.xdv (1 page, 18012 bytes).
+Output written on Analyse_Initiale.xdv (2 pages, 32612 bytes).

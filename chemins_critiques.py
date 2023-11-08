@@ -96,16 +96,19 @@ def chemin_critique(g: DiGraphe,    source: int, arrivee: int)->tuple[list,float
     g_oppose=copy.deepcopy(g)
     g_oppose.mat_adj=-g_oppose.mat_adj
     distances,pred=bellmanFord(g_oppose, source)
-    chemin=[]
+    arcs=[]
+    noeuds=[]
     while etape_chemin!=source: 
         pred_actuel=pred[etape_chemin] #On remonte le chemin à l'envers (à partir des prédécésseurs)
-        chemin.append((pred_actuel,etape_chemin))
+        arcs.append((pred_actuel,etape_chemin))
+        noeuds.append(pred_actuel)
         etape_chemin=pred_actuel
-    chemin=chemin[::-1]
-    return chemin, -distances[arrivee]
+    arcs=arcs[::-1]
+    noeuds=noeuds[::-1]
+    return arcs,noeuds, -distances[arrivee]
 
 
-def dates_tot_tard(g: DiGraphe,duree_finale:int)->dict[tuple[float,float,float]]:
+def dates_tot_tard(g: DiGraphe,duree_finale:int,noeuds_critiques)->dict[tuple[float,float,float]]:
     """Renvoie les dates de référence de chaque tâche d'un graphe.
     S'appuie sur la fonction bellmanFord. La durée de la tâche finale
     est un paramètre nécéssaire, car n'ayant pas de voisin, sa durée n'est pas encodée dans 
@@ -127,10 +130,9 @@ def dates_tot_tard(g: DiGraphe,duree_finale:int)->dict[tuple[float,float,float]]
     g_oppose=copy.deepcopy(g)
     g_oppose.mat_adj=-g_oppose.mat_adj
     
-    distances_plus_courtes,pred=bellmanFord(g,0)
-
     distances_plus_longues,pred=bellmanFord(g_oppose,0)
     
+
     for i in range(len(g.noeuds)): #On ne prend pas la tache finale (pas de voisin)
         #car sa duree est en paramètre de la fonction.
         
@@ -139,7 +141,26 @@ def dates_tot_tard(g: DiGraphe,duree_finale:int)->dict[tuple[float,float,float]]
             duree=g.mat_adj[i,voisin]
         else:
             duree=duree_finale
+            
+
         #On renvoie les 3 dates de références pour chaque tâche : début au plus tôt, fin au plus tôt, fin au plus tard.
-        dates[i]=(distances_plus_courtes[i],distances_plus_courtes[i]+duree,-distances_plus_longues[i]+duree)
+        #Les deux premières dates sont aisées à obtenir.
+        date_debut_tot=-distances_plus_longues[i]
+        date_fin_tot=date_debut_tot+duree
+        
+        #Pour la date de fin au plus tard, c'est plus compliqué. Si la tâche
+        #n'est pas dans le chemin critique, il s'agit d'une tâche parallèle.
+        #On doit donc trouver son lien avec le chemin critique.
+        fils_min=noeuds_critiques[0]
+   
+        if i not in noeuds_critiques: #Pour les noeuds n'appartenant pas au chemin critique
+            fils_critiques=[fils for fils in g.dict_adj[i] if fils in noeuds_critiques] #On trouve les liens du noeud au chemin critique
+            for fils_actuel in fils_critiques: 
+                if noeuds_critiques.index(fils_actuel)>=noeuds_critiques.index(fils_min): #On choisit le noeud le plus tôt dans le chemin critique
+                    date_fin_tard=-distances_plus_longues[fils_actuel]
+        else:
+            date_fin_tard=-distances_plus_longues[i]+duree
+                
+        dates[i]=(date_debut_tot,date_fin_tot,date_fin_tard)
     return dates
     

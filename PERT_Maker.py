@@ -127,11 +127,12 @@ def analyse_fichier_to_latex(cr_exec):
         print("Analyse du graphe terminée.")
 
     else:
-        chemin,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
-        dates=dates_tot_tard(graphe_taches,duree_finale)
+        arcs_critiques,noeuds_critiques,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
+        print(arcs_critiques,noeuds_critiques)
+        dates=dates_tot_tard(graphe_taches,duree_finale,noeuds_critiques)
         print("Analyse du graphe terminée.")
         
-        code_latex+=graphe_to_latex(graphe_taches,chemin)
+        code_latex+=graphe_to_latex(graphe_taches,arcs_critiques)
         code_latex+="\section{Analyse de votre projet}\n"
         
     
@@ -158,8 +159,8 @@ def analyse_fichier_to_latex(cr_exec):
         Tâche&Début au plus tôt&Fin au plus tôt&Fin au plus tard \\\\ 
         \\hline \n"""
 
-        for tache in dates.keys():
-            if tache=='D':
+        for index,tache in enumerate(dates.keys()):
+            if index==0:
                 code_latex+=f" {graphe_taches.noeuds[tache]}&T0&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
             else:
                 code_latex+=f" {graphe_taches.noeuds[tache]}&T0+{round(dates[tache][0])}&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
@@ -178,7 +179,7 @@ def ecrire_analyse_dans_document(code_latex,dossier,num_analyse):
     
     
     if not(os.path.exists(f"./Analyses/{dossier}/{nom_analyse}") and os.path.isdir(f"./Analyses/{dossier}/{nom_analyse}")):
-        os.mkdir(f"./Analyses/{dir}/{nom_analyse}")
+        os.mkdir(f"./Analyses/{dossier}/{nom_analyse}")
         
     #On écrit dans le fichier de sortie.
     with open(f"Analyses\\{dossier}\\{nom_analyse}\\{nom_analyse}.tex","w", encoding="utf-8") as fichier_sortie:

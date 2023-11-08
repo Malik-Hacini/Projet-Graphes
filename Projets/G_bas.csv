@@ -1,0 +1,10 @@
+"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
+"D","ddd","0 jours",,,,
+"A","Tâche de départ","7 jours","D",,,
+"B","Tâche d'exemple"," 9 jours","D",,,
+"C","Tâche finale","12 jours","A",,,
+"D2","ph","8 jours","A B",,,
+"E","ph","9 jours","D2",,,
+"F1","ph","6 jours","C E",,,
+"G","ph","5 jours","E",,,
+"F","fin","0 jours","G F1",,,

@@ -1,0 +1,15 @@
+
+    digraph G{
+   rankdir=LR
+   D -> A [label="0"];
+   D -> B [label="0" color="red"];
+   A -> C [label="7"];
+   A -> D2 [label="7"];
+   B -> D2 [label="9" color="red"];
+   C -> F1 [label="12"];
+   D2 -> E [label="8" color="red"];
+   E -> G [label="9"];
+   E -> F1 [label="9" color="red"];
+   F1 -> F [label="6" color="red"];
+   G -> F [label="5"];
+   }

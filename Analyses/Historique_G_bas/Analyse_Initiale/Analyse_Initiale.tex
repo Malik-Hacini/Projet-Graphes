@@ -9,7 +9,7 @@
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{shapes.geometric}
-\title{\centering Peer Review and Evaluation Technique : Test cool
+\title{\centering Peer Review and Evaluation Technique : G bas
 }
 
 \author{PERT Maker}
@@ -24,26 +24,23 @@
 
     digraph G{ 
    rankdir=LR 
-   D -> 1 [label="30" color="red"]; 
-   D -> 2 [label="30"]; 
-   1 -> 3 [label="7" color="red"]; 
-   1 -> 4 [label="7"]; 
-   2 -> 6 [label="1"]; 
-   3 -> 5 [label="0" color="red"]; 
-   3 -> 4 [label="0"]; 
-   3 -> 7 [label="0"]; 
-   4 -> 8 [label="7"]; 
-   5 -> F [label="60" color="red"]; 
-   6 -> 7 [label="14"]; 
-   7 -> 8 [label="7"]; 
-   8 -> 9 [label="10"]; 
-   9 -> F [label="5"]; 
+   D -> A [label="0"]; 
+   D -> B [label="0" color="red"]; 
+   A -> C [label="7"]; 
+   A -> D2 [label="7"]; 
+   B -> D2 [label="9" color="red"]; 
+   C -> F1 [label="12"]; 
+   D2 -> E [label="8" color="red"]; 
+   E -> G [label="9"]; 
+   E -> F1 [label="9" color="red"]; 
+   F1 -> F [label="6" color="red"]; 
+   G -> F [label="5"]; 
    } 
 \end{dot2tex}
 \end{tikzpicture}
 \end{center}
 \section{Analyse de votre projet}
-Votre projet possède un temps incompressible de 157 jours.
+Votre projet possède un temps incompressible de 32 jours.
     Il s'agit de la durée totale du \textcolor{red}{chemin critique}.
     Pour terminer le projet dans ces délais, les \textcolor{red}{tâches critiques} ne doivent prendre aucun retard.\subsection{Dates de référence pour chaque tâche}Chaque tâche du chemin critique ne doit pas prendre de
     retard, car cela entrainerait un retard global du projet. 
@@ -58,17 +55,15 @@ Votre projet possède un temps incompressible de 157 jours.
         \hline 
         Tâche&Début au plus tôt&Fin au plus tôt&Fin au plus tard \\ 
         \hline 
- D&T0+0&T0+30&T0+30 \\ 
- 1&T0+30&T0+37&T0+37 \\ 
- 2&T0+30&T0+31&T0+31 \\ 
- 3&T0+37&T0+37&T0+37 \\ 
- 4&T0+37&T0+44&T0+44 \\ 
- 5&T0+37&T0+97&T0+97 \\ 
- 6&T0+31&T0+45&T0+45 \\ 
- 7&T0+37&T0+44&T0+52 \\ 
- 8&T0+44&T0+54&T0+62 \\ 
- 9&T0+54&T0+59&T0+67 \\ 
- F&T0+59&T0+119&T0+157 \\ 
+ D&T0&T0+0&T0+0 \\ 
+ A&T0+0&T0+7&T0+9 \\ 
+ B&T0+0&T0+9&T0+9 \\ 
+ C&T0+7&T0+19&T0+26 \\ 
+ D2&T0+9&T0+17&T0+17 \\ 
+ E&T0+17&T0+26&T0+26 \\ 
+ F1&T0+26&T0+32&T0+32 \\ 
+ G&T0+26&T0+31&T0+32 \\ 
+ F&T0+32&T0+32&T0+32 \\ 
 \hline
     \end{tabular} 
 \end{document}

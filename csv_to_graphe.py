@@ -63,20 +63,21 @@ def traitement_information(liste_informations, n_suivi=None)->tuple[list,set,lis
     noeuds=[] #La liste des noeuds
     poids=[] #La liste des poids
     arcs=set() #L'ensemble des arcs
-    #Si l'on s'intéresse à un suivi, vérifions d'abord si il est vide.
-    if n_suivi!=None and len([1 for ligne in liste_informations if ligne[4+n_suivi]!=''])==0:
+    #Vérifions tout d'abord si le suivi est vide.
+    if len([1 for ligne in liste_informations if ligne[4+n_suivi]!=''])==0:
         #Si tel est le cas, on renvoie None pour touts les éléments du graphe (on ne traite pas le suivi)
         return None, None, None, None
     
     for ligne in liste_informations: #Pour chaque ligne, donc chaque tâche, donc chaque noeud
         noeud=ligne[0] #On rajoute le noeud à la liste
         noeuds.append(noeud)
-        duree_tache=ligne[2] #La duree de la tache est initialement la colonne duree
-        if n_suivi!=None: #Si on s'interesse à un suivi
-                if ligne[4+n_suivi]=='': #Si la tâche est terminée
-                    duree_tache="0 jours"
-                else: #Si la tâche n'est pas terminée
-                    duree_tache=ligne[4+n_suivi]
+        
+        #On extrait la durée de la tâche
+        if ligne[3+n_suivi]=='': #Si la tâche est terminée
+            duree_tache="0 jours"
+        else: #Si la tâche n'est pas terminée
+            duree_tache=ligne[3+n_suivi]
+            
         duree_tache=conversion_unite(duree_tache) #On convertit la duree qui était une valeur suivi d'une unité temporelle en nombre de jour
         poids.append((noeud,duree_tache)) #On associe le noeud à son poids et on le rajoute dans la liste des poids
         if ligne[3]!='': #Si la tache à un prérequis
@@ -125,9 +126,14 @@ def csv_to_graph(nom_fichier_csv:str):
                 int: le poids final de la tâche qui n'est donc sur aucun arc
     """
     graphs=[] #La liste des graphes
-    for n_suivi in [None,0,1,2]: #Pour chaque cr d'éxécution
-        liste_csv=from_csv(nom_fichier_csv) #On convertit le fichier en liste
-        liste_csv.pop(0) #On enlève le premier terme de la liste qui correspond au indication sur le fichier
+    liste_csv=from_csv(nom_fichier_csv) #On convertit le fichier en liste
+    liste_csv.pop(0) #On enlève le premier terme de la liste qui correspond au indication sur le fichier
+    
+    #Les colonnes suivis sont les colonnes 3, puis 5,6,...
+    indices_colonnes_suivis=list(range(len(liste_csv[0])-4))
+    indices_colonnes_suivis[0]=-1
+    
+    for n_suivi in indices_colonnes_suivis: #On extrait les informations de tout les suivis disponibles.
         noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On récupère les différentes informations
         if noeuds==None:
             continue
