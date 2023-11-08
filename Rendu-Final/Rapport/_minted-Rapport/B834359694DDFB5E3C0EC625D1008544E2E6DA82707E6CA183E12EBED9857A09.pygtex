@@ -1,0 +1,27 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+  \PYG{k}{def} \PYG{n+nf}{bellmanFord}\PYG{p}{(}\PYG{n}{g}\PYG{p}{:} \PYG{n}{DiGraphe}\PYG{p}{,} \PYG{n}{source}\PYG{p}{:}\PYG{n+nb}{int}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+nb}{tuple}\PYG{p}{[}\PYG{n+nb}{dict}\PYG{p}{,}\PYG{n+nb}{dict}\PYG{p}{]:}
+\PYG{+w}{  }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Performe l\PYGZsq{}algortihme de Bellman\PYGZhy{}Ford sur un graphe pondéré. Parcours un graphe à partir}
+\PYG{l+s+sd}{  d\PYGZsq{}une source, et en détérmine les plus courts chemins vers chaque noeud.}
+
+\PYG{l+s+sd}{  Args:}
+\PYG{l+s+sd}{      g (DiGraphe): graphe à traiter}
+\PYG{l+s+sd}{      source (int): noeud de départ}
+
+\PYG{l+s+sd}{  Returns:}
+\PYG{l+s+sd}{      tuple[dict,dict]: le dict des distances , le dict des prédécésseurs (pour reconstruire le chemin)}
+\PYG{l+s+sd}{  \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+  \PYG{n}{distances} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+  \PYG{n}{predecesseurs} \PYG{o}{=} \PYG{p}{\PYGZob{}\PYGZcb{}}
+  \PYG{k}{for} \PYG{n}{noeud} \PYG{o+ow}{in} \PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{:}
+      \PYG{n}{distances}\PYG{p}{[}\PYG{n}{noeud}\PYG{p}{]} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{inf}
+      \PYG{n}{predecesseurs}\PYG{p}{[}\PYG{n}{noeud}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{None}
+  \PYG{n}{distances}\PYG{p}{[}\PYG{n}{source}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{0}
+
+  \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{):}
+      \PYG{k}{for} \PYG{n}{j} \PYG{o+ow}{in} \PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{:}
+          \PYG{k}{for} \PYG{n}{k} \PYG{o+ow}{in} \PYG{n}{g}\PYG{o}{.}\PYG{n}{dict\PYGZus{}adj}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]:}
+              \PYG{k}{if} \PYG{n}{distances}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{distances}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]} \PYG{o}{+} \PYG{n}{g}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,}\PYG{n}{k}\PYG{p}{]:}
+                  \PYG{n}{distances}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]}  \PYG{o}{=} \PYG{n}{distances}\PYG{p}{[}\PYG{n}{j}\PYG{p}{]} \PYG{o}{+} \PYG{n}{g}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}\PYG{p}{[}\PYG{n}{j}\PYG{p}{,}\PYG{n}{k}\PYG{p}{]}
+                  \PYG{n}{predecesseurs}\PYG{p}{[}\PYG{n}{k}\PYG{p}{]} \PYG{o}{=} \PYG{n}{j}
+  \PYG{k}{return} \PYG{n}{distances}\PYG{p}{,} \PYG{n}{predecesseurs}
+\end{Verbatim}

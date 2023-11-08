@@ -1,0 +1,32 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+  \PYG{k}{def} \PYG{n+nf}{chemin\PYGZus{}critique}\PYG{p}{(}\PYG{n}{g}\PYG{p}{:} \PYG{n}{DiGraphe}\PYG{p}{,}    \PYG{n}{source}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{,} \PYG{n}{arrivee}\PYG{p}{:} \PYG{n+nb}{int}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+nb}{tuple}\PYG{p}{[}\PYG{n+nb}{list}\PYG{p}{,}\PYG{n+nb}{float}\PYG{p}{]:}
+\PYG{+w}{  }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Renvoie les arcs et noeuds d\PYGZsq{}un des chemins critiques (le plus long) d\PYGZsq{}un DiGraphe d\PYGZsq{}une source à une arrivée,}
+\PYG{l+s+sd}{  ainsi que sa durée. S\PYGZsq{}appuie sur la fonction bellmanFord}
+
+
+\PYG{l+s+sd}{  Args:}
+\PYG{l+s+sd}{      g (DiGraphe): graphe à traiter}
+\PYG{l+s+sd}{      source (int): noeud source}
+\PYG{l+s+sd}{      arrivee (int): noeud d\PYGZsq{}arrivée}
+
+\PYG{l+s+sd}{  Returns:}
+\PYG{l+s+sd}{      tuple[list,float]: Les arcs du chemin, et sa durée (distance)}
+\PYG{l+s+sd}{  \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+  \PYG{n}{etape\PYGZus{}chemin}\PYG{o}{=}\PYG{n}{arrivee}
+  \PYG{c+c1}{\PYGZsh{}On crée un graphe dont les poids sont les opposés des poids du graphe d\PYGZsq{}origine.}
+  \PYG{c+c1}{\PYGZsh{}De cette manière, la recherche dU chemin le plus long (chemin critique) dans le graphe d\PYGZsq{}origine}
+  \PYG{c+c1}{\PYGZsh{}revient à la recherche du chemin le plus court dans ce nouveau graphe.}
+  \PYG{n}{g\PYGZus{}oppose}\PYG{o}{=}\PYG{n}{copy}\PYG{o}{.}\PYG{n}{deepcopy}\PYG{p}{(}\PYG{n}{g}\PYG{p}{)}
+  \PYG{n}{g\PYGZus{}oppose}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}\PYG{o}{=\PYGZhy{}}\PYG{n}{g\PYGZus{}oppose}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}
+  \PYG{n}{distances}\PYG{p}{,}\PYG{n}{pred}\PYG{o}{=}\PYG{n}{bellmanFord}\PYG{p}{(}\PYG{n}{g\PYGZus{}oppose}\PYG{p}{,} \PYG{n}{source}\PYG{p}{)}
+  \PYG{n}{arcs}\PYG{o}{=}\PYG{p}{[]}
+  \PYG{n}{noeuds}\PYG{o}{=}\PYG{p}{[]}
+  \PYG{k}{while} \PYG{n}{etape\PYGZus{}chemin}\PYG{o}{!=}\PYG{n}{source}\PYG{p}{:}
+      \PYG{n}{pred\PYGZus{}actuel}\PYG{o}{=}\PYG{n}{pred}\PYG{p}{[}\PYG{n}{etape\PYGZus{}chemin}\PYG{p}{]} \PYG{c+c1}{\PYGZsh{}On remonte le chemin à l\PYGZsq{}envers (à partir des prédécésseurs)}
+      \PYG{n}{arcs}\PYG{o}{.}\PYG{n}{append}\PYG{p}{((}\PYG{n}{pred\PYGZus{}actuel}\PYG{p}{,}\PYG{n}{etape\PYGZus{}chemin}\PYG{p}{))}
+      \PYG{n}{noeuds}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{pred\PYGZus{}actuel}\PYG{p}{)}
+      \PYG{n}{etape\PYGZus{}chemin}\PYG{o}{=}\PYG{n}{pred\PYGZus{}actuel}
+  \PYG{n}{arcs}\PYG{o}{=}\PYG{n}{arcs}\PYG{p}{[::}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+  \PYG{n}{noeuds}\PYG{o}{=}\PYG{n}{noeuds}\PYG{p}{[::}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{]}
+  \PYG{k}{return} \PYG{n}{arcs}\PYG{p}{,}\PYG{n}{noeuds}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{n}{distances}\PYG{p}{[}\PYG{n}{arrivee}\PYG{p}{]}
+\end{Verbatim}

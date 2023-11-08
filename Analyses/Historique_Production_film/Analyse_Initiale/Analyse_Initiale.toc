@@ -1,3 +1,4 @@
-\contentsline {section}{\numberline {1}Votre Graphe de tâches}{1}{}%
-\contentsline {section}{\numberline {2}Analyse de votre projet}{1}{}%
-\contentsline {subsection}{\numberline {2.1}Dates de référence pour chaque tâche}{1}{}%
+\contentsline {section}{\numberline {1}Introduction}{2}{section.1}%
+\contentsline {section}{\numberline {2}Architecture}{2}{section.2}%
+\contentsline {section}{\numberline {3}Travail en Groupe}{2}{section.3}%
+\contentsline {section}{\numberline {4}Conception}{3}{section.4}%

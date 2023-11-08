@@ -1,0 +1,59 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+  \PYG{k}{def} \PYG{n+nf}{dates\PYGZus{}tot\PYGZus{}tard}\PYG{p}{(}\PYG{n}{g}\PYG{p}{:} \PYG{n}{DiGraphe}\PYG{p}{,}\PYG{n}{duree\PYGZus{}finale}\PYG{p}{:}\PYG{n+nb}{int}\PYG{p}{,}\PYG{n}{noeuds\PYGZus{}critiques}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+nb}{dict}\PYG{p}{[}\PYG{n+nb}{tuple}\PYG{p}{[}\PYG{n+nb}{float}\PYG{p}{,}\PYG{n+nb}{float}\PYG{p}{,}\PYG{n+nb}{float}\PYG{p}{]]:}
+\PYG{+w}{      }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Renvoie les dates de référence de chaque tâche d\PYGZsq{}un graphe.}
+\PYG{l+s+sd}{      S\PYGZsq{}appuie sur la fonction bellmanFord. La durée de la tâche finale}
+\PYG{l+s+sd}{      est un paramètre nécéssaire, car n\PYGZsq{}ayant pas de voisin, sa durée n\PYGZsq{}est pas encodée dans}
+\PYG{l+s+sd}{      les arcs menants à ses voisins, contrairement aux autres tâches.}
+
+\PYG{l+s+sd}{      Args:}
+\PYG{l+s+sd}{          g (DiGraphe): graphe à traiter}
+\PYG{l+s+sd}{          duree\PYGZus{}finale (int): durée de la tâche finale}
+
+\PYG{l+s+sd}{      Returns:}
+\PYG{l+s+sd}{          dict[tuple[float,float,float]]: dictionnaire des dates. 3 dates pour chaque tâche}
+\PYG{l+s+sd}{      \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+      \PYG{n}{dates}\PYG{o}{=}\PYG{n+nb}{dict}\PYG{p}{()}
+
+      \PYG{c+c1}{\PYGZsh{}On crée un graphe dont les poids sont les opposés des poids du graphe d\PYGZsq{}origine.}
+      \PYG{c+c1}{\PYGZsh{}De cette manière, la recherche des distances les plus longues revient à la recherche}
+      \PYG{c+c1}{\PYGZsh{}des distances les plus courtes dans ce nouveau graphe.}
+      \PYG{n}{g\PYGZus{}oppose}\PYG{o}{=}\PYG{n}{copy}\PYG{o}{.}\PYG{n}{deepcopy}\PYG{p}{(}\PYG{n}{g}\PYG{p}{)}
+      \PYG{n}{g\PYGZus{}oppose}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}\PYG{o}{=\PYGZhy{}}\PYG{n}{g\PYGZus{}oppose}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}
+
+      \PYG{n}{distances\PYGZus{}plus\PYGZus{}longues}\PYG{p}{,}\PYG{n}{pred}\PYG{o}{=}\PYG{n}{bellmanFord}\PYG{p}{(}\PYG{n}{g\PYGZus{}oppose}\PYG{p}{,}\PYG{l+m+mi}{0}\PYG{p}{)}
+
+
+      \PYG{k}{for} \PYG{n}{i} \PYG{o+ow}{in} \PYG{n+nb}{range}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{)):} \PYG{c+c1}{\PYGZsh{}On ne prend pas la tache finale (pas de voisin)}
+          \PYG{c+c1}{\PYGZsh{}car sa duree est en paramètre de la fonction.}
+
+          \PYG{k}{if} \PYG{n}{i}\PYG{o}{!=}\PYG{p}{(}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{):}
+              \PYG{n}{voisin}\PYG{o}{=}\PYG{n}{g}\PYG{o}{.}\PYG{n}{dict\PYGZus{}adj}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{l+m+mi}{0}\PYG{p}{]}
+              \PYG{n}{duree}\PYG{o}{=}\PYG{n}{g}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}\PYG{p}{[}\PYG{n}{i}\PYG{p}{,}\PYG{n}{voisin}\PYG{p}{]}
+          \PYG{k}{else}\PYG{p}{:}
+              \PYG{n}{duree}\PYG{o}{=}\PYG{n}{duree\PYGZus{}finale}
+
+
+          \PYG{c+c1}{\PYGZsh{}On renvoie les 3 dates de références pour chaque tâche : début au plus tôt, fin au plus tôt, fin au plus tard.}
+          \PYG{c+c1}{\PYGZsh{}Les deux premières dates sont aisées à obtenir.}
+          \PYG{n}{date\PYGZus{}debut\PYGZus{}tot}\PYG{o}{=\PYGZhy{}}\PYG{n}{distances\PYGZus{}plus\PYGZus{}longues}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+          \PYG{n}{date\PYGZus{}fin\PYGZus{}tot}\PYG{o}{=}\PYG{n}{date\PYGZus{}debut\PYGZus{}tot}\PYG{o}{+}\PYG{n}{duree}
+
+          \PYG{c+c1}{\PYGZsh{}Pour la date de fin au plus tard, c\PYGZsq{}est plus compliqué. Si la tâche}
+          \PYG{c+c1}{\PYGZsh{}n\PYGZsq{}est pas dans le chemin critique, il s\PYGZsq{}agit d\PYGZsq{}une tâche parallèle.}
+          \PYG{c+c1}{\PYGZsh{}On doit donc trouver son lien avec le chemin critique.}
+          \PYG{n}{fils\PYGZus{}min}\PYG{o}{=}\PYG{n}{noeuds\PYGZus{}critiques}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+
+          \PYG{k}{if} \PYG{n}{i}\PYG{o}{==}\PYG{n+nb}{len}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{)}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{:} \PYG{c+c1}{\PYGZsh{}La tâche finale est particulière. Elle est dans le chemin critique, mais n\PYGZsq{}a pas de fils.}
+              \PYG{n}{date\PYGZus{}fin\PYGZus{}tard}\PYG{o}{=\PYGZhy{}}\PYG{n}{distances\PYGZus{}plus\PYGZus{}longues}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{+}\PYG{n}{duree}
+          \PYG{k}{elif} \PYG{n}{i} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{noeuds\PYGZus{}critiques}\PYG{p}{:} \PYG{c+c1}{\PYGZsh{}Pour les noeuds n\PYGZsq{}appartenant pas au chemin critique}
+              \PYG{n}{fils\PYGZus{}critiques}\PYG{o}{=}\PYG{p}{[}\PYG{n}{fils} \PYG{k}{for} \PYG{n}{fils} \PYG{o+ow}{in} \PYG{n}{g}\PYG{o}{.}\PYG{n}{dict\PYGZus{}adj}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{k}{if} \PYG{n}{fils} \PYG{o+ow}{in} \PYG{n}{noeuds\PYGZus{}critiques}\PYG{p}{]} \PYG{c+c1}{\PYGZsh{}On trouve les liens du noeud au chemin critique}
+              \PYG{k}{for} \PYG{n}{fils\PYGZus{}actuel} \PYG{o+ow}{in} \PYG{n}{fils\PYGZus{}critiques}\PYG{p}{:}
+                  \PYG{k}{if} \PYG{n}{noeuds\PYGZus{}critiques}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{fils\PYGZus{}actuel}\PYG{p}{)}\PYG{o}{\PYGZgt{}=}\PYG{n}{noeuds\PYGZus{}critiques}\PYG{o}{.}\PYG{n}{index}\PYG{p}{(}\PYG{n}{fils\PYGZus{}min}\PYG{p}{):} \PYG{c+c1}{\PYGZsh{}On choisit le noeud le plus tôt dans le chemin critique}
+                      \PYG{n}{date\PYGZus{}fin\PYGZus{}tard}\PYG{o}{=\PYGZhy{}}\PYG{n}{distances\PYGZus{}plus\PYGZus{}longues}\PYG{p}{[}\PYG{n}{fils\PYGZus{}actuel}\PYG{p}{]}
+          \PYG{k}{else}\PYG{p}{:}
+              \PYG{n}{date\PYGZus{}fin\PYGZus{}tard}\PYG{o}{=\PYGZhy{}}\PYG{n}{distances\PYGZus{}plus\PYGZus{}longues}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{+}\PYG{n}{duree}
+
+          \PYG{n}{dates}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{=}\PYG{p}{(}\PYG{n}{date\PYGZus{}debut\PYGZus{}tot}\PYG{p}{,}\PYG{n}{date\PYGZus{}fin\PYGZus{}tot}\PYG{p}{,}\PYG{n}{date\PYGZus{}fin\PYGZus{}tard}\PYG{p}{)}
+      \PYG{k}{return} \PYG{n}{dates}
+\end{Verbatim}

@@ -1,0 +1,47 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+
+  \PYG{k}{def} \PYG{n+nf}{cycle\PYGZus{}detector\PYGZus{}recursive\PYGZus{}part}\PYG{p}{(}\PYG{n}{g}\PYG{p}{:}\PYG{n}{DiGraphe}\PYG{p}{,} \PYG{n}{noeud}\PYG{p}{,} \PYG{n}{visites}\PYG{p}{:} \PYG{n+nb}{set}\PYG{p}{,} \PYG{n}{pile\PYGZus{}recursive}\PYG{p}{:} \PYG{n+nb}{list}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+nb}{bool}\PYG{p}{:}
+\PYG{+w}{  }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Partie récursive du détecteur de cycle. Se base sur le DFS}
+
+\PYG{l+s+sd}{  Args:}
+\PYG{l+s+sd}{      g (DiGraphe): Graphe orienté à traiter}
+\PYG{l+s+sd}{      noeud (\PYGZus{}type\PYGZus{}): Noeud de départ du parcours}
+\PYG{l+s+sd}{      visites (set): La liste des noeuds visités}
+\PYG{l+s+sd}{      pile\PYGZus{}recursive (list): La pile des noeuds du parcours en cours.}
+
+\PYG{l+s+sd}{  Returns:}
+\PYG{l+s+sd}{      bool: True si le graphe a un cycle à partir du noeud de départ, False sinon.}
+\PYG{l+s+sd}{  \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+  \PYG{n}{visites}\PYG{o}{.}\PYG{n}{add}\PYG{p}{(}\PYG{n}{noeud}\PYG{p}{)}
+  \PYG{n}{pile\PYGZus{}recursive}\PYG{o}{.}\PYG{n}{append}\PYG{p}{(}\PYG{n}{noeud}\PYG{p}{)}
+
+  \PYG{k}{for} \PYG{n}{voisin} \PYG{o+ow}{in} \PYG{n}{g}\PYG{o}{.}\PYG{n}{dict\PYGZus{}adj}\PYG{p}{[}\PYG{n}{noeud}\PYG{p}{]:}
+
+      \PYG{k}{if} \PYG{n}{voisin} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{visites}\PYG{p}{:}
+          \PYG{k}{if} \PYG{n}{cycle\PYGZus{}detector\PYGZus{}recursive\PYGZus{}part}\PYG{p}{(}\PYG{n}{g}\PYG{p}{,} \PYG{n}{voisin}\PYG{p}{,} \PYG{n}{visites}\PYG{p}{,} \PYG{n}{pile\PYGZus{}recursive}\PYG{p}{):}
+              \PYG{k}{return} \PYG{k+kc}{True}
+      \PYG{k}{elif} \PYG{n}{voisin} \PYG{o+ow}{in} \PYG{n}{pile\PYGZus{}recursive}\PYG{p}{:}
+          \PYG{k}{return} \PYG{k+kc}{True}
+
+  \PYG{n}{pile\PYGZus{}recursive}\PYG{o}{.}\PYG{n}{remove}\PYG{p}{(}\PYG{n}{noeud}\PYG{p}{)}
+  \PYG{k}{return} \PYG{k+kc}{False}
+
+
+  \PYG{k}{def} \PYG{n+nf}{cycle\PYGZus{}detector}\PYG{p}{(}\PYG{n}{g}\PYG{p}{:} \PYG{n}{DiGraphe}\PYG{p}{)}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+nb}{bool}\PYG{p}{:}
+\PYG{+w}{      }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Détécteur de cycle dans un graphe orienté}
+
+\PYG{l+s+sd}{      Args:}
+\PYG{l+s+sd}{          g (DiGraphe): Graphe à traiter}
+\PYG{l+s+sd}{      Returns:}
+\PYG{l+s+sd}{          bool: True si le graphe a un cycle à partir du noeud de départ, False sinon.}
+\PYG{l+s+sd}{      \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+      \PYG{n}{visites}\PYG{o}{=}\PYG{n+nb}{set}\PYG{p}{()}
+      \PYG{n}{pile\PYGZus{}recursive}\PYG{o}{=}\PYG{p}{[]}
+      \PYG{k}{for} \PYG{n}{noeud} \PYG{o+ow}{in} \PYG{n+nb}{list}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{):}
+          \PYG{k}{if} \PYG{n}{noeud} \PYG{o+ow}{not} \PYG{o+ow}{in} \PYG{n}{visites}\PYG{p}{:}
+              \PYG{k}{if} \PYG{n}{cycle\PYGZus{}detector\PYGZus{}recursive\PYGZus{}part}\PYG{p}{(}\PYG{n}{g}\PYG{p}{,} \PYG{n}{noeud}\PYG{p}{,} \PYG{n}{visites}\PYG{p}{,} \PYG{n}{pile\PYGZus{}recursive}\PYG{p}{):}
+                  \PYG{k}{return} \PYG{k+kc}{True}
+
+      \PYG{k}{return} \PYG{k+kc}{False}
+\end{Verbatim}

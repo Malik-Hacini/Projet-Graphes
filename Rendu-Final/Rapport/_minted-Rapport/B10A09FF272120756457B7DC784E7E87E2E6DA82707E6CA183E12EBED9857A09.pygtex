@@ -1,0 +1,36 @@
+\begin{Verbatim}[commandchars=\\\{\},codes={\catcode`\$=3\catcode`\^=7\catcode`\_=8\relax}]
+  \PYG{k+kn}{from} \PYG{n+nn}{Graphes} \PYG{k+kn}{import}\PYG{o}{*}
+
+  \PYG{c+c1}{\PYGZsh{}Traduction d\PYGZsq{}un graphe en LaTeX}
+  \PYG{k}{def} \PYG{n+nf}{graphe\PYGZus{}to\PYGZus{}latex}\PYG{p}{(}\PYG{n}{g}\PYG{p}{:} \PYG{n}{DiGraphe}\PYG{p}{,}\PYG{n}{chemin\PYGZus{}critique}\PYG{p}{:} \PYG{n+nb}{list}\PYG{o}{=}\PYG{p}{[])}\PYG{o}{\PYGZhy{}\PYGZgt{}}\PYG{n+nb}{str}\PYG{p}{:}
+\PYG{+w}{      }\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Donne l\PYGZsq{}écriture en langage dot d\PYGZsq{}un graphe de tâches de la classe DiGraphe.}
+\PYG{l+s+sd}{      Colore aussi en rouge les chemins critiques donnés.}
+
+\PYG{l+s+sd}{      Args:}
+\PYG{l+s+sd}{          g (DiGraphe): graphe orienté à traiter}
+
+\PYG{l+s+sd}{      Returns:}
+\PYG{l+s+sd}{          str: code dot du graphe, directement utilisable en LaTeX}
+\PYG{l+s+sd}{      \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+      \PYG{n}{adj}\PYG{o}{=}\PYG{n}{g}\PYG{o}{.}\PYG{n}{dict\PYGZus{}adj}
+      \PYG{n}{dot}\PYG{o}{=}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{begin}\PYG{l+s+si}{\PYGZob{}center\PYGZcb{}}
+\PYG{l+s+s2}{  }\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{begin}\PYG{l+s+si}{\PYGZob{}tikzpicture\PYGZcb{}}\PYG{l+s+s2}{[scale=0.6, every node/.style=\PYGZob{}scale=0.6\PYGZcb{}]}
+\PYG{l+s+s2}{  }\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{begin}\PYG{l+s+si}{\PYGZob{}dot2tex\PYGZcb{}}\PYG{l+s+s2}{[codeonly]}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+      \PYG{n}{dot}\PYG{o}{+=} \PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+s2}{      digraph G\PYGZob{} }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{o}{*}\PYG{l+m+mi}{3} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{}rankdir=LR }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+} \PYG{l+s+s2}{\PYGZdq{} \PYGZdq{}}\PYG{o}{*}\PYG{l+m+mi}{3}
+
+      \PYG{k}{for} \PYG{n}{noeud}\PYG{p}{,} \PYG{n}{voisins} \PYG{o+ow}{in} \PYG{n}{adj}\PYG{o}{.}\PYG{n}{items}\PYG{p}{():}
+          \PYG{k}{for} \PYG{n}{voisin} \PYG{o+ow}{in} \PYG{n}{voisins}\PYG{p}{:}
+              \PYG{n}{dot}\PYG{o}{+=}\PYG{l+s+sa}{f}\PYG{l+s+s2}{\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{[}\PYG{n}{noeud}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s2}{\PYGZdq{}}
+              \PYG{n}{dot}\PYG{o}{+=}\PYG{l+s+sa}{f}\PYG{l+s+s1}{\PYGZsq{} \PYGZhy{}\PYGZgt{} }\PYG{l+s+si}{\PYGZob{}}\PYG{n}{g}\PYG{o}{.}\PYG{n}{noeuds}\PYG{p}{[}\PYG{n}{voisin}\PYG{p}{]}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{ [label=\PYGZdq{}}\PYG{l+s+si}{\PYGZob{}}\PYG{n+nb}{int}\PYG{p}{(}\PYG{n}{g}\PYG{o}{.}\PYG{n}{mat\PYGZus{}adj}\PYG{p}{[}\PYG{n}{noeud}\PYG{p}{,}\PYG{n}{voisin}\PYG{p}{])}\PYG{l+s+si}{\PYGZcb{}}\PYG{l+s+s1}{\PYGZdq{}\PYGZsq{}}
+              \PYG{k}{if} \PYG{p}{(}\PYG{n}{noeud}\PYG{p}{,}\PYG{n}{voisin}\PYG{p}{)} \PYG{o+ow}{in} \PYG{n}{chemin\PYGZus{}critique}\PYG{p}{:} \PYG{c+c1}{\PYGZsh{}on colore en rouge les arcs du chemin critique}
+                  \PYG{n}{dot}\PYG{o}{+=}\PYG{l+s+s1}{\PYGZsq{} color=\PYGZdq{}red\PYGZdq{}\PYGZsq{}}
+              \PYG{n}{dot}\PYG{o}{+=}\PYG{l+s+s2}{\PYGZdq{}]; }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}} \PYG{o}{+}\PYG{l+s+s2}{\PYGZdq{}   \PYGZdq{}}
+      \PYG{n}{dot}\PYG{o}{+=}\PYG{l+s+s2}{\PYGZdq{}\PYGZcb{} }\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}}
+      \PYG{n}{dot}\PYG{o}{+=}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{end}\PYG{l+s+si}{\PYGZob{}dot2tex\PYGZcb{}}
+\PYG{l+s+s2}{  }\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{end}\PYG{l+s+si}{\PYGZob{}tikzpicture\PYGZcb{}}
+\PYG{l+s+s2}{  }\PYG{l+s+se}{\PYGZbs{}\PYGZbs{}}\PYG{l+s+s2}{end}\PYG{l+s+si}{\PYGZob{}center\PYGZcb{}}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s+s2}{\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+
+      \PYG{k}{return} \PYG{n}{dot}
+\end{Verbatim}
