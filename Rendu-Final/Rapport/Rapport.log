@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  9 NOV 2023 00:23
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 23.5) (preloaded format=xelatex 2023.9.14)  9 NOV 2023 00:27
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -550,7 +550,7 @@ Package: xkeyval 2022/06/16 v2.9 package option processing (HA)
 File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
 ))
 \verbatim@out=\write4
-runsystem(echo 'write18-test-202311923'>"Rapport.w18")...executed.
+runsystem(echo 'write18-test-202311927'>"Rapport.w18")...executed.
 
 \instream=\read4
 runsystem(del "Rapport.w18")...executed.
@@ -866,17 +866,17 @@ LaTeX2e <2023-06-01> patch level 1
 L3 programming layer <2023-08-29>
  ***********
 Package rerunfilecheck Info: File `Rapport.out' has not changed.
-(rerunfilecheck)             Checksum: 3017AD547A362FAE32346E5554D945CA;2228.
+(rerunfilecheck)             Checksum: 78601BC464C7C5109A007C58C37F5B40;2297.
 runsystem(del Rapport.pyg)...executed.
 
  ) 
 Here is how much of TeX's memory you used:
  27759 strings out of 410379
  564323 string characters out of 5788051
- 1928432 words of memory out of 5000000
+ 1929432 words of memory out of 5000000
  48625 multiletter control sequences out of 15000+600000
  565855 words of font info for 85 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  79i,9n,93p,685b,812s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on Rapport.xdv (10 pages, 217200 bytes).
+Output written on Rapport.xdv (10 pages, 217660 bytes).
