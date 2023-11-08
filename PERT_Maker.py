@@ -148,7 +148,9 @@ def analyse_fichier_to_latex(cr_exec):
     Chaque tâche possède trois dates de référence : La date de début au plus tôt,
     fin au plus tôt, fin au plus tard.
     Attention, chaque tâche du chemin critique ne doit pas prendre de
-    retard, car cela entrainerait un retard global du projet. Leurs dates de début au plu
+    retard, car cela entrainerait un retard global du projet.
+    Leurs dates de début au plus tôt seront donc marquées en rouge,
+    car indispensables à respecter. La tâche de départ n'est pas incluse. \\newpage 
     Voici le tableau récapitulatif des dates de référence pour votre projet :\\newline \n"""
 
         #On écrit le tableau des dates en LaTeX
@@ -161,9 +163,11 @@ def analyse_fichier_to_latex(cr_exec):
 
         for index,tache in enumerate(dates.keys()):
             if index==0:
-                code_latex+=f" {graphe_taches.noeuds[tache]}&T0&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
+                code_latex+=f"{graphe_taches.noeuds[tache]}&T0&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
+            elif tache in noeuds_critiques:
+                code_latex+="\\textcolor{red}{"+ f"{graphe_taches.noeuds[tache]}"+ "}" +"&T0+\\textcolor{red}{" + f"{round(dates[tache][0])}" + "}" + f"&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
             else:
-                code_latex+=f" {graphe_taches.noeuds[tache]}&T0+{round(dates[tache][0])}&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
+                code_latex+=f"{graphe_taches.noeuds[tache]}&T0+{round(dates[tache][0])}&T0+{round(dates[tache][1])}&T0+{round(dates[tache][2])} \\\\ \n"
         
         code_latex+="""\\hline
     \\end{tabular} \n"""
@@ -190,6 +194,7 @@ nom_projet=initialisation_fichier_projet()
 infos_projet=csv_to_graph(f"Projets\\{nom_projet}")
 nombre_analyses=len(infos_projet)
 infos_a_analyser=tri_infos_fichier(nombre_analyses)
+
 #On initialise le début du document LaTeX d'analyse. Il ne dépend que du nom du projet.
 start_document="""\\PassOptionsToPackage{dvipsnames}{xcolor}
 \\documentclass{article}
