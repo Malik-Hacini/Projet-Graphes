@@ -67,7 +67,6 @@ def traitement_information(liste_informations, n_suivi)->tuple[list,set,list]:
     if len([1 for ligne in liste_informations if ligne[3+n_suivi]!=''])==0:
         #Si tel est le cas, on renvoie None pour touts les éléments du graphe (on ne traite pas le suivi)
         return None, None, None, None
-    print(n_suivi)
     for ligne in liste_informations: #Pour chaque ligne, donc chaque tâche, donc chaque noeud
         noeud=ligne[0] #On rajoute le noeud à la liste
         noeuds.append(noeud)
@@ -132,7 +131,6 @@ def csv_to_graph(nom_fichier_csv:str):
     #Les colonnes suivis sont les colonnes 3, puis 5,6,...
     indices_colonnes_suivis=list(range(len(liste_csv[0])-3))
     indices_colonnes_suivis[0]=-1
-    print(indices_colonnes_suivis)
     
     for n_suivi in indices_colonnes_suivis: #On extrait les informations de tout les suivis disponibles.
         noeuds, arcs, poids, poids_final= traitement_information(liste_csv,n_suivi) #On récupère les différentes informations

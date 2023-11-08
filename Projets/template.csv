@@ -1,4 +1,0 @@
-"Identificateur","Description","Duree","Precedente(s)","S0","S1","S2"
-"D","Tâche de départ","2 mois",,,,
-"M","Tâche d'exemple"," 1 jour","D","5 jours",,
-"F","Tâche finale","1 semaine","M","1 semaine",,

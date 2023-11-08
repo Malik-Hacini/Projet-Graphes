@@ -38,7 +38,9 @@ Votre projet possède un temps incompressible de 12 jours.
     Chaque tâche possède trois dates de référence : La date de début au plus tôt,
     fin au plus tôt, fin au plus tard.
     Attention, chaque tâche du chemin critique ne doit pas prendre de
-    retard, car cela entrainerait un retard global du projet. Leurs dates de début au plu
+    retard, car cela entrainerait un retard global du projet.
+    Leurs dates de début au plus tôt seront donc marquées en rouge,
+    car indispensables à respecter. La tâche de départ n'est pas incluse. \newpage
     Voici le tableau récapitulatif des dates de référence pour votre projet :\newline 
 \begin{tabular}{ |p{3cm}||p{3cm}|p{3cm}|p{3cm}|  }
         \hline
@@ -46,9 +48,9 @@ Votre projet possède un temps incompressible de 12 jours.
         \hline 
         Tâche&Début au plus tôt&Fin au plus tôt&Fin au plus tard \\ 
         \hline 
- D&T0+0&T0+0&T0+0 \\ 
- M&T0+0&T0+5&T0+5 \\ 
- F&T0+5&T0+12&T0+12 \\ 
+D&T0&T0+0&T0+0 \\ 
+\textcolor{red}{M}&T0+\textcolor{red}{0}&T0+5&T0+5 \\ 
+F&T0+5&T0+12&T0+5 \\ 
 \hline
     \end{tabular} 
 \end{document}

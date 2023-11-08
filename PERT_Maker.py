@@ -99,8 +99,14 @@ def tri_infos_fichier(nombre_analyses: int)->list:
     
     return infos_a_analyser
 
-def analyse_fichier_to_latex(cr_exec):
-    num_analyse=infos_projet.index(cr_exec)
+def analyse_fichier_to_latex(cr_exec:list,num_analyse:int)->str:
+    """Analyse un projet selon la méthode PERT. Ecrit l'analyse en LaTeX
+    Args:
+        cr_exec (list): Les informations à analyser
+        num_analyse (int): Le numéro de l'analyse
+    Returns:
+        code_latex (str): L'analyse
+    """
     
     if num_analyse==0:
         print(("\nAnalyse Initiale..."))
@@ -128,7 +134,6 @@ def analyse_fichier_to_latex(cr_exec):
 
     else:
         arcs_critiques,noeuds_critiques,dist=chemin_critique(graphe_taches,0,len(graphe_taches.noeuds)-1)
-        print(arcs_critiques,noeuds_critiques)
         dates=dates_tot_tard(graphe_taches,duree_finale,noeuds_critiques)
         print("Analyse du graphe terminée.")
         
@@ -150,7 +155,7 @@ def analyse_fichier_to_latex(cr_exec):
     Attention, chaque tâche du chemin critique ne doit pas prendre de
     retard, car cela entrainerait un retard global du projet.
     Leurs dates de début au plus tôt seront donc marquées en rouge,
-    car indispensables à respecter. La tâche de départ n'est pas incluse. \\newpage 
+    car indispensables à respecter. La tâche de départ n'est pas incluse. \\newpage
     Voici le tableau récapitulatif des dates de référence pour votre projet :\\newline \n"""
 
         #On écrit le tableau des dates en LaTeX
@@ -173,9 +178,16 @@ def analyse_fichier_to_latex(cr_exec):
     \\end{tabular} \n"""
     code_latex+="\\end{document}"
 
-    return num_analyse,code_latex
+    return code_latex
 
-def ecrire_analyse_dans_document(code_latex,dossier,num_analyse):
+def ecrire_analyse_dans_document(code_latex:str,dossier:str,num_analyse:int):
+    """Ecrit une analyse latex dans un document. Crée les dossiers et fichiers si nécéssaire.
+
+    Args:
+        code_latex (str): L'analyse
+        dossier (str): le nom du dossier de l'analyse
+        num_analyse (int): le nuuméro d'analyse 
+    """
     if num_analyse==0:
         nom_analyse="Analyse_Initiale"
     else:
@@ -223,7 +235,8 @@ if not(os.path.exists(f"./Analyses/{dossier}") and os.path.isdir(f"./Analyses/{d
 
 #On analyse le fichier.
 for cr_exec in infos_a_analyser:
-    num_analyse,code_latex=analyse_fichier_to_latex(cr_exec)
+    num_analyse=infos_projet.index(cr_exec)
+    code_latex=analyse_fichier_to_latex(cr_exec,num_analyse)
     print("LaTeX généré.") 
     #On écrit les résultats de l'analyse au bon emplacement.
     ecrire_analyse_dans_document(code_latex,dossier,num_analyse)
